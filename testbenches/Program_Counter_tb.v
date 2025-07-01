@@ -7,7 +7,7 @@ module ProgramCounter_tb;
 
     wire [63:0] pc;
 
-    ProgramCounter program_counter (
+    ProgramCounter dut (
         .clk(clk),
         .reset(reset),
         .next_pc(next_pc),
@@ -19,6 +19,9 @@ module ProgramCounter_tb;
     always #5 clk = ~clk;
 
     initial begin
+        $dumpfile("testbenches/results/waveforms/Program_Counter_tb_result.vcd");
+        $dumpvars(0, dut);
+
         $display("==================== Program Counter Test START ====================");
 
         // Initialize signals
