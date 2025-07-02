@@ -11,7 +11,7 @@ module InstructionDecoder_tb;
 	wire [4:0] rd;
 	wire [19:0] raw_imm;
 
-    InstructionDecoder instruction_decoder (
+    InstructionDecoder dut (
         .instruction(instruction),
     
 		.opcode(opcode),
@@ -25,7 +25,7 @@ module InstructionDecoder_tb;
 
     initial begin
         $dumpfile("testbenches/results/waveforms/Instruction_Decoder_tb_result.vcd");
-        $dumpvars(0, instruction_decoder);
+        $dumpvars(0, dut);
 
         // Test sequence
         $display("==================== Instruction Decoder Test START ====================");
