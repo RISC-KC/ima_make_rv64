@@ -5,7 +5,7 @@
 module ImmediateGenerator_tb;
     reg [19:0] raw_imm;
 	reg [6:0] opcode;
-    wire [31:0] imm;
+    wire [63:0] imm;
 
     ImmediateGenerator dut (
         .raw_imm(raw_imm),
@@ -40,6 +40,12 @@ module ImmediateGenerator_tb;
 		
 		raw_imm = 20'd310;
 		opcode = `OPCODE_ITYPE;
+
+        #1;
+        $display("raw_imm: %h (%d), imm: %h (%d)", raw_imm[11:0], $signed(raw_imm[11:0]), imm, $signed(imm));
+
+        raw_imm = 20'd804;
+		opcode = `OPCODE_ITYPE_WORD;
 
         #1;
         $display("raw_imm: %h (%d), imm: %h (%d)", raw_imm[11:0], $signed(raw_imm[11:0]), imm, $signed(imm));
@@ -124,6 +130,7 @@ module ImmediateGenerator_tb;
         $display("raw_imm: %h (%d), imm: %h (%d)", raw_imm[19:0], $signed(raw_imm[19:0]), imm, $signed(imm));
 		
 		raw_imm = -20'd1121;
+        opcode = `OPCODE_RTYPE_WORD;
 
         #1;
         $display("raw_imm: %h (%d), imm: %h (%d)", raw_imm[19:0], $signed(raw_imm[19:0]), imm, $signed(imm));
