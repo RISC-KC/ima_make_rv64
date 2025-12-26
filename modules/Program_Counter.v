@@ -1,17 +1,18 @@
-module ProgramCounter (
+module ProgramCounter #(
+    parameter XLEN = 64
+)(
     input clk,
     input reset,
-    input [63:0] next_pc, // Next pc value
-    
-    output reg [63:0] pc // Current pc value
+    input [XLEN-1:0] next_pc,
+    output reg [XLEN-1:0] pc
 );
 
     always @(posedge clk or posedge reset) begin
         if (reset) begin
-            pc <= 64'b0; // Reset to 0
+            pc <= {XLEN{1'b0}};
         end 
-		else begin
-            pc <= next_pc; // Update pc value
+        else begin
+            pc <= next_pc;
         end
     end
 

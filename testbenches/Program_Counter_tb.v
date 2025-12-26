@@ -1,11 +1,13 @@
 `timescale 1ns/1ps
 
-module ProgramCounter_tb;
+module ProgramCounter_tb #(
+    parameter XLEN = 64
+);
     reg clk;
     reg reset;
-    reg [63:0] next_pc;
+    reg [XLEN-1:0] next_pc;
 
-    wire [63:0] pc;
+    wire [XLEN-1:0] pc;
 
     ProgramCounter dut (
         .clk(clk),
