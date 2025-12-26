@@ -10,7 +10,8 @@ module ProgramCounter #(
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             pc <= {XLEN{1'b0}};
-        end else begin
+        end 
+        else begin
             pc <= next_pc;
         end
     end
