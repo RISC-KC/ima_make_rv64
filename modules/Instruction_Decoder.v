@@ -42,7 +42,8 @@ module InstructionDecoder (
 			`OPCODE_ITYPE: begin
 				if ((funct3 == `ITYPE_SLLI) || (funct3 == `ITYPE_SRXI)) begin
 					raw_imm = {14'b0, instruction[25:20]}; // 6-bit shamt for RV64I shifts
-				end else begin
+				end 
+				else begin
 					raw_imm = {8'b0, instruction[31:20]};
 				end
 			end
@@ -50,7 +51,8 @@ module InstructionDecoder (
 			`OPCODE_ITYPE_WORD: begin
 				if ((funct3 == `ITYPE_SLLI) || (funct3 == `ITYPE_SRXI)) begin
 					raw_imm = {15'b0, instruction[24:20]}; // 5-bit shamt for RV32I shifts
-				end else begin
+				end 
+				else begin
 					raw_imm = {8'b0, instruction[31:20]};
 				end
 			end
