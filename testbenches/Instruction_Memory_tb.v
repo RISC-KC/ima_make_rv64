@@ -8,7 +8,7 @@ module InstructionMemory_tb #(
     wire [XLEN-1:0] instruction;
     wire [XLEN-1:0] rom_read_data;
 
-    InstructionMemory #(.XLEN(XLEN)) instruction_memory (
+    InstructionMemory #(.XLEN(XLEN)) dut (
         .pc(pc),
         .instruction(instruction),
         .rom_address(rom_address),
@@ -17,7 +17,7 @@ module InstructionMemory_tb #(
 
     initial begin
         $dumpfile("testbenches/results/waveforms/Instruction_Memory_tb_result.vcd");
-        $dumpvars(0, InstructionMemory_tb.instruction_memory);
+        $dumpvars(0, InstructionMemory_tb.dut);
 
         // Test sequence
         $display("==================== Instruction Memory Test START ====================\n");
