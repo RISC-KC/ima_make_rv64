@@ -28,7 +28,7 @@ module TrapController_tb;
   wire        standby_mode;
 
   // DUT instance
-  TrapController #(.XLEN(XLEN)) trap_controller (
+  TrapController #(.XLEN(XLEN)) dut (
     .clk                (clk),
     .reset              (reset),
     .ID_pc              (ID_pc),
@@ -66,7 +66,7 @@ module TrapController_tb;
     $display("time | th_state | csr_addr | csr_wd   | csr_we |  trap_tgt  | ic_clean | debug | trap_done | standby | mi_flush | mm_flush | pth_flush");
     $monitor("%4t |  %b   |   %h   | %h |   %b    | %h |     %b    |   %b   |     %b     |    %b    |    %b     |    %b     |     %b",
              $time,
-             trap_controller.trap_handle_state,
+             dut.trap_handle_state,
              csr_trap_address,
              csr_trap_write_data,
              csr_write_enable,
