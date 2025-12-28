@@ -15,7 +15,7 @@ module CSRFile_tb #(
     wire [XLEN-1:0] csr_read_out;
     wire        csr_ready;
 
-    CSRFile #(.XLEN(XLEN)) csr_file (
+    CSRFile #(.XLEN(XLEN)) dut (
         .clk(clk),
         .reset(reset),
         .trapped(trapped),
@@ -220,7 +220,7 @@ module CSRFile_tb #(
         
         csr_read_address = 12'hB02; #10;
         $display("Final minstret[63:32] = %h", csr_read_out);
-        $display("Final Full minstret = 0x%h_%h", csr_file.minstret[63:32], csr_file.minstret[31:0]);
+        $display("Final Full minstret = 0x%h_%h", dut.minstret[63:32], dut.minstret[31:0]);
         
         $display("\n====================  CSR File Test END  ====================");
         $stop;
