@@ -58,8 +58,8 @@ module BranchPredictor_tb #(
         $display("[TEST 1] Prediction = NT, Actual = Taken (misprediction expected)");
         @(negedge clk);
         IF_opcode = `OPCODE_BRANCH;
-        IF_pc = 32'h0000_0000;
-        IF_imm = 32'd8;
+        IF_pc = 64'h0000_0000;
+        IF_imm = 64'd8;
         repeat (2) @(negedge clk);
 
         $display("        IF_pc = 0x%h, IF_imm = %0d", IF_pc, IF_imm);
@@ -79,8 +79,8 @@ module BranchPredictor_tb #(
         $display("---------------------------------------------------------------");
         $display("[TEST 2] Prediction = NT, Actual = Not Taken (correct prediction)");
         @(negedge clk);
-        IF_pc = 32'h0000_0008;
-        IF_imm = 32'd12;
+        IF_pc = 64'h0000_0000_0000_0008;
+        IF_imm = 64'd12;
         EX_branch = 1'b0;
         repeat (2) @(negedge clk);
 
@@ -101,8 +101,8 @@ module BranchPredictor_tb #(
         $display("---------------------------------------------------------------");
         $display("[TEST 3] Prediction = NT, Actual = Taken (misprediction expected)");
         @(negedge clk);
-        IF_pc = 32'h0000_000C;
-        IF_imm = 32'd8;
+        IF_pc = 64'h0000_0000_0000_000C;
+        IF_imm = 64'd8;
         EX_branch = 1'b0;
         repeat (2) @(negedge clk);
 
@@ -123,8 +123,8 @@ module BranchPredictor_tb #(
         $display("---------------------------------------------------------------");
         $display("[TEST 4] Prediction = NT, Actual = Taken (misprediction expected)");
         @(negedge clk);
-        IF_pc = 32'h0000_0014;
-        IF_imm = 32'd12;
+        IF_pc = 64'h0000_0000_0000_0014;
+        IF_imm = 64'd12;
         EX_branch = 1'b0;
         repeat (2) @(negedge clk);
 
@@ -145,8 +145,8 @@ module BranchPredictor_tb #(
         $display("---------------------------------------------------------------");
         $display("[TEST 5] Prediction = T, Actual = Taken (correct prediction)");
         @(negedge clk);
-        IF_pc = 32'h0000_0020;
-        IF_imm = 32'd8;
+        IF_pc = 64'h0000_0000_0000_0020;
+        IF_imm = 64'd8;
         EX_branch = 1'b0;
         repeat (2) @(negedge clk);
 
