@@ -1,5 +1,5 @@
 $date
-	Sun Dec 28 18:52:22 2025
+	Sun Dec 28 23:18:36 2025
 $end
 $version
 	Icarus Verilog
@@ -8,7 +8,7 @@ $timescale
 	1ps
 $end
 $scope module ControlUnit_tb $end
-$scope module control_unit $end
+$scope module dut $end
 $var wire 1 ! IF_ID_stall $end
 $var wire 1 " csr_ready $end
 $var wire 3 # funct3 [2:0] $end

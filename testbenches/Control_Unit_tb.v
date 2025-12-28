@@ -29,7 +29,7 @@ module ControlUnit_tb;
 	wire memory_write;
     wire pc_stall;
 
-    ControlUnit control_unit (
+    ControlUnit dut (
         .write_done(write_done),
         .trap_done(trap_done),
         .csr_ready(csr_ready),
@@ -61,7 +61,7 @@ module ControlUnit_tb;
 
     initial begin
         $dumpfile("testbenches/results/waveforms/Control_Unit_tb_result.vcd");
-        $dumpvars(0, control_unit);
+        $dumpvars(0, dut);
 
         // Test sequence
         $display("==================== Control Unit Test START ====================");
