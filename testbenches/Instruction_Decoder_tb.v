@@ -20,7 +20,7 @@ module InstructionDecoder_tb;
     integer pass_count;
     integer fail_count;
 
-    InstructionDecoder uut (
+    InstructionDecoder dut (
         .instruction(instruction),
         .opcode(opcode),
         .funct3(funct3),
@@ -109,8 +109,8 @@ module InstructionDecoder_tb;
     endtask
 
     initial begin
-        $dumpfile("InstructionDecoder_tb_result.vcd");
-        $dumpvars(0, uut);
+        $dumpfile("testbenches/results/waveforms/InstructionDecoder_tb_result.vcd");
+        $dumpvars(0, dut);
 
         test_count = 0;
         pass_count = 0;
