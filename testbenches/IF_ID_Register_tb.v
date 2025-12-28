@@ -17,7 +17,7 @@ module IF_ID_Register_tb;
     wire [31:0] ID_instruction;
     wire ID_branch_estimation;
 
-    IF_ID_Register #(.XLEN(64)) if_id_register (
+    IF_ID_Register #(.XLEN(64)) dut (
         .clk(clk),
 		.reset(reset),
         .flush(flush),
@@ -38,7 +38,7 @@ module IF_ID_Register_tb;
 
     initial begin
         $dumpfile("testbenches/results/waveforms/IF_ID_Register_tb_result.vcd");
-        $dumpvars(0, IF_ID_Register_tb.if_id_register);
+        $dumpvars(0, IF_ID_Register_tb.dut);
 
         // Test sequence
         $display("==================== IF_ID Register Test START ====================\n");

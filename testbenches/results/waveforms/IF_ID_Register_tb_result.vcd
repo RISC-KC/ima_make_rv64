@@ -1,5 +1,5 @@
 $date
-	Sun Dec 28 15:41:52 2025
+	Sun Dec 28 23:51:15 2025
 $end
 $version
 	Icarus Verilog
@@ -8,7 +8,7 @@ $timescale
 	1ps
 $end
 $scope module IF_ID_Register_tb $end
-$scope module if_id_register $end
+$scope module dut $end
 $var wire 1 ! IF_ID_stall $end
 $var wire 1 " IF_branch_estimation $end
 $var wire 32 # IF_instruction [31:0] $end
