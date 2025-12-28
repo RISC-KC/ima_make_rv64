@@ -14,7 +14,7 @@ module PCController_tb #(
 
     wire [XLEN-1:0] next_pc;
 
-    PCController #(.XLEN(XLEN)) pc_controller (
+    PCController #(.XLEN(XLEN)) dut (
         .jump(jump),
         .branch_estimation(branch_estimation),
         .trapped(trapped),
@@ -29,7 +29,7 @@ module PCController_tb #(
 
     initial begin
         $dumpfile("testbenches/results/waveforms/PC_Controller_tb_result.vcd");
-        $dumpvars(0, pc_controller);
+        $dumpvars(0, dut);
 
 		// Test sequence
         $display("==================== PCController Test START ====================");
