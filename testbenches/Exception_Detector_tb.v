@@ -34,7 +34,7 @@ module ExceptionDetector_tb;
     wire trapped;
     wire [2:0] trap_status;
 
-    ExceptionDetector exception_detector (
+    ExceptionDetector dut (
         .clk(clk),
         .reset(reset),
         .ID_opcode(ID_opcode),
