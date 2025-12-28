@@ -1,10 +1,10 @@
-`include "modules/headers/branch.vh"
-`include "modules/headers/itype.vh"
-`include "modules/headers/load.vh"
-`include "modules/headers/rtype.vh"
-`include "modules/headers/store.vh"
+`include "modules/headers/branch_funct3.vh"
+`include "modules/headers/itype_funct3.vh"
+`include "modules/headers/load_funct3.vh"
+`include "modules/headers/rtype_funct3.vh"
+`include "modules/headers/store_funct3.vh"
 `include "modules/headers/opcode.vh"
-`include "modules/headers/csr.vh"
+`include "modules/headers/csr_funct3.vh"
 
 module InstructionMemory #(
 	parameter XLEN = 64
@@ -42,8 +42,8 @@ module InstructionMemory #(
 		data[12] = {7'b0000000, 5'd2, 5'd1, `RTYPE_SLT, 5'd13, `OPCODE_RTYPE};		// SLT: x13 = (x1 < x2) ? 1 : 0 = 00000000
 		data[13] = {7'b0000000, 5'd2, 5'd1, `RTYPE_SLTU, 5'd14, `OPCODE_RTYPE};		// SLTU: x14 = (x1 < x2 unsigned) ? 1 : 0 = 00000001
 		data[14] = {7'b0000000, 5'd8, 5'd12, `RTYPE_XOR, 5'd15, `OPCODE_RTYPE};		// XOR: x15 = x12 XOR x8 = 4B8000BC
-		data[15] = {7'b0000000, 5'd3, 5'd12, `RTYPE_SR, 5'd16, `OPCODE_RTYPE};		// SRL: x16 = x12 >> x3 = 7BC00000
-		data[16] = {7'b0100000, 5'd3, 5'd12, `RTYPE_SR, 5'd17, `OPCODE_RTYPE};		// SRA: x17 = x12 >>> x3 = FBC00000
+		data[15] = {7'b0000000, 5'd3, 5'd12, `RTYPE_SRX, 5'd16, `OPCODE_RTYPE};		// SRL: x16 = x12 >> x3 = 7BC00000
+		data[16] = {7'b0100000, 5'd3, 5'd12, `RTYPE_SRX, 5'd17, `OPCODE_RTYPE};		// SRA: x17 = x12 >>> x3 = FBC00000
 		data[17] = {7'b0000000, 5'd7, 5'd11, `RTYPE_OR, 5'd18, `OPCODE_RTYPE};		// OR:  x18 = x11 OR x7 = FBFFFB11
 		data[18] = {7'b0000000, 5'd11, 5'd7, `RTYPE_AND, 5'd19, `OPCODE_RTYPE};		// AND: x19 = x7 AND x11 = 0B800000
 
@@ -242,7 +242,7 @@ module InstructionMemory #(
 	wire rom_access = (rom_address[31:16] == 16'h0000);
 	always @(*) begin
 		if (rom_access) begin
-			rom_read_data = data[rom_address];
+			rom_read_data = data[rom_address[31:2]];
 		end else begin
 			rom_read_data = 32'b0;
 		end
