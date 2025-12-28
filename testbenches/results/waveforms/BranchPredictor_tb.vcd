@@ -1,5 +1,5 @@
 $date
-	Sun Dec 28 15:56:42 2025
+	Sun Dec 28 23:40:26 2025
 $end
 $version
 	Icarus Verilog
@@ -8,7 +8,7 @@ $timescale
 	1ps
 $end
 $scope module BranchPredictor_tb $end
-$scope module branch_predictor $end
+$scope module dut $end
 $var wire 1 ! EX_branch $end
 $var wire 1 " EX_branch_taken $end
 $var wire 64 # IF_imm [63:0] $end

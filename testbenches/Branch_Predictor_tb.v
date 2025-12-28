@@ -16,7 +16,7 @@ module BranchPredictor_tb #(
     wire branch_estimation;
     wire [XLEN-1:0] branch_target;
 
-    BranchPredictor #(.XLEN(XLEN)) branch_predictor(
+    BranchPredictor #(.XLEN(XLEN)) dut(
         .clk(clk),
         .reset(reset),
         .IF_opcode(IF_opcode),
@@ -33,7 +33,7 @@ module BranchPredictor_tb #(
 
     initial begin
         $dumpfile("testbenches/results/waveforms/BranchPredictor_tb.vcd");
-        $dumpvars(0, branch_predictor);
+        $dumpvars(0, dut);
 
         // Test sequence
         $display("==================== Branch Predictor Test START ====================");
@@ -44,7 +44,7 @@ module BranchPredictor_tb #(
         #30;
         reset = 1'b0;
         $display("[RESET] Branch Predictor Reset Complete");
-        $display("        Initial prediction_counter = %b (Strongly Not Taken)", branch_predictor.prediction_counter);
+        $display("        Initial prediction_counter = %b (Strongly Not Taken)", dut.prediction_counter);
         $display("");
 
         IF_opcode = 7'b0;
@@ -71,8 +71,8 @@ module BranchPredictor_tb #(
         EX_branch = 1'b1;
         #10;
         $display("        EX_branch_taken = %b (Actual: Taken)", EX_branch_taken);
-        $display("        prediction_counter after update = %b (Expected: 01 Weakly NT)", branch_predictor.prediction_counter);
-        $display("        Result: %s", (branch_predictor.prediction_counter == 2'b01) ? "PASS" : "FAIL");
+        $display("        prediction_counter after update = %b (Expected: 01 Weakly NT)", dut.prediction_counter);
+        $display("        Result: %s", (dut.prediction_counter == 2'b01) ? "PASS" : "FAIL");
         $display("");
         // ---------------------------------------------------------------
         // Test 2: Prediction = NT, Actual = Not Taken (well predicted)
@@ -93,8 +93,8 @@ module BranchPredictor_tb #(
         EX_branch_taken = 1'b0; // Target address = 0x0000_000C (PC+4)
         #10;
         $display("        EX_branch_taken = %b (Actual: Not Taken)", EX_branch_taken);
-        $display("        prediction_counter after update = %b (Expected: 00 Strongly NT)", branch_predictor.prediction_counter);
-        $display("        Result: %s", (branch_predictor.prediction_counter == 2'b00) ? "PASS" : "FAIL");
+        $display("        prediction_counter after update = %b (Expected: 00 Strongly NT)", dut.prediction_counter);
+        $display("        Result: %s", (dut.prediction_counter == 2'b00) ? "PASS" : "FAIL");
         $display("");
         // ---------------------------------------------------------------
         // Test 3: Prediction = NT, Actual = Taken (misprediction)
@@ -115,8 +115,8 @@ module BranchPredictor_tb #(
         EX_branch_taken = 1'b1; 
         #10;
         $display("        EX_branch_taken = %b (Actual: Taken)", EX_branch_taken);
-        $display("        prediction_counter after update = %b (Expected: 01 Weakly NT)", branch_predictor.prediction_counter);
-        $display("        Result: %s", (branch_predictor.prediction_counter == 2'b01) ? "PASS" : "FAIL");
+        $display("        prediction_counter after update = %b (Expected: 01 Weakly NT)", dut.prediction_counter);
+        $display("        Result: %s", (dut.prediction_counter == 2'b01) ? "PASS" : "FAIL");
         $display("");
         // ---------------------------------------------------------------
         // Test 4: Prediction = NT, Actual = Taken (mispredicted)
@@ -137,8 +137,8 @@ module BranchPredictor_tb #(
         EX_branch_taken = 1'b1; // Target address = 0x0000_0020
         #10;
         $display("        EX_branch_taken = %b (Actual: Taken)", EX_branch_taken);
-        $display("        prediction_counter after update = %b (Expected: 10 Weakly T)", branch_predictor.prediction_counter);
-        $display("        Result: %s", (branch_predictor.prediction_counter == 2'b10) ? "PASS" : "FAIL");
+        $display("        prediction_counter after update = %b (Expected: 10 Weakly T)", dut.prediction_counter);
+        $display("        Result: %s", (dut.prediction_counter == 2'b10) ? "PASS" : "FAIL");
         $display("");
         // ---------------------------------------------------------------
         // Test 5: Prediction = T, Actual = Taken (well predicted)
@@ -159,8 +159,8 @@ module BranchPredictor_tb #(
         EX_branch_taken = 1'b1; // Target address = 0x0000_0028
         #10;
         $display("        EX_branch_taken = %b (Actual: Taken)", EX_branch_taken);
-        $display("        prediction_counter after update = %b (Expected: 11 Strongly T)", branch_predictor.prediction_counter);
-        $display("        Result: %s", (branch_predictor.prediction_counter == 2'b11) ? "PASS" : "FAIL");
+        $display("        prediction_counter after update = %b (Expected: 11 Strongly T)", dut.prediction_counter);
+        $display("        Result: %s", (dut.prediction_counter == 2'b11) ? "PASS" : "FAIL");
         $display("");
         // ---------------------------------------------------------------
         $display("==================== Branch Predictor Test FINISH ====================");
