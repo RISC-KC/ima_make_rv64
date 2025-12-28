@@ -1,9 +1,11 @@
 `include "modules/headers/opcode.vh"
 
-module ImmediateGenerator (
+module ImmediateGenerator #(
+	parameter XLEN = 64
+)(
     input [19:0] raw_imm, 	// raw immediate value from Instruction Decoder
 	input [6:0] opcode,		// opcode from Instruction Decoder
-    output reg [63:0] imm	// sign-extension of the raw immediate value
+    output reg [XLEN-1:0] imm	// sign-extension of the raw immediate value
 );
 	
 	always @(*) begin
@@ -24,7 +26,7 @@ module ImmediateGenerator (
 				imm = {{43{raw_imm[19]}}, raw_imm[19:0], 1'b0};
 			end
 			default: begin
-				imm = 64'b0;
+				imm = {XLEN{1'b0}};
 			end
         endcase
 	end
