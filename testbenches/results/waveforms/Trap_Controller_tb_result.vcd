@@ -1,0 +1,545 @@
+$date
+	Sun Dec 28 16:40:15 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module TrapController_tb $end
+$var wire 64 ! trap_target [63:0] $end
+$var wire 1 " trap_done $end
+$var wire 1 # standby_mode $end
+$var wire 1 $ pth_done_flush $end
+$var wire 1 % misaligned_memory_flush $end
+$var wire 1 & misaligned_instruction_flush $end
+$var wire 1 ' ic_clean $end
+$var wire 1 ( debug_mode $end
+$var wire 1 ) csr_write_enable $end
+$var wire 64 * csr_trap_write_data [63:0] $end
+$var wire 12 + csr_trap_address [11:0] $end
+$var parameter 32 , XLEN $end
+$var reg 64 - EX_pc [63:0] $end
+$var reg 64 . ID_pc [63:0] $end
+$var reg 64 / MEM_pc [63:0] $end
+$var reg 64 0 WB_pc [63:0] $end
+$var reg 1 1 clk $end
+$var reg 64 2 csr_read_data [63:0] $end
+$var reg 1 3 reset $end
+$var reg 3 4 trap_status [2:0] $end
+$scope module trap_controller $end
+$var wire 64 5 EX_pc [63:0] $end
+$var wire 64 6 ID_pc [63:0] $end
+$var wire 64 7 MEM_pc [63:0] $end
+$var wire 64 8 WB_pc [63:0] $end
+$var wire 1 1 clk $end
+$var wire 64 9 csr_read_data [63:0] $end
+$var wire 1 3 reset $end
+$var wire 3 : trap_status [2:0] $end
+$var parameter 4 ; ECALL_MEPC_WRITE $end
+$var parameter 4 < GOTO_MTVEC $end
+$var parameter 4 = IDLE $end
+$var parameter 4 > MEM_STANDBY $end
+$var parameter 4 ? READ_MEPC $end
+$var parameter 4 @ READ_MTVEC $end
+$var parameter 4 A RETURN_MRET $end
+$var parameter 4 B RTRE_STANDBY $end
+$var parameter 4 C WB_STANDBY $end
+$var parameter 4 D WRITE_MCAUSE $end
+$var parameter 4 E WRITE_MEPC $end
+$var parameter 32 F XLEN $end
+$var reg 12 G csr_trap_address [11:0] $end
+$var reg 64 H csr_trap_write_data [63:0] $end
+$var reg 1 ) csr_write_enable $end
+$var reg 1 ( debug_mode $end
+$var reg 1 I debug_mode_reg $end
+$var reg 1 ' ic_clean $end
+$var reg 1 & misaligned_instruction_flush $end
+$var reg 1 % misaligned_memory_flush $end
+$var reg 4 J next_trap_handle_state [3:0] $end
+$var reg 1 $ pth_done_flush $end
+$var reg 1 # standby_mode $end
+$var reg 1 " trap_done $end
+$var reg 4 K trap_handle_state [3:0] $end
+$var reg 64 L trap_target [63:0] $end
+$upscope $end
+$scope task clear_pcs $end
+$upscope $end
+$scope task set_all_pcs $end
+$var reg 64 M pc_value [63:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1000000 F
+b1 E
+b10 D
+b1000 C
+b1001 B
+b110 A
+b11 @
+b100 ?
+b111 >
+b0 =
+b101 <
+b1010 ;
+b1000000 ,
+$end
+#0
+$dumpvars
+bx M
+b0 L
+b0 K
+b0 J
+0I
+b0 H
+b0 G
+b0 :
+b0 9
+b0 8
+b0 7
+b0 6
+b0 5
+b0 4
+13
+b0 2
+01
+b0 0
+b0 /
+b0 .
+b0 -
+b0 +
+b0 *
+0)
+0(
+0'
+0&
+0%
+0$
+0#
+1"
+b0 !
+$end
+#5000
+11
+#10000
+01
+#15000
+11
+#20000
+b111 J
+0"
+1#
+01
+b10 4
+b10 :
+b1000100000000 0
+b1000100000000 8
+b1000100000000 /
+b1000100000000 7
+b1000100000000 -
+b1000100000000 5
+b1000100000000 .
+b1000100000000 6
+b1000100000000 M
+03
+#25000
+b1000 J
+1#
+0"
+b111 K
+11
+#30000
+01
+#35000
+b1001 J
+1#
+0"
+b1000 K
+11
+#40000
+01
+#45000
+b1001 K
+b1010 J
+1#
+0"
+11
+b10000000000001010101000000000 2
+b10000000000001010101000000000 9
+#50000
+01
+#55000
+b1000100000000 *
+b1000100000000 H
+b1101000001 +
+b1101000001 G
+1)
+b1 J
+0#
+0"
+b1010 K
+11
+#60000
+01
+#65000
+b10 J
+0"
+b1011 *
+b1011 H
+b1101000010 +
+b1101000010 G
+1)
+b1 K
+11
+#70000
+01
+#75000
+b10000000000001010101000000000 !
+b10000000000001010101000000000 L
+b11 J
+0"
+b0 *
+b0 H
+b1100000101 +
+b1100000101 G
+0)
+b10 K
+11
+#80000
+01
+#85000
+1$
+b101 J
+1"
+b10000000000001010101000000000 !
+b10000000000001010101000000000 L
+b1100000101 +
+b1100000101 G
+b11 K
+11
+#90000
+01
+#95000
+b101 K
+b0 J
+1$
+b1000100000000 !
+b1000100000000 L
+b1100000101 +
+b1100000101 G
+11
+b1000100000000 2
+b1000100000000 9
+b100 4
+b100 :
+#100000
+01
+#105000
+b100 J
+0"
+0$
+b0 !
+b0 L
+b1101000001 +
+b1101000001 G
+b0 K
+11
+#110000
+01
+#115000
+b1 K
+b0 *
+b0 H
+1)
+b10 J
+0"
+b1101000010 +
+b1101000010 G
+11
+b10000000000001010101000000000 2
+b10000000000001010101000000000 9
+b11 4
+b11 :
+b1000100010001 /
+b1000100010001 7
+#120000
+01
+#125000
+b10000000000001010101000000000 !
+b10000000000001010101000000000 L
+b11 J
+0"
+b1100000101 +
+b1100000101 G
+0)
+b10 K
+11
+#130000
+01
+#135000
+1$
+1&
+b101 J
+1"
+b10000000000001010101000000000 !
+b10000000000001010101000000000 L
+b1100000101 +
+b1100000101 G
+b11 K
+11
+#140000
+01
+#145000
+b101 K
+b0 J
+1$
+0&
+b1000100010000 !
+b1000100010000 L
+b1100000101 +
+b1100000101 G
+11
+b1000100010000 2
+b1000100010000 9
+b100 4
+b100 :
+#150000
+01
+#155000
+b100 J
+0"
+0$
+b0 !
+b0 L
+b1101000001 +
+b1101000001 G
+b0 K
+11
+#160000
+01
+#165000
+b1 K
+b110 *
+b110 H
+1)
+b10 J
+0"
+b1101000010 +
+b1101000010 G
+11
+b10000000000001010101000000000 2
+b10000000000001010101000000000 9
+b110 4
+b110 :
+b10001000100000 /
+b10001000100000 7
+#170000
+01
+#175000
+b10000000000001010101000000000 !
+b10000000000001010101000000000 L
+b11 J
+0"
+b0 *
+b0 H
+b1100000101 +
+b1100000101 G
+0)
+b10 K
+11
+#180000
+01
+#185000
+1$
+1%
+b101 J
+1"
+b10000000000001010101000000000 !
+b10000000000001010101000000000 L
+b1100000101 +
+b1100000101 G
+b11 K
+11
+#190000
+01
+#195000
+b101 K
+b0 J
+1$
+0%
+b10001000100000 !
+b10001000100000 L
+b1100000101 +
+b1100000101 G
+11
+b10001000100000 2
+b10001000100000 9
+b100 4
+b100 :
+#200000
+01
+#205000
+b100 J
+0"
+0$
+b0 !
+b0 L
+b1101000001 +
+b1101000001 G
+b0 K
+11
+#210000
+01
+#215000
+b1 K
+b100 *
+b100 H
+1)
+b10 J
+0"
+b1101000010 +
+b1101000010 G
+11
+b10000000000001010101000000000 2
+b10000000000001010101000000000 9
+b111 4
+b111 :
+b11001100110000 /
+b11001100110000 7
+#220000
+01
+#225000
+b10000000000001010101000000000 !
+b10000000000001010101000000000 L
+b11 J
+0"
+b0 *
+b0 H
+b1100000101 +
+b1100000101 G
+0)
+b10 K
+11
+#230000
+01
+#235000
+1$
+1%
+b101 J
+1"
+b10000000000001010101000000000 !
+b10000000000001010101000000000 L
+b1100000101 +
+b1100000101 G
+b11 K
+11
+#240000
+01
+#245000
+b101 K
+b0 J
+1$
+0%
+b11001100110000 !
+b11001100110000 L
+b1100000101 +
+b1100000101 G
+11
+b11001100110000 2
+b11001100110000 9
+b100 4
+b100 :
+#250000
+01
+#255000
+b100 J
+0"
+0$
+b0 !
+b0 L
+b1101000001 +
+b1101000001 G
+b0 K
+11
+#260000
+01
+#265000
+b1 K
+b11 *
+b11 H
+1)
+b10 J
+0"
+b1101000010 +
+b1101000010 G
+11
+b1 4
+b1 :
+b1011101110110000 /
+b1011101110110000 7
+#270000
+01
+#275000
+b0 J
+1"
+b0 *
+b0 H
+b0 +
+b0 G
+0)
+b10 K
+11
+#280000
+01
+#285000
+1$
+b11 K
+b101 J
+1"
+b1011101110110000 !
+b1011101110110000 L
+b1100000101 +
+b1100000101 G
+11
+b1011101110110000 2
+b1011101110110000 9
+b100 4
+b100 :
+#290000
+01
+#295000
+b0 J
+1$
+b1011101110110000 !
+b1011101110110000 L
+b1100000101 +
+b1100000101 G
+b101 K
+11
+#300000
+01
+#305000
+b0 K
+1'
+0$
+b0 !
+b0 L
+b0 +
+b0 G
+11
+b101 4
+b101 :
+#310000
+01
+#315000
+0'
+11
+b0 4
+b0 :
+#320000
+01
+#325000
+11
