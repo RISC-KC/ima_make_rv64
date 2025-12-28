@@ -1,0 +1,378 @@
+$date
+	Sun Dec 28 18:52:22 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module ControlUnit_tb $end
+$scope module control_unit $end
+$var wire 1 ! IF_ID_stall $end
+$var wire 1 " csr_ready $end
+$var wire 3 # funct3 [2:0] $end
+$var wire 7 $ opcode [6:0] $end
+$var wire 1 % trap_done $end
+$var wire 1 & write_done $end
+$var reg 2 ' alu_src_A_select [1:0] $end
+$var reg 3 ( alu_src_B_select [2:0] $end
+$var reg 1 ) branch $end
+$var reg 1 * csr_write_enable $end
+$var reg 1 + jump $end
+$var reg 1 , memory_read $end
+$var reg 1 - memory_write $end
+$var reg 1 . pc_stall $end
+$var reg 1 / register_file_write $end
+$var reg 3 0 register_file_write_data_select [2:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b10 0
+1/
+1.
+0-
+0,
+0+
+0*
+0)
+b1 (
+b1 '
+0&
+1%
+b110011 $
+b0 #
+1"
+0!
+$end
+#1000
+b10 0
+1/
+b1 (
+b1 '
+0%
+1&
+#2000
+b10 0
+1/
+b1 (
+b1 '
+0"
+1%
+#3000
+b10 0
+1/
+b1 (
+b1 '
+1!
+1"
+#4000
+b100 0
+1/
+b0 (
+b0 '
+0.
+b110111 $
+0!
+#5000
+b10 (
+b10 '
+b10 0
+1/
+b10111 $
+#6000
+1+
+b101 0
+1/
+b10 (
+b10 '
+b1101111 $
+#7000
+b101 0
+1/
+b10 (
+b1 '
+1+
+b1100111 $
+#8000
+1)
+b0 0
+0/
+b1 (
+b1 '
+0+
+b1100011 $
+#9000
+b1 (
+b1 '
+1)
+b1 #
+#10000
+b1 (
+b1 '
+1)
+b100 #
+#11000
+b1 (
+b1 '
+1)
+b101 #
+#12000
+b1 (
+b1 '
+1)
+b110 #
+#13000
+b1 (
+b1 '
+1)
+b111 #
+#14000
+1,
+b1 0
+1/
+b10 (
+b1 '
+0)
+b0 #
+b11 $
+#15000
+1,
+b1 0
+1/
+b10 (
+b1 '
+b1 #
+#16000
+1,
+b1 0
+1/
+b10 (
+b1 '
+b10 #
+#17000
+1,
+b1 0
+1/
+b10 (
+b1 '
+b100 #
+#18000
+1,
+b1 0
+1/
+b10 (
+b1 '
+b101 #
+#19000
+1-
+0,
+b0 0
+0/
+b10 (
+b1 '
+b0 #
+b100011 $
+#20000
+1-
+b10 (
+b1 '
+b1 #
+#21000
+1-
+b10 (
+b1 '
+b10 #
+#22000
+b10 0
+1/
+0-
+b10 (
+b1 '
+b0 #
+b10011 $
+#23000
+b10 0
+1/
+b10 (
+b1 '
+b1 #
+#24000
+b10 0
+1/
+b10 (
+b1 '
+b10 #
+#25000
+b10 0
+1/
+b10 (
+b1 '
+b11 #
+#26000
+b10 0
+1/
+b10 (
+b1 '
+b100 #
+#27000
+b10 0
+1/
+b100 (
+b1 '
+b101 #
+#28000
+b10 0
+1/
+b10 (
+b1 '
+b110 #
+#29000
+b10 0
+1/
+b10 (
+b1 '
+b111 #
+#30000
+b10 0
+1/
+b10 (
+b1 '
+b0 #
+b11011 $
+#31000
+b10 0
+1/
+b10 (
+b1 '
+b1 #
+#32000
+b10 0
+1/
+b100 (
+b1 '
+b101 #
+#33000
+b10 0
+1/
+b1 (
+b1 '
+b0 #
+b110011 $
+#34000
+b10 0
+1/
+b1 (
+b1 '
+b1 #
+#35000
+b10 0
+1/
+b1 (
+b1 '
+b10 #
+#36000
+b10 0
+1/
+b1 (
+b1 '
+b11 #
+#37000
+b10 0
+1/
+b1 (
+b1 '
+b100 #
+#38000
+b10 0
+1/
+b1 (
+b1 '
+b101 #
+#39000
+b10 0
+1/
+b1 (
+b1 '
+b110 #
+#40000
+b10 0
+1/
+b1 (
+b1 '
+b111 #
+#41000
+b10 0
+1/
+b1 (
+b1 '
+b0 #
+b111011 $
+#42000
+b10 0
+1/
+b1 (
+b1 '
+b1 #
+#43000
+b10 0
+1/
+b1 (
+b1 '
+b101 #
+#44000
+b0 0
+0/
+b0 (
+b0 '
+b0 #
+b1111 $
+#45000
+b1110011 $
+#46000
+b11 0
+1/
+b1 '
+1*
+b1 #
+#47000
+b11 (
+b11 0
+1/
+1*
+b1 '
+b10 #
+#48000
+b11 0
+1/
+1*
+b11 (
+b1 '
+b11 #
+#49000
+b11 0
+1/
+1*
+b0 (
+b11 '
+b101 #
+#50000
+b11 (
+b11 0
+1/
+1*
+b11 '
+b110 #
+#51000
+b11 0
+1/
+1*
+b11 (
+b11 '
+b111 #
+#52000
