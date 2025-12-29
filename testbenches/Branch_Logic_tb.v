@@ -16,7 +16,7 @@ module BranchLogic_tb #(
     wire [XLEN-1:0] branch_target_actual;
     wire branch_prediction_miss;
 
-    BranchLogic #(.XLEN(XLEN)) branch_logic (
+    BranchLogic #(.XLEN(XLEN)) dut (
         .branch(branch),
         .branch_estimation(branch_estimation),
         .funct3(funct3),
