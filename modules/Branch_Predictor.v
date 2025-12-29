@@ -33,24 +33,25 @@ module BranchPredictor #(
         if (reset) begin
             branch_prediction <= 1'b0;
             prediction_counter <= 2'b00;
-        end else begin
+        end 
+        else begin
             if (IF_opcode == `OPCODE_BRANCH) begin
                 branch_prediction <= branch_estimation;
             end
         
-        if (EX_branch && (EX_branch_taken == 1'b1 || EX_branch_taken == 1'b0)) begin
-                case ({EX_branch_taken, prediction_counter})
-                // Not Taken 0, prediction_counter 00
-                    3'b0_00: prediction_counter <= 2'b00; // Strongly Not Taken <- if not taken again, still 00.
-                    3'b0_01: prediction_counter <= 2'b00; // Weakly Not Taken <- if not taken again, 00.
-                    3'b0_10: prediction_counter <= 2'b01; // Weakly Taken <- if not taken, 01.
-                    3'b0_11: prediction_counter <= 2'b10; // Strongly Taken <- if not taken, 10.
-                // Taken 1, prediction_counter 00
-                    3'b1_00: prediction_counter <= 2'b01; // Strongly Not Taken <- if taken, 01.
-                    3'b1_01: prediction_counter <= 2'b10; // Weakly Not Taken <- if taken, 10.
-                    3'b1_10: prediction_counter <= 2'b11; // Weakly Taken <- if taken again, 11.
-                    3'b1_11: prediction_counter <= 2'b11; // Strongly Taken <- if taken again, still 11.
-            endcase
+            if (EX_branch && (EX_branch_taken == 1'b1 || EX_branch_taken == 1'b0)) begin
+                    case ({EX_branch_taken, prediction_counter})
+                    // Not Taken 0, prediction_counter 00
+                        3'b0_00: prediction_counter <= 2'b00; // Strongly Not Taken <- if not taken again, still 00.
+                        3'b0_01: prediction_counter <= 2'b00; // Weakly Not Taken <- if not taken again, 00.
+                        3'b0_10: prediction_counter <= 2'b01; // Weakly Taken <- if not taken, 01.
+                        3'b0_11: prediction_counter <= 2'b10; // Strongly Taken <- if not taken, 10.
+                    // Taken 1, prediction_counter 00
+                        3'b1_00: prediction_counter <= 2'b01; // Strongly Not Taken <- if taken, 01.
+                        3'b1_01: prediction_counter <= 2'b10; // Weakly Not Taken <- if taken, 10.
+                        3'b1_10: prediction_counter <= 2'b11; // Weakly Taken <- if taken again, 11.
+                        3'b1_11: prediction_counter <= 2'b11; // Strongly Taken <- if taken again, still 11.
+                endcase
             end
         end
     end
