@@ -86,7 +86,8 @@ module HazardUnit (
         if (reset) begin
             retire_rd <= 5'b0;
             retire_csr_write_address <= 12'b0;    
-        end else begin
+        end 
+        else begin
             retire_rd <= WB_rd;
             retire_csr_write_address <= WB_csr_write_address;
         end
@@ -136,7 +137,8 @@ module HazardUnit (
             ID_EX_stall = 1'b1;
             EX_MEM_stall = 1'b0;
             MEM_WB_stall = 1'b0;
-        end else if (!trap_done || !csr_ready) begin
+        end 
+        else if (!trap_done || !csr_ready) begin
             IF_ID_stall = 1'b1;
             ID_EX_stall = 1'b1;
             EX_MEM_stall = 1'b1;
