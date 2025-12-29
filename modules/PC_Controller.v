@@ -20,13 +20,13 @@ module PCController #(
 			if (trapped) begin
 				next_pc = trap_target;
 			end
-			else if (trapped == 1'b0 && jump) begin
+			else if (jump) begin
 				next_pc = jump_target;
 			end
-			else if (trapped == 1'b0 && branch_prediction_miss) begin
+			else if (branch_prediction_miss) begin
 				next_pc = branch_target_actual;
 			end
-			else if (trapped == 1'b0 && branch_estimation) begin
+			else if (branch_estimation) begin
 				next_pc = branch_target;
 			end
 			else begin
