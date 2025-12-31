@@ -112,7 +112,8 @@ module ExceptionDetector (
                         if (alu_result[0] == 1'b1) begin
                             EX_trapped = 1'b1;
                             EX_trap_status = `TRAP_MISALIGNED_STORE;
-                        end else begin
+                        end 
+                        else begin
                             EX_trapped = 1'b0;
                             EX_trap_status = `TRAP_NONE;
                         end
@@ -121,7 +122,8 @@ module ExceptionDetector (
                         if (alu_result[1:0] != 2'b00) begin
                             EX_trapped = 1'b1;
                             EX_trap_status = `TRAP_MISALIGNED_STORE;
-                        end else begin
+                        end 
+                        else begin
                             EX_trapped = 1'b0;
                             EX_trap_status = `TRAP_NONE;
                         end
@@ -139,7 +141,8 @@ module ExceptionDetector (
                         if (alu_result[0] == 1'b1) begin
                             EX_trapped = 1'b1;
                             EX_trap_status = `TRAP_MISALIGNED_LOAD;
-                        end else begin
+                        end 
+                        else begin
                             EX_trapped = 1'b0;
                             EX_trap_status = `TRAP_NONE;
                         end
@@ -148,7 +151,8 @@ module ExceptionDetector (
                         if (alu_result[1:0] != 2'b00) begin
                             EX_trapped = 1'b1;
                             EX_trap_status = `TRAP_MISALIGNED_LOAD;
-                        end else begin
+                        end 
+                        else begin
                             EX_trapped = 1'b0;
                             EX_trap_status = `TRAP_NONE;
                         end
@@ -163,7 +167,8 @@ module ExceptionDetector (
                 if (alu_result == 2'b0) begin
                     EX_trapped = 1'b0;
                     EX_trap_status = `TRAP_NONE;
-                end else begin
+                end 
+                else begin
                     EX_trapped = 1'b1;
                     EX_trap_status = `TRAP_MISALIGNED_INSTRUCTION;
                 end
@@ -184,7 +189,8 @@ module ExceptionDetector (
                         if (MEM_alu_result[0] == 1'b1) begin
                             MEM_trapped = 1'b1;
                             MEM_trap_status = `TRAP_MISALIGNED_STORE;
-                        end else begin
+                        end 
+                        else begin
                             MEM_trapped = 1'b0;
                             MEM_trap_status = `TRAP_NONE;
                         end
@@ -193,7 +199,8 @@ module ExceptionDetector (
                         if (MEM_alu_result[1:0] != 2'b00) begin
                             MEM_trapped = 1'b1;
                             MEM_trap_status = `TRAP_MISALIGNED_STORE;
-                        end else begin
+                        end 
+                        else begin
                             MEM_trapped = 1'b0;
                             MEM_trap_status = `TRAP_NONE;
                         end
@@ -211,7 +218,8 @@ module ExceptionDetector (
                         if (MEM_alu_result[0] == 1'b1) begin
                             MEM_trapped = 1'b1;
                             MEM_trap_status = `TRAP_MISALIGNED_LOAD;
-                        end else begin
+                        end 
+                        else begin
                             MEM_trapped = 1'b0;
                             MEM_trap_status = `TRAP_NONE;
                         end
@@ -220,7 +228,8 @@ module ExceptionDetector (
                         if (MEM_alu_result[1:0] != 2'b00) begin
                             MEM_trapped = 1'b1;
                             MEM_trap_status = `TRAP_MISALIGNED_LOAD;
-                        end else begin
+                        end 
+                        else begin
                             MEM_trapped = 1'b0;
                             MEM_trap_status = `TRAP_NONE;
                         end
@@ -235,7 +244,8 @@ module ExceptionDetector (
                 if (MEM_alu_result == 2'b0) begin
                     MEM_trapped = 1'b0;
                     MEM_trap_status = `TRAP_NONE;
-                end else begin
+                end 
+                else begin
                     MEM_trapped = 1'b1;
                     MEM_trap_status = `TRAP_MISALIGNED_INSTRUCTION;
                 end
@@ -249,13 +259,16 @@ module ExceptionDetector (
         if (MEM_trapped) begin
             trapped_combinatorial = 1'b1;
             trap_status_combinatorial = MEM_trap_status;
-        end else if (EX_trapped) begin
+        end 
+        else if (EX_trapped) begin
             trapped_combinatorial = 1'b1;
             trap_status_combinatorial = EX_trap_status;
-        end else if (ID_trapped) begin
+        end 
+        else if (ID_trapped) begin
             trapped_combinatorial = 1'b1;
             trap_status_combinatorial = ID_trap_status;
-        end else begin
+        end 
+        else begin
             trapped_combinatorial = 1'b0;
             trap_status_combinatorial = `TRAP_NONE;
         end
@@ -266,7 +279,8 @@ module ExceptionDetector (
         if (reset) begin
             trapped <= 1'b0;
             trap_status <= `TRAP_NONE;
-        end else begin
+        end 
+        else begin
             trapped <= trapped_combinatorial;
             trap_status <= trap_status_combinatorial;
         end
