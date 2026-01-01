@@ -1,21 +1,23 @@
-module RegisterFile (
+module RegisterFile # (
+    parameter XLEN = 64
+)(
     input clk,                      // clock signal
     input [4:0] read_reg1,          // take address of register 1 to read stored value
     input [4:0] read_reg2,          // take address of register 2 to read stored value
     input [4:0] write_reg,          // take address of register to write value
-    input [63:0] write_data,        // data to write
+    input [XLEN-1:0] write_data,        // data to write
     input write_enable,             // enabling signal for writing register
-	
-    output reg [63:0] read_data1,   // data from register 1
-    output reg [63:0] read_data2    // data from register 2
+
+    output reg [XLEN-1:0] read_data1,   // data from register 1
+    output reg [XLEN-1:0] read_data2    // data from register 2
 );
 
-    reg [63:0] registers [0:31]; // 64 registers with 32 bits each
+    reg [XLEN-1:0] registers [0:31]; // 64 registers with XLEN bits each
 
     // Read operation
     always @(*) begin
-        read_data1 = (read_reg1 == 5'd0) ? 64'd0 : registers[read_reg1]; // x0 is always 0
-        read_data2 = (read_reg2 == 5'd0) ? 64'd0 : registers[read_reg2]; // x0 is always 0
+        read_data1 = (read_reg1 == 5'd0) ? {XLEN{1'b0}} : registers[read_reg1]; // x0 is always 0
+        read_data2 = (read_reg2 == 5'd0) ? {XLEN{1'b0}} : registers[read_reg2]; // x0 is always 0
     end
 
     // Write operation
