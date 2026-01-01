@@ -31,7 +31,8 @@ module BranchLogic #(
             
             if (branch_taken) begin
                 branch_target_actual = pc + imm;
-            end else begin
+            end 
+            else begin
                 branch_target_actual = pc + 4;
             end
         end
