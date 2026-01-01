@@ -74,12 +74,15 @@ module CSRFile #(
 
       if (reset) begin
         csr_ready = 1'b1;
-      end else begin
+      end 
+      else begin
         if (csr_access && !csr_processing) begin
           csr_ready = 1'b0;
-        end else if (csr_processing) begin
+        end 
+        else if (csr_processing) begin
           csr_ready = 1'b1;
-        end else begin
+        end 
+        else begin
           csr_ready = 1'b1;
         end
       end
@@ -96,7 +99,8 @@ module CSRFile #(
 
         csr_processing <= 1'b0;
         csr_read_out <= {XLEN{1'b0}};
-      end else begin
+      end 
+      else begin
         mcycle <= mcycle + 1;
         
         if (instruction_retired) begin
@@ -106,10 +110,12 @@ module CSRFile #(
         if (csr_access && !csr_processing) begin
           csr_processing <= 1'b1;
           csr_read_out <= csr_read_data;
-        end else if (csr_processing) begin
+        end 
+        else if (csr_processing) begin
           csr_processing <= 1'b0;
           csr_read_out <= csr_read_data;
-        end else if (csr_write_enable) begin
+        end 
+        else if (csr_write_enable) begin
           csr_read_out <= csr_read_data;
         end
 
