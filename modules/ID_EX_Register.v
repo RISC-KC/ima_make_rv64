@@ -93,7 +93,8 @@ always @(posedge clk or posedge reset) begin
         EX_rs2 <= 5'b0;
         EX_imm <= {XLEN{1'b0}};
         EX_csr_read_data <= {XLEN{1'b0}};
-    end else begin
+    end 
+    else begin
         if (flush) begin
             EX_pc <= {XLEN{1'b0}};
             EX_pc_plus_4 <= {XLEN{1'b0}};
@@ -120,7 +121,8 @@ always @(posedge clk or posedge reset) begin
             EX_rs2 <= 5'b0;
             EX_imm <= {XLEN{1'b0}};
             EX_csr_read_data <= {XLEN{1'b0}};
-        end else if (!ID_EX_stall) begin
+        end 
+        else if (!ID_EX_stall) begin
             EX_pc <= ID_pc;
             EX_pc_plus_4 <= ID_pc_plus_4;
             EX_branch_estimation <= ID_branch_estimation;
