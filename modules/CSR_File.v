@@ -18,7 +18,6 @@ module CSRFile #(
 
     wire [XLEN-1:0] mvendorid = 64'h52_49_53_43_2D_4B_43_21;    // RISC-KC!
     wire [XLEN-1:0] marchid   = 64'h52_56_36_34_49_4D_35_39;    // RV64IM59
-    wire [XLEN-1:0] mimpid    = 64'h32_30_32_36_30_31_30_31;    // 20251225
     wire [XLEN-1:0] mhartid   = 64'h42_41_4E_41_4E_41_4E_41;    // BANANANA
     wire [XLEN-1:0] mstatus   = 64'h00000000_00001800;          // MPP[12:11] = 11
     wire [XLEN-1:0] misa      = 64'b80000000_00000080;          // MXL = 2; XLEN = 64; misa[63:62] = 10. RV32"I"; misa[8] = 1.
@@ -40,7 +39,6 @@ module CSRFile #(
                                (csr_read_address == 12'hB02) || // minstret
                                (csr_read_address == 12'hF11) || // mvendorid
                                (csr_read_address == 12'hF12) || // marchid  
-                               (csr_read_address == 12'hF13) || // mimpid
                                (csr_read_address == 12'hF14) || // mhartid
                                (csr_read_address == 12'h300) || // mstatus
                                (csr_read_address == 12'h301) || // misa
@@ -62,7 +60,6 @@ module CSRFile #(
             12'hB02: csr_read_data = minstret[XLEN-1:0];
             12'hF11: csr_read_data = mvendorid;
             12'hF12: csr_read_data = marchid;
-            12'hF13: csr_read_data = mimpid;
             12'hF14: csr_read_data = mhartid;
             12'h300: csr_read_data = mstatus;
             12'h301: csr_read_data = misa;
