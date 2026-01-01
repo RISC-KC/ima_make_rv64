@@ -57,78 +57,78 @@ module CSRFile #(
     localparam [XLEN-1:0] DEFAULT_minstret = 64'b0;
     // Read Operation.
     always @(*) begin
-      case (csr_read_address)
-        12'hB00: csr_read_data = mcycle[XLEN-1:0];
-        12'hB02: csr_read_data = minstret[XLEN-1:0];
-        12'hF11: csr_read_data = mvendorid;
-        12'hF12: csr_read_data = marchid;
-        12'hF13: csr_read_data = mimpid;
-        12'hF14: csr_read_data = mhartid;
-        12'h300: csr_read_data = mstatus;
-        12'h301: csr_read_data = misa;
-        12'h305: csr_read_data = mtvec;
-        12'h341: csr_read_data = mepc;
-        12'h342: csr_read_data = mcause;
-        default: csr_read_data = {XLEN{1'b0}};
-      endcase
+        case (csr_read_address)
+            12'hB00: csr_read_data = mcycle[XLEN-1:0];
+            12'hB02: csr_read_data = minstret[XLEN-1:0];
+            12'hF11: csr_read_data = mvendorid;
+            12'hF12: csr_read_data = marchid;
+            12'hF13: csr_read_data = mimpid;
+            12'hF14: csr_read_data = mhartid;
+            12'h300: csr_read_data = mstatus;
+            12'h301: csr_read_data = misa;
+            12'h305: csr_read_data = mtvec;
+            12'h341: csr_read_data = mepc;
+            12'h342: csr_read_data = mcause;
+            default: csr_read_data = {XLEN{1'b0}};
+        endcase
 
-      if (reset) begin
-        csr_ready = 1'b1;
-      end 
-      else begin
-        if (csr_access && !csr_processing) begin
-          csr_ready = 1'b0;
-        end 
-        else if (csr_processing) begin
-          csr_ready = 1'b1;
+        if (reset) begin
+            csr_ready = 1'b1;
         end 
         else begin
-          csr_ready = 1'b1;
+            if (csr_access && !csr_processing) begin
+                csr_ready = 1'b0;
+            end 
+            else if (csr_processing) begin
+                csr_ready = 1'b1;
+            end 
+            else begin
+                csr_ready = 1'b1;
+            end
         end
-      end
     end
 
     // Reset Operation
     always @(posedge clk or posedge reset) begin
-      if (reset) begin
-        mtvec   <= DEFAULT_mtvec;
-        mepc    <= DEFAULT_mepc;
-        mcause  <= DEFAULT_mcause;
-        mcycle  <= DEFAULT_mcycle;
-        minstret <= DEFAULT_minstret;
+        if (reset) begin
+            mtvec   <= DEFAULT_mtvec;
+            mepc    <= DEFAULT_mepc;
+            mcause  <= DEFAULT_mcause;
+            mcycle  <= DEFAULT_mcycle;
+            minstret <= DEFAULT_minstret;
 
-        csr_processing <= 1'b0;
-        csr_read_out <= {XLEN{1'b0}};
-      end 
-      else begin
-        mcycle <= mcycle + 1;
-        
-        if (instruction_retired) begin
-          minstret <= minstret + 1;
-        end
-
-        if (csr_access && !csr_processing) begin
-          csr_processing <= 1'b1;
-          csr_read_out <= csr_read_data;
+            csr_processing <= 1'b0;
+            csr_read_out <= {XLEN{1'b0}};
         end 
-        else if (csr_processing) begin
-          csr_processing <= 1'b0;
-          csr_read_out <= csr_read_data;
-        end 
-        else if (csr_write_enable) begin
-          csr_read_out <= csr_read_data;
-        end
+        else begin
+            mcycle <= mcycle + 1;
+          
+            if (instruction_retired) begin
+                minstret <= minstret + 1;
+            end
 
-        // Write Operation
-        if ((trapped && csr_write_enable) || (csr_write_enable)) begin
-        case (csr_write_address)
-          12'h305: mtvec  <= csr_write_data;
-          12'h341: mepc   <= csr_write_data;
-          12'h342: mcause <= csr_write_data;
-          default: ;
-        endcase
+            if (csr_access && !csr_processing) begin
+                csr_processing <= 1'b1;
+                csr_read_out <= csr_read_data;
+            end 
+            else if (csr_processing) begin
+                csr_processing <= 1'b0;
+                csr_read_out <= csr_read_data;
+            end 
+            else if (csr_write_enable) begin
+                csr_read_out <= csr_read_data;
+            end
+
+            // Write Operation
+            if ((trapped && csr_write_enable) || (csr_write_enable)) begin
+            case (csr_write_address)
+                12'h305: mtvec  <= csr_write_data;
+                12'h341: mepc   <= csr_write_data;
+                12'h342: mcause <= csr_write_data;
+                default: ;
+            endcase
+            end
         end
-      end
     end
 
 
