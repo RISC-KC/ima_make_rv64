@@ -16,12 +16,12 @@ module CSRFile #(
     output reg csr_ready                  // signal to stall the process while accessing the CSR until it outputs the desired value.
     );
 
-    wire [XLEN-1:0] mvendorid = 64'h0000_0000_52_56_4B_43;    // "RVKC" ; "R"ISC-"V", "K"HWL & "C"hoiCube84.
-    wire [XLEN-1:0] marchid   = 64'h00000000_34_36_53_35;    // "46S5" ; "46"F arch based "S"uper scalar "5"-Stage Pipeline Architecture.
-    wire [XLEN-1:0] mimpid    = 64'h00000000_34_36_49_31;    // "46I1" ; "46" instructions RISC-V RV32"I" Revision "1".
-    wire [XLEN-1:0] mhartid   = 64'h00000000_52_4B_43_30;    // "RKC0" ; "R"oad to "K"AIST "C"ore 0.
-    wire [XLEN-1:0] mstatus   = 64'h00000000_00001800;    // MPP[12:11] = 11
-    wire [XLEN-1:0] misa      = 64'h00000000_40000100;    // MXL = 32; misa[31:30] = 01. RV32"I"; misa[8] = 1.
+    wire [XLEN-1:0] mvendorid = 64'h52_49_53_43_2D_4B_43_21;    // RISC-KC!
+    wire [XLEN-1:0] marchid   = 64'h52_56_36_34_49_4D_35_39;    // RV64IM59
+    wire [XLEN-1:0] mimpid    = 64'h32_30_32_36_30_31_30_31;    // 20251225
+    wire [XLEN-1:0] mhartid   = 64'h42_41_4E_41_4E_41_4E_41;    // BANANANA
+    wire [XLEN-1:0] mstatus   = 64'h00000000_00001800;          // MPP[12:11] = 11
+    wire [XLEN-1:0] misa      = 64'b80000000_00000080;          // MXL = 2; XLEN = 64; misa[63:62] = 10. RV32"I"; misa[8] = 1.
     reg [XLEN-1:0] mtvec;
     reg [XLEN-1:0] mepc;
     reg [XLEN-1:0] mcause;
