@@ -48,7 +48,8 @@ always @(posedge clk or posedge reset) begin
     if (reset) begin
         trap_handle_state <= IDLE;
         debug_mode_reg <= 1'b0; 
-    end else begin
+    end 
+    else begin
         trap_handle_state <= next_trap_handle_state;
         // debug_mode logics
         case (trap_status)
@@ -109,12 +110,14 @@ always @(*) begin
                         trap_done = 1'b0;
                         next_trap_handle_state = READ_MEPC;
 
-                    end else if (trap_status == `TRAP_ECALL) begin
+                    end 
+                    else if (trap_status == `TRAP_ECALL) begin
                         standby_mode = 1'b1;
                         trap_done = 1'b0;
                         next_trap_handle_state = MEM_STANDBY;
 
-                    end else begin
+                    end 
+                    else begin
                         // write current pc value to mepc CSR
                         csr_write_enable = 1'b1;
                         csr_trap_address = 12'h341; //mepc
@@ -188,7 +191,8 @@ always @(*) begin
                     trap_target = csr_read_data;
                     if (trap_status == `TRAP_MISALIGNED_INSTRUCTION) begin
                         misaligned_instruction_flush = 1'b1;
-                    end else if (trap_status == `TRAP_MISALIGNED_STORE || trap_status == `TRAP_MISALIGNED_LOAD) begin
+                    end 
+                    else if (trap_status == `TRAP_MISALIGNED_STORE || trap_status == `TRAP_MISALIGNED_LOAD) begin
                         misaligned_memory_flush = 1'b1;
                     end
                     trap_done = 1'b1;
@@ -202,7 +206,8 @@ always @(*) begin
                     trap_target = csr_read_data;
                     if (trap_status == `TRAP_MISALIGNED_INSTRUCTION) begin
                         misaligned_instruction_flush = 1'b1;
-                    end else if (trap_status == `TRAP_MISALIGNED_STORE || trap_status == `TRAP_MISALIGNED_LOAD) begin
+                    end 
+                    else if (trap_status == `TRAP_MISALIGNED_STORE || trap_status == `TRAP_MISALIGNED_LOAD) begin
                         misaligned_memory_flush = 1'b1;
                     end
                     trap_done = 1'b1;
