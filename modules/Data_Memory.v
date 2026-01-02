@@ -30,9 +30,11 @@ module DataMemory #(
     always @(*) begin
         if (ram_access) begin
             read_data = memory[ram_address];
-        end else if (rom_access) begin
+        end 
+        else if (rom_access) begin
             read_data = rom_read_data;
-        end else begin
+        end 
+        else begin
             read_data = {XLEN{1'b0}};
         end
         
