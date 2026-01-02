@@ -4,6 +4,7 @@ basic_RV32s의 v2.0.0 release를 마치고 RV64I 확장으로 넘어왔다.
 기존 basic_RV32s에서 진행했던 RV64 설계 로그를 가져와보겠다. 
 
 [RV64s]  
+
 -----
 RV64I59F : RV64I Extension  
 └ 47F + RV64I  
@@ -40,7 +41,7 @@ Instruction Decoder의 변경사항은 다음과 같다.
 RV64I로 넘어오면서 새로이 생기는 명령어이기에 64비트를 다루는 명령어로 착각할 수 있지만, (내가 그랬다) 기존 32비트 처리 명령어가 있어야 하니까 그걸 W로 두고, 나머지 XLEN기반 명령어들은 
 64-bit로 확장됨에 따라 특성이 변이하는 것이다. 
 
-## RV64로 오면서 변하는 사항은 다음과 같다. 
+### RV64로 오면서 변하는 사항은 다음과 같다. 
 
 [R-Type]
 SLL, SRL, SRA : 최대 64비트 쉬프팅. rs2의 비트 영역이 6비트로 늘어나고, funct7이 대신 6비트로 줄어든다. (이름값 못하는 funct7이 된다. )
@@ -64,7 +65,7 @@ LD - Load Double word. 64비트 데이터를 로드한다.
 
 이상이다. 
 
-## 하드웨어 변경사항을 정리하면 다음과 같다.
+### 하드웨어 변경사항을 정리하면 다음과 같다.
 
 1. Instruction Cache, Memory (Instruction Area)의 주소 폭 64비트. 
 
@@ -84,3 +85,31 @@ LD - Load Double word. 64비트 데이터를 로드한다.
 
 기존에 basic_RV32s에 있던 RV64I 다이어그램도 추가했다. 
 문서화해둔 basic_RV32s 아카이빙 자료 architecture specifications도 추가했다.
+
+## [2026.01.02.]
+오랜만에 적는 devlog.
+현재 봉착한 문제. Data Memory는 어떻게 수정되어야하는가.
+명령어는 S-Type Store 명령어 4개와
+I-Type Load 명령어 7개를 처리할 수 있어야 한다.
+
+- S-Type
+    - Store Byte
+    - Store Halfword
+    - Store Word
+    - Store Doubleword
+
+- I-Type (Load)
+    - Load Byte
+    - Load Byte Unsigned
+    - Load Halfword
+    - Load Halfword Unsigned
+    - Load Word
+    - Load Word Unsigned
+    - Load Doubleword
+
+이는 조금 다행이다. 실제로 다른 R-Type이나 I-Type들의 RV64I 확장시에는 기존 명령어가 64비트가 되고 32-bit 명령어가 별도로 W suffix가 붙었는데,
+그대로 32-bit를 가져가되 새로운 64-bit 명령어가 생긴 것이다. 
+
+추가로 구현해야하는 것은 그럼 기존에 있던 Store Word, Load Word 까지는 그대로 사용하고, 
+Store Doubleword와 Load Word Unsigned, Load Doubleword를 구현해야한다.
+물론 나머지 출력값들도 sign-extension하여 내보내는데 이에 Load Word와 Store Word를 추가하면 될 것이다. 
