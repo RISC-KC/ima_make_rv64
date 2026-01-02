@@ -1,53 +1,55 @@
 `include "modules/headers/load_funct3.vh"
 `include "modules/headers/store_funct3.vh"
 
-module ByteEnableLogic (
+module ByteEnableLogic #(
+	parameter XLEN = 64
+)(
     input memory_read,							// signal indicating that register file should read from data memory
     input memory_write,							// signal indicating that register file should write to data memory
     input [2:0] funct3,							// funct3
-	input [63:0] register_file_read_data,		// data read from register file
-	input [63:0] data_memory_read_data,			// data read from data memory
-	input [63:0] address,						// address for checking alignment
+	input [XLEN-1:0] register_file_read_data,		// data read from register file
+	input [XLEN-1:0] data_memory_read_data,			// data read from data memory
+	input [XLEN-1:0] address,						// address for checking alignment
 	
-	output reg [63:0] register_file_write_data,	// data to write at register file
-	output reg [63:0] data_memory_write_data,	// data to write at data memory
+	output reg [XLEN-1:0] register_file_write_data,	// data to write at register file
+	output reg [XLEN-1:0] data_memory_write_data,	// data to write at data memory
     output reg [7:0] write_mask					// bitmask for writing data
 );
 
     always @(*) begin
         if (memory_read) begin
-			data_memory_write_data = 64'b0;
+			data_memory_write_data = {XLEN{1'b0}};
 			write_mask = 8'b0;
 			
 			case (funct3)
 				`LOAD_LB: begin
-					register_file_write_data = {{56{data_memory_read_data[7]}}, data_memory_read_data[7:0]};
+					register_file_write_data = {{(XLEN-8){data_memory_read_data[7]}}, data_memory_read_data[7:0]};
 				end
 				`LOAD_LH: begin
-					register_file_write_data = {{48{data_memory_read_data[15]}}, data_memory_read_data[15:0]};
+					register_file_write_data = {{(XLEN-16){data_memory_read_data[15]}}, data_memory_read_data[15:0]};
 				end
 				`LOAD_LW: begin
-					register_file_write_data = {{32{data_memory_read_data[31]}}, data_memory_read_data[31:0]};
+					register_file_write_data = {{(XLEN-32){data_memory_read_data[31]}}, data_memory_read_data[31:0]};
 				end
                 `LOAD_LD: begin
 					register_file_write_data = data_memory_read_data;
                 end
 				`LOAD_LBU: begin
-					register_file_write_data = {56'b0, data_memory_read_data[7:0]};
+					register_file_write_data = {{(XLEN-8){1'b0}}, data_memory_read_data[7:0]};
 				end
 				`LOAD_LHU: begin
-					register_file_write_data = {48'b0, data_memory_read_data[15:0]};
+					register_file_write_data = {{(XLEN-16){1'b0}}, data_memory_read_data[15:0]};
 				end
                 `LOAD_LWU: begin
-					register_file_write_data = {32'b0, data_memory_read_data[31:0]};
+					register_file_write_data = {{(XLEN-32){1'b0}}, data_memory_read_data[31:0]};
                 end
 				default: begin
-					register_file_write_data = 64'b0;
+					register_file_write_data = {XLEN{1'b0}};
 				end
 			endcase
 		end
 		else if (memory_write) begin
-			register_file_write_data = 64'b0;
+			register_file_write_data = {XLEN{1'b0}};
 						
 			case (funct3)
 				`STORE_SB: begin
@@ -127,14 +129,14 @@ module ByteEnableLogic (
 					end
 				end
 				default: begin
-					data_memory_write_data = 64'b0;
+					data_memory_write_data = {XLEN{1'b0}};
 					write_mask = 8'b0;
 				end
 			endcase
 		end
 		else begin
-			register_file_write_data = 64'b0;
-			data_memory_write_data = 64'b0;
+			register_file_write_data = {XLEN{1'b0}};
+			data_memory_write_data = {XLEN{1'b0}};
 			write_mask = 8'b0;
 		end
     end
