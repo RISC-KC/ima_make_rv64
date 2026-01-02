@@ -1,0 +1,233 @@
+$date
+	Sat Jan 03 01:52:32 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module MEM_WB_Register_tb $end
+$scope module mem_wb_register $end
+$var wire 1 ! MEM_WB_stall $end
+$var wire 64 " MEM_alu_result [63:0] $end
+$var wire 64 # MEM_byte_enable_logic_register_file_write_data [63:0] $end
+$var wire 64 $ MEM_csr_read_data [63:0] $end
+$var wire 1 % MEM_csr_write_enable $end
+$var wire 64 & MEM_imm [63:0] $end
+$var wire 32 ' MEM_instruction [31:0] $end
+$var wire 7 ( MEM_opcode [6:0] $end
+$var wire 64 ) MEM_pc [63:0] $end
+$var wire 64 * MEM_pc_plus_4 [63:0] $end
+$var wire 20 + MEM_raw_imm [19:0] $end
+$var wire 5 , MEM_rd [4:0] $end
+$var wire 3 - MEM_register_file_write_data_select [2:0] $end
+$var wire 1 . MEM_register_write_enable $end
+$var wire 5 / MEM_rs1 [4:0] $end
+$var wire 1 0 clk $end
+$var wire 1 1 flush $end
+$var wire 1 2 reset $end
+$var parameter 32 3 XLEN $end
+$var reg 64 4 WB_alu_result [63:0] $end
+$var reg 64 5 WB_byte_enable_logic_register_file_write_data [63:0] $end
+$var reg 64 6 WB_csr_read_data [63:0] $end
+$var reg 1 7 WB_csr_write_enable $end
+$var reg 64 8 WB_imm [63:0] $end
+$var reg 32 9 WB_instruction [31:0] $end
+$var reg 7 : WB_opcode [6:0] $end
+$var reg 64 ; WB_pc [63:0] $end
+$var reg 64 < WB_pc_plus_4 [63:0] $end
+$var reg 20 = WB_raw_imm [19:0] $end
+$var reg 5 > WB_rd [4:0] $end
+$var reg 3 ? WB_register_file_write_data_select [2:0] $end
+$var reg 1 @ WB_register_write_enable $end
+$var reg 5 A WB_rs1 [4:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1000000 3
+$end
+#0
+$dumpvars
+b0 A
+0@
+b0 ?
+b0 >
+b0 =
+b0 <
+b0 ;
+b0 :
+b10011 9
+b0 8
+07
+b0 6
+b0 5
+b0 4
+12
+01
+00
+b0 /
+0.
+b0 -
+b0 ,
+b0 +
+b0 *
+b0 )
+b0 (
+b10011 '
+b0 &
+0%
+b0 $
+b0 #
+b0 "
+0!
+$end
+#5000
+10
+#10000
+00
+#15000
+10
+#20000
+00
+#25000
+10
+#30000
+00
+02
+#35000
+10
+#40000
+b1010 #
+b110011 (
+b1010 ,
+b101 /
+1.
+b1011 "
+b10 -
+b11000101000010100110011 '
+b100 *
+00
+#45000
+b1010 5
+b110011 :
+b1010 >
+b101 A
+1@
+b1011 4
+b10 ?
+b11000101000010100110011 9
+b100 <
+10
+#50000
+b11111 ,
+b1111111111111111111111111111111111111111111111111111111111111111 "
+b11111111111111111111111111111111 '
+b1111111111111111111111111111111111111111111111111111111111111111 *
+b1111111111111111111111111111111111111111111111111111111111111111 )
+1!
+00
+#55000
+10
+#56000
+0!
+#60000
+b11011110101011011011111011101111 #
+b11 (
+b1010 ,
+b1011 /
+b10000000000000000000000100000 "
+b100 +
+b100 &
+b1 -
+b10001011010010100000011 '
+b1000 *
+b100 )
+00
+#65000
+b11011110101011011011111011101111 5
+b11 :
+b1011 A
+b10000000000000000000000100000 4
+b100 =
+b100 8
+b1 ?
+b10001011010010100000011 9
+b1000 <
+b100 ;
+10
+#70000
+11
+b10100 ,
+1%
+b1010101111001101000100100011010001010110011110001001101010111100 "
+b11001010111111101011101010111110 '
+b1100 *
+b1000 )
+00
+#75000
+b0 5
+b0 :
+b0 >
+b0 A
+0@
+b0 4
+b0 =
+b0 8
+b0 ?
+b10011 9
+b0 <
+b0 ;
+10
+#76000
+01
+#80000
+b1010010010101100100101101000011 #
+b1110011 (
+b1010 ,
+b0 /
+0%
+b0 "
+b1010010010101100100101101000011 $
+b11110001000100000010 +
+b0 &
+b11 -
+b11110001000100000010010101110011 '
+b10000 *
+b1100 )
+00
+#85000
+b1010010010101100100101101000011 5
+b1110011 :
+b1010 >
+1@
+b1010010010101100100101101000011 6
+b11110001000100000010 =
+b11 ?
+b11110001000100000010010101110011 9
+b10000 <
+b1100 ;
+10
+#90000
+b1111111011011100101110101001100001110110010101000011001000010000 "
+b1001000110100010101100111100010011010101111001101111011110000 )
+11
+1!
+00
+#95000
+b0 5
+b0 :
+b0 >
+0@
+b0 6
+b0 =
+b0 ?
+b10011 9
+b0 <
+b0 ;
+10
+#96000
+01
+0!
