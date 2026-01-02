@@ -49,7 +49,7 @@ module EX_MEM_Register_tb #(
 
     wire [XLEN-1:0] MEM_alu_result;
 
-    EX_MEM_Register #(.XLEN(XLEN)) ex_mem_register (
+    EX_MEM_Register #(.XLEN(XLEN)) dut (
         .clk(clk),
         .reset(reset),
         .flush(flush),
@@ -150,7 +150,7 @@ module EX_MEM_Register_tb #(
 
     initial begin
         $dumpfile("testbenches/results/waveforms/EX_MEM_Register_tb_result.vcd");
-        $dumpvars(0, EX_MEM_Register_tb.ex_mem_register);
+        $dumpvars(0, EX_MEM_Register_tb.dut);
 
         // Test sequence
         $display("==================== EX_MEM Register Test START ====================\n");

@@ -1,5 +1,5 @@
 $date
-	Fri Jan 02 14:16:09 2026
+	Fri Jan 02 14:18:24 2026
 $end
 $version
 	Icarus Verilog
@@ -8,7 +8,7 @@ $timescale
 	1ps
 $end
 $scope module EX_MEM_Register_tb $end
-$scope module ex_mem_register $end
+$scope module dut $end
 $var wire 1 ! EX_MEM_stall $end
 $var wire 64 " EX_alu_result [63:0] $end
 $var wire 64 # EX_csr_read_data [63:0] $end
