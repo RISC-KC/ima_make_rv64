@@ -86,6 +86,22 @@ LD - Load Double word. 64비트 데이터를 로드한다.
 기존에 basic_RV32s에 있던 RV64I 다이어그램도 추가했다. 
 문서화해둔 basic_RV32s 아카이빙 자료 architecture specifications도 추가했다.
 
+## [2025.12.23.]
+RV32I와 RV64IMA 까지의 Cheatsheet를 모두 작성했다. 
+이제는 RV64I의 확장이 본격적으로 시작되는데, 생각보다 수정할 부분이 많이 보여서 문제다.
+따로 Dirty파일을 레포지토리로 파서 탑 모듈에서 항시 테스팅을함과 동시에 각 모듈별 진행을 이 ima_make_rv64에서 해야겠다.
+
+## [2025.12.25.]
+이 전까지는 basic_RV32s에서 예상치 못한 Z값과 X값들을 발견하여 해결하고 왔다.
+지금은 XLEN으로 파라미터화를 시키고 있는데, 몇가지 궁금증이 생긴다.
+1. XLEN은 64로 데이터의 폭이 2배인데, CSR에서 나머지 mcycle, mcycleh가 64비트로 하나가 된다고 해도 marchid같은 기존 32비트 값은 어떻게 되는건지 궁금하다. 그냥 64비트 길이로 알아서 설정하면 되는건가?
+2. Instruction Memory 즉 ROM에는 32-bit 폭의 명령어들만 있는데, 이게 ROM_ADDRESS로 인식돼서 값을 불러올 때 32-bit값이 가야하나?
+아니면 zero-extension인가? zero가 맞는 것 같긴한데.
+
+파라미터화를 모두 마쳤고, PC와 Instruction Memory부터 64-bit testbench를 시작해보았다.
+결과는 모두 잘 나오고, 값이 없는 63:32는 0으로 나와 괜찮은 것 같다. 이를 Instruction Decoder에서 31:0 까지만 받아들이고,
+나머지 출력값은 그대로 64비트 유지를하면 나중에 ROM 영역 접근시 64-bit를 내보내야할 때 내보내지고, 명령어는 그대로 32-bit 규약에 맞춰진다.
+
 ## [2026.01.02.]
 오랜만에 적는 devlog.
 현재 봉착한 문제. Data Memory는 어떻게 수정되어야하는가.
