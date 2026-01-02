@@ -72,7 +72,8 @@ always @(posedge clk or posedge reset) begin
         MEM_csr_read_data <= {XLEN{1'b0}};
 
         MEM_alu_result <= {XLEN{1'b0}};
-    end else begin
+    end 
+    else begin
         if (flush) begin
             MEM_pc <= {XLEN{1'b0}};
             MEM_pc_plus_4 <= {XLEN{1'b0}};
@@ -93,7 +94,8 @@ always @(posedge clk or posedge reset) begin
             MEM_csr_read_data <= {XLEN{1'b0}};
 
             MEM_alu_result <= {XLEN{1'b0}};
-        end else if (!EX_MEM_stall) begin
+        end 
+        else if (!EX_MEM_stall) begin
             MEM_pc <= EX_pc;
             MEM_pc_plus_4 <= EX_pc_plus_4;
             MEM_instruction <= EX_instruction;
