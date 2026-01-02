@@ -5,19 +5,21 @@
 // `include "modules/ALU/Multiplier_WORD.v"
 // `include "modules/ALU/Multiplier_DWORD.v"
 
-module ALU (
-    input [63:0] src_A,             // source operand A
-    input [63:0] src_B,             // source operand B
+module ALU #(
+    parameter XLEN = 64
+)(
+    input [XLEN-1:0] src_A,             // source operand A
+    input [XLEN-1:0] src_B,             // source operand B
     input [4:0] alu_op,        		// ALU operation signal (from ALU Control module)
     input input_size_word,
-    
-    output reg [63:0] alu_result,   // ALU result
+
+    output reg [XLEN-1:0] alu_result,   // ALU result
     output reg alu_zero             // zero flag
 );
     wire [31:0] alu_word_result;
     wire alu_word_zero;
 
-    wire [63:0] alu_dword_result;
+    wire [XLEN-1:0] alu_dword_result;
     wire alu_dword_zero;
 
     /*wire [31:0] prod_high_word;
