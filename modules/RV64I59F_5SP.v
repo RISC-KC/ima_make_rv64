@@ -32,7 +32,7 @@ module RV64I59F5SP #(
 )(
     input clk,
     input reset,
-    input MMIO_uart_status
+    input MMIO_uart_status,
     
     output wire [31:0] retire_instruction,
     output wire [XLEN-1:0] MMIO_data_memory_write_data,
@@ -41,7 +41,6 @@ module RV64I59F5SP #(
 );
 
     // IO signals for MMIO Interface
-    assign MMIO_uart_status = mmio_uart_status;
     assign MMIO_data_memory_write_data = WB_data_memory_write_data;
     assign MMIO_data_memory_write_enable = WB_write_enable;
     assign MMIO_data_memory_address = WB_alu_result;
@@ -50,7 +49,7 @@ module RV64I59F5SP #(
     wire mmio_uart_status_hit;
     assign mmio_uart_status_hit = (MEM_alu_result == 64'h0000_0000_1001_0004);
     wire [XLEN-1:0] data_memory_read_data_muxed;
-    assign data_memory_read_data_muxed = mmio_uart_status_hit ? mmio_uart_status : data_memory_read_data;
+    assign data_memory_read_data_muxed = mmio_uart_status_hit ? MMIO_uart_status : data_memory_read_data;
 
     // Program Counter and  PC Plus 4
     wire [XLEN-1:0] pc;
@@ -65,8 +64,8 @@ module RV64I59F5SP #(
     wire [6:0] IF_opcode;
 
     // ROM bypass signals (MEM stage instruction memory access)
-    wire [31:0] rom_address;
-    wire [31:0] rom_read_data;
+    wire [XLEN-1:0] rom_address;
+    wire [XLEN-1:0] rom_read_data;
 
     assign IF_imm = {{20{instruction[31]}}, instruction[7], instruction[30:25], instruction[11:8], 1'b0};
     assign IF_opcode = (instruction[6:0]);
@@ -76,7 +75,7 @@ module RV64I59F5SP #(
     wire [2:0] funct3;
     wire [6:0] funct7;
     wire [4:0] rs1;
-    wire [4:0] rs2;
+    wire [5:0] rs2;
 	wire [4:0] rd;
     wire [19:0] raw_imm;
     
@@ -108,7 +107,7 @@ module RV64I59F5SP #(
     wire [XLEN-1:0] read_data2;
 
     // ALU Controller
-    wire [3:0] alu_op;
+    wire [4:0] alu_op;
 
     // ALUsrcA, srcB MUX
     reg [XLEN-1:0] src_A;
@@ -122,7 +121,7 @@ module RV64I59F5SP #(
     wire [XLEN-1:0] data_memory_read_data;
 	wire [XLEN-1:0] byte_enable_logic_register_file_write_data;
     wire [XLEN-1:0] data_memory_write_data;
-    wire [3:0] write_mask;
+    wire [7:0] write_mask;
 
     // CSR File
     wire csr_write_enable;
@@ -176,7 +175,7 @@ module RV64I59F5SP #(
     wire [XLEN-1:0] EX_read_data1;
     wire [XLEN-1:0] EX_read_data2;
     wire [4:0] EX_rs1;
-    wire [4:0] EX_rs2;
+    wire [5:0] EX_rs2;
     wire [XLEN-1:0] EX_imm;
     wire [XLEN-1:0] EX_csr_read_data;
 
@@ -259,9 +258,6 @@ module RV64I59F5SP #(
 
     wire csr_write_enable_source;
     assign csr_write_enable_source = tc_csr_write_enable ? tc_csr_write_enable : WB_csr_write_enable;
-
-    wire [XLEN-1:0] data_memory_read_data_muxed;
-    assign data_memory_read_data_muxed = mmio_uart_status_hit ? mmio_uart_status : data_memory_read_data;
 
     ALU alu (
         .src_A(src_A),
@@ -522,7 +518,7 @@ module RV64I59F5SP #(
     RegisterFile register_file (
         .clk(clk),
         .read_reg1(rs1),
-        .read_reg2(rs2),
+        .read_reg2(rs2[4:0]),
         .write_reg(WB_rd),
         .write_data(register_file_write_data),
         .write_enable(WB_register_write_enable),
@@ -707,7 +703,7 @@ module RV64I59F5SP #(
         // Signal from MEM Phase
         .MEM_byte_enable_logic_register_file_write_data(byte_enable_logic_register_file_write_data),
         .MEM_data_memory_write_data(data_memory_write_data),
-        .MEM_write_enable(MEM_memory_write),
+        .MEM_memory_write(MEM_memory_write),
 
         // Signals to WB Phase
         .WB_pc(WB_pc),
@@ -725,7 +721,7 @@ module RV64I59F5SP #(
         .WB_opcode(WB_opcode),
         .WB_byte_enable_logic_register_file_write_data(WB_byte_enable_logic_register_file_write_data),
         .WB_data_memory_write_data(WB_data_memory_write_data),
-        .WB_write_enable(WB_write_enable)
+        .WB_memory_write(WB_memory_write)
     );
 
     always @(posedge clk or posedge reset) begin
