@@ -26,7 +26,7 @@ module MEM_WB_Register #(
     // signals from MEM phase
     input wire [XLEN-1:0] MEM_byte_enable_logic_register_file_write_data,
     input wire [XLEN-1:0] MEM_data_memory_write_data,
-    input wire MEM_write_enable,
+    input wire MEM_memory_write,
 
     // signals to MEM register
     output reg [XLEN-1:0] WB_pc,
@@ -46,7 +46,7 @@ module MEM_WB_Register #(
 
     output reg [XLEN-1:0] WB_byte_enable_logic_register_file_write_data,
     output reg [XLEN-1:0] WB_data_memory_write_data,
-    output reg WB_write_enable
+    output reg WB_memory_write
 );
 
 always @(posedge clk or posedge reset) begin
@@ -68,7 +68,7 @@ always @(posedge clk or posedge reset) begin
         
         WB_byte_enable_logic_register_file_write_data <= {XLEN{1'b0}};
         WB_data_memory_write_data <= {XLEN{1'b0}};
-        WB_write_enable <= 1'b0;
+        WB_memory_write <= 1'b0;
     end 
     else begin
         if (flush) begin
@@ -89,7 +89,7 @@ always @(posedge clk or posedge reset) begin
             
             WB_byte_enable_logic_register_file_write_data <= {XLEN{1'b0}};
             WB_data_memory_write_data <= {XLEN{1'b0}};
-            WB_write_enable <= 1'b0;
+            WB_memory_write <= 1'b0;
         end 
         else if (!MEM_WB_stall) begin
             WB_pc <= MEM_pc;
@@ -109,7 +109,7 @@ always @(posedge clk or posedge reset) begin
             
             WB_byte_enable_logic_register_file_write_data <= MEM_byte_enable_logic_register_file_write_data;
             WB_data_memory_write_data <= MEM_data_memory_write_data;
-            WB_write_enable <= MEM_write_enable;
+            WB_memory_write <= MEM_memory_write;
         end 
     end 
 end
