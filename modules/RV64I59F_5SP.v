@@ -32,6 +32,7 @@ module RV64I59F5SP #(
 )(
     input clk,
     input reset,
+    input MMIO_uart_status
     
     output wire [31:0] retire_instruction,
     output wire [XLEN-1:0] MMIO_data_memory_write_data,
@@ -39,10 +40,17 @@ module RV64I59F5SP #(
     output wire MMIO_data_memory_write_enable
 );
 
-    // output to MMIO Interface
-    assign MMIO_data_memory_write_data = WB_data_memory_write_data; // 신호 추가해야함
-    assign MMIO_data_memory_write_enable = WB_write_enable;         // 신호 추가해야함
+    // IO signals for MMIO Interface
+    assign MMIO_uart_status = mmio_uart_status;
+    assign MMIO_data_memory_write_data = WB_data_memory_write_data;
+    assign MMIO_data_memory_write_enable = WB_write_enable;
     assign MMIO_data_memory_address = WB_alu_result;
+
+    // MMIO Interface logics
+    wire mmio_uart_status_hit;
+    assign mmio_uart_status_hit = (MEM_alu_result == 64'h0000_0000_1001_0004);
+    wire [XLEN-1:0] data_memory_read_data_muxed;
+    assign data_memory_read_data_muxed = mmio_uart_status_hit ? mmio_uart_status : data_memory_read_data;
 
     // Program Counter and  PC Plus 4
     wire [XLEN-1:0] pc;
@@ -209,6 +217,8 @@ module RV64I59F5SP #(
     wire [4:0] WB_rd;
 
     wire [XLEN-1:0] WB_byte_enable_logic_register_file_write_data;
+    wire [XLEN-1:0] WB_data_memory_write_data;
+    wire WB_write_enable;
 
     // Hazard Unit
     wire IF_ID_flush;
@@ -483,20 +493,6 @@ module RV64I59F5SP #(
         .rom_read_data(rom_read_data)
     );
 
-    MMIO_Interface mmio_interface (
-        .clk(clk),
-        .reset(reset),
-        .data_memory_write_data(data_memory_write_data),
-        .data_memory_address(MEM_alu_result),
-        .data_memory_write_enable(MEM_memory_write),
-        .UART_busy(UART_busy),
-
-        .mmio_uart_tx_data(mmio_uart_tx_data),
-        .mmio_uart_status(mmio_uart_status),
-        .mmio_uart_tx_start(mmio_uart_tx_start),
-        .mmio_uart_status_hit(mmio_uart_status_hit)
-    );
-
     ProgramCounter program_counter (
         .clk(clk),
         .reset(reset),
@@ -710,6 +706,8 @@ module RV64I59F5SP #(
 
         // Signal from MEM Phase
         .MEM_byte_enable_logic_register_file_write_data(byte_enable_logic_register_file_write_data),
+        .MEM_data_memory_write_data(data_memory_write_data),
+        .MEM_write_enable(MEM_memory_write),
 
         // Signals to WB Phase
         .WB_pc(WB_pc),
@@ -725,7 +723,9 @@ module RV64I59F5SP #(
         .WB_rd(WB_rd),
         .WB_raw_imm(WB_raw_imm),
         .WB_opcode(WB_opcode),
-        .WB_byte_enable_logic_register_file_write_data(WB_byte_enable_logic_register_file_write_data)
+        .WB_byte_enable_logic_register_file_write_data(WB_byte_enable_logic_register_file_write_data),
+        .WB_data_memory_write_data(WB_data_memory_write_data),
+        .WB_write_enable(WB_write_enable)
     );
 
     always @(posedge clk or posedge reset) begin
@@ -734,14 +734,16 @@ module RV64I59F5SP #(
             retired_csr_read_data <= {XLEN{1'b0}};
 
             instruction_retired <= 1'b0;
-        end else begin
+        end 
+        else begin
             retired_alu_result <= WB_alu_result;
             retired_csr_read_data <= WB_csr_read_data;
 
             if (!MEM_WB_stall && !MEM_WB_flush && 
                 WB_instruction != 32'h00000013) begin
                 instruction_retired <= 1'b1;
-            end else begin
+            end 
+            else begin
                 instruction_retired <= 1'b0;
             end
         end
