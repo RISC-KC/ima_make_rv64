@@ -1,5 +1,5 @@
 $date
-	Sat Jan 03 01:52:32 2026
+	Sat Jan 03 13:31:39 2026
 $end
 $version
 	Icarus Verilog
@@ -14,69 +14,77 @@ $var wire 64 " MEM_alu_result [63:0] $end
 $var wire 64 # MEM_byte_enable_logic_register_file_write_data [63:0] $end
 $var wire 64 $ MEM_csr_read_data [63:0] $end
 $var wire 1 % MEM_csr_write_enable $end
-$var wire 64 & MEM_imm [63:0] $end
-$var wire 32 ' MEM_instruction [31:0] $end
-$var wire 7 ( MEM_opcode [6:0] $end
-$var wire 64 ) MEM_pc [63:0] $end
-$var wire 64 * MEM_pc_plus_4 [63:0] $end
-$var wire 20 + MEM_raw_imm [19:0] $end
-$var wire 5 , MEM_rd [4:0] $end
-$var wire 3 - MEM_register_file_write_data_select [2:0] $end
-$var wire 1 . MEM_register_write_enable $end
-$var wire 5 / MEM_rs1 [4:0] $end
-$var wire 1 0 clk $end
-$var wire 1 1 flush $end
-$var wire 1 2 reset $end
-$var parameter 32 3 XLEN $end
-$var reg 64 4 WB_alu_result [63:0] $end
-$var reg 64 5 WB_byte_enable_logic_register_file_write_data [63:0] $end
-$var reg 64 6 WB_csr_read_data [63:0] $end
-$var reg 1 7 WB_csr_write_enable $end
-$var reg 64 8 WB_imm [63:0] $end
-$var reg 32 9 WB_instruction [31:0] $end
-$var reg 7 : WB_opcode [6:0] $end
-$var reg 64 ; WB_pc [63:0] $end
-$var reg 64 < WB_pc_plus_4 [63:0] $end
-$var reg 20 = WB_raw_imm [19:0] $end
-$var reg 5 > WB_rd [4:0] $end
-$var reg 3 ? WB_register_file_write_data_select [2:0] $end
-$var reg 1 @ WB_register_write_enable $end
-$var reg 5 A WB_rs1 [4:0] $end
+$var wire 64 & MEM_data_memory_write_data [63:0] $end
+$var wire 64 ' MEM_imm [63:0] $end
+$var wire 32 ( MEM_instruction [31:0] $end
+$var wire 7 ) MEM_opcode [6:0] $end
+$var wire 64 * MEM_pc [63:0] $end
+$var wire 64 + MEM_pc_plus_4 [63:0] $end
+$var wire 20 , MEM_raw_imm [19:0] $end
+$var wire 5 - MEM_rd [4:0] $end
+$var wire 3 . MEM_register_file_write_data_select [2:0] $end
+$var wire 1 / MEM_register_write_enable $end
+$var wire 5 0 MEM_rs1 [4:0] $end
+$var wire 1 1 MEM_write_enable $end
+$var wire 1 2 clk $end
+$var wire 1 3 flush $end
+$var wire 1 4 reset $end
+$var parameter 32 5 XLEN $end
+$var reg 64 6 WB_alu_result [63:0] $end
+$var reg 64 7 WB_byte_enable_logic_register_file_write_data [63:0] $end
+$var reg 64 8 WB_csr_read_data [63:0] $end
+$var reg 1 9 WB_csr_write_enable $end
+$var reg 64 : WB_data_memory_write_data [63:0] $end
+$var reg 64 ; WB_imm [63:0] $end
+$var reg 32 < WB_instruction [31:0] $end
+$var reg 7 = WB_opcode [6:0] $end
+$var reg 64 > WB_pc [63:0] $end
+$var reg 64 ? WB_pc_plus_4 [63:0] $end
+$var reg 20 @ WB_raw_imm [19:0] $end
+$var reg 5 A WB_rd [4:0] $end
+$var reg 3 B WB_register_file_write_data_select [2:0] $end
+$var reg 1 C WB_register_write_enable $end
+$var reg 5 D WB_rs1 [4:0] $end
+$var reg 1 E WB_write_enable $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 $comment Show the parameter values. $end
 $dumpall
-b1000000 3
+b1000000 5
 $end
 #0
 $dumpvars
+0E
+b0 D
+0C
+b0 B
 b0 A
-0@
+b0 @
 b0 ?
 b0 >
 b0 =
-b0 <
+b10011 <
 b0 ;
 b0 :
-b10011 9
+09
 b0 8
-07
+b0 7
 b0 6
-b0 5
-b0 4
-12
+14
+03
+02
 01
-00
-b0 /
-0.
+b0 0
+0/
+b0 .
 b0 -
 b0 ,
 b0 +
 b0 *
 b0 )
-b0 (
-b10011 '
+b10011 (
+b0 '
 b0 &
 0%
 b0 $
@@ -85,149 +93,154 @@ b0 "
 0!
 $end
 #5000
-10
+12
 #10000
-00
-#15000
-10
-#20000
-00
-#25000
-10
-#30000
-00
 02
+#15000
+12
+#20000
+02
+#25000
+12
+#30000
+02
+04
 #35000
-10
+12
 #40000
 b1010 #
-b110011 (
-b1010 ,
-b101 /
-1.
+b110011 )
+b1010 -
+b101 0
+1/
 b1011 "
-b10 -
-b11000101000010100110011 '
-b100 *
-00
+b10 .
+b11000101000010100110011 (
+b100 +
+02
 #45000
-b1010 5
-b110011 :
-b1010 >
-b101 A
-1@
-b1011 4
-b10 ?
-b11000101000010100110011 9
-b100 <
-10
+b1010 7
+b110011 =
+b1010 A
+b101 D
+1C
+b1011 6
+b10 B
+b11000101000010100110011 <
+b100 ?
+12
 #50000
-b11111 ,
+11
+b1111111111111111111111111111111111111111111111111111111111111111 &
+b11111 -
 b1111111111111111111111111111111111111111111111111111111111111111 "
-b11111111111111111111111111111111 '
+b11111111111111111111111111111111 (
+b1111111111111111111111111111111111111111111111111111111111111111 +
 b1111111111111111111111111111111111111111111111111111111111111111 *
-b1111111111111111111111111111111111111111111111111111111111111111 )
 1!
-00
+02
 #55000
-10
+12
 #56000
 0!
 #60000
-b11011110101011011011111011101111 #
-b11 (
-b1010 ,
-b1011 /
+b11011110101011011011111011101111 &
+b0 #
+b100011 )
+b0 -
+b1011 0
+0/
 b10000000000000000000000100000 "
-b100 +
-b100 &
-b1 -
-b10001011010010100000011 '
-b1000 *
-b100 )
-00
+b0 .
+b101101011010000000100011 (
+b1000 +
+b100 *
+02
 #65000
-b11011110101011011011111011101111 5
-b11 :
-b1011 A
-b10000000000000000000000100000 4
-b100 =
-b100 8
-b1 ?
-b10001011010010100000011 9
-b1000 <
-b100 ;
-10
-#70000
-11
-b10100 ,
-1%
-b1010101111001101000100100011010001010110011110001001101010111100 "
-b11001010111111101011101010111110 '
-b1100 *
-b1000 )
-00
-#75000
-b0 5
-b0 :
-b0 >
+1E
+b11011110101011011011111011101111 :
+b0 7
+b100011 =
 b0 A
-0@
-b0 4
+b1011 D
+0C
+b10000000000000000000000100000 6
+b0 B
+b101101011010000000100011 <
+b1000 ?
+b100 >
+12
+#70000
+13
+b1001000110100010101100111100010011010101111001101111011110000 &
+b10100 -
+1%
+1/
+b1010101111001101000100100011010001010110011110001001101010111100 "
+b11001010111111101011101010111110 (
+b1100 +
+b1000 *
+02
+#75000
+0E
+b0 :
 b0 =
-b0 8
+b0 D
+b0 6
+b10011 <
 b0 ?
-b10011 9
-b0 <
-b0 ;
-10
+b0 >
+12
 #76000
-01
+03
 #80000
+01
+b0 &
 b1010010010101100100101101000011 #
-b1110011 (
-b1010 ,
-b0 /
+b1110011 )
+b1010 -
+b0 0
 0%
 b0 "
 b1010010010101100100101101000011 $
-b11110001000100000010 +
-b0 &
-b11 -
-b11110001000100000010010101110011 '
-b10000 *
-b1100 )
-00
+b11110001000100000010 ,
+b11 .
+b11110001000100000010010101110011 (
+b10000 +
+b1100 *
+02
 #85000
-b1010010010101100100101101000011 5
-b1110011 :
-b1010 >
-1@
-b1010010010101100100101101000011 6
-b11110001000100000010 =
-b11 ?
-b11110001000100000010010101110011 9
-b10000 <
-b1100 ;
-10
+b1010010010101100100101101000011 7
+b1110011 =
+b1010 A
+1C
+b1010010010101100100101101000011 8
+b11110001000100000010 @
+b11 B
+b11110001000100000010010101110011 <
+b10000 ?
+b1100 >
+12
 #90000
-b1111111011011100101110101001100001110110010101000011001000010000 "
-b1001000110100010101100111100010011010101111001101111011110000 )
 11
+b1010101010101010101110111011101111001100110011001101110111011101 &
+b1111111011011100101110101001100001110110010101000011001000010000 "
+b1001000110100010101100111100010011010101111001101111011110000 *
+13
 1!
-00
+02
 #95000
-b0 5
-b0 :
-b0 >
-0@
-b0 6
+b0 7
 b0 =
+b0 A
+0C
+b0 8
+b0 @
+b0 B
+b10011 <
 b0 ?
-b10011 9
-b0 <
-b0 ;
-10
+b0 >
+12
 #96000
-01
+03
 0!

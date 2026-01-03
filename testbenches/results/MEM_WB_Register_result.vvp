@@ -7,68 +7,72 @@
 :vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
 :vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
 :vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
-S_0000024154482940 .scope module, "MEM_WB_Register_tb" "MEM_WB_Register_tb" 2 3;
+S_0000023712f7e5d0 .scope module, "MEM_WB_Register_tb" "MEM_WB_Register_tb" 2 3;
  .timescale -9 -12;
-P_000002415449e1a0 .param/l "XLEN" 1 2 4, +C4<00000000000000000000000001000000>;
-v00000241548ab960_0 .var "MEM_WB_stall", 0 0;
-v00000241548ab6e0_0 .var "MEM_alu_result", 63 0;
-v00000241548ab500_0 .var "MEM_byte_enable_logic_register_file_write_data", 63 0;
-v00000241548abdc0_0 .var "MEM_csr_read_data", 63 0;
-v00000241548ab5a0_0 .var "MEM_csr_write_enable", 0 0;
-v00000241548ab0a0_0 .var "MEM_imm", 63 0;
-v00000241548aad80_0 .var "MEM_instruction", 31 0;
-v00000241548aace0_0 .var "MEM_opcode", 6 0;
-v00000241548ab820_0 .var "MEM_pc", 63 0;
-v00000241548ab1e0_0 .var "MEM_pc_plus_4", 63 0;
-v00000241548ab8c0_0 .var "MEM_raw_imm", 19 0;
-v00000241548ab460_0 .var "MEM_rd", 4 0;
-v00000241548aba00_0 .var "MEM_register_file_write_data_select", 2 0;
-v00000241548aa6a0_0 .var "MEM_register_write_enable", 0 0;
-v00000241548aa880_0 .var "MEM_rs1", 4 0;
-v00000241548abaa0_0 .net "WB_alu_result", 63 0, v0000024154486200_0;  1 drivers
-v00000241548aa740_0 .net "WB_byte_enable_logic_register_file_write_data", 63 0, v00000241544868e0_0;  1 drivers
-v00000241548aa240_0 .net "WB_csr_read_data", 63 0, v0000024154486980_0;  1 drivers
-v00000241548abb40_0 .net "WB_csr_write_enable", 0 0, v0000024154486a20_0;  1 drivers
-v00000241548abbe0_0 .net "WB_imm", 63 0, v0000024154486ac0_0;  1 drivers
-v00000241548abc80_0 .net "WB_instruction", 31 0, v00000241548ab280_0;  1 drivers
-v00000241548abd20_0 .net "WB_opcode", 6 0, v00000241548aaec0_0;  1 drivers
-v00000241548abe60_0 .net "WB_pc", 63 0, v00000241548ab140_0;  1 drivers
-v00000241548aa100_0 .net "WB_pc_plus_4", 63 0, v00000241548ab000_0;  1 drivers
-v00000241548ab320_0 .net "WB_raw_imm", 19 0, v00000241548ab640_0;  1 drivers
-v00000241548aa920_0 .net "WB_rd", 4 0, v00000241548aa600_0;  1 drivers
-v00000241548aa1a0_0 .net "WB_register_file_write_data_select", 2 0, v00000241548aa060_0;  1 drivers
-v00000241548aa9c0_0 .net "WB_register_write_enable", 0 0, v00000241548aa560_0;  1 drivers
-v00000241548aa380_0 .net "WB_rs1", 4 0, v00000241548ab780_0;  1 drivers
-v00000241548aa4c0_0 .var "clk", 0 0;
-v00000241548aa420_0 .var/i "fail_count", 31 0;
-v00000241548aa7e0_0 .var "flush", 0 0;
-v00000241548aaa60_0 .var/i "pass_count", 31 0;
-v00000241548aab00_0 .var "reset", 0 0;
-E_000002415449e1e0 .event posedge, v00000241548aaf60_0;
-E_000002415449e860 .event negedge, v00000241548aaf60_0;
-S_00000241544a3210 .scope task, "check" "check" 2 89, 2 89 0, S_0000024154482940;
+P_0000023712f91bb0 .param/l "XLEN" 1 2 4, +C4<00000000000000000000000001000000>;
+v0000023712fc2930_0 .var "MEM_WB_stall", 0 0;
+v0000023712fc2a70_0 .var "MEM_alu_result", 63 0;
+v0000023712fc38d0_0 .var "MEM_byte_enable_logic_register_file_write_data", 63 0;
+v0000023712fc2c50_0 .var "MEM_csr_read_data", 63 0;
+v0000023712fc3650_0 .var "MEM_csr_write_enable", 0 0;
+v0000023712fc30b0_0 .var "MEM_data_memory_write_data", 63 0;
+v0000023712fc26b0_0 .var "MEM_imm", 63 0;
+v0000023712fc1df0_0 .var "MEM_instruction", 31 0;
+v0000023712fc22f0_0 .var "MEM_opcode", 6 0;
+v0000023712fc2f70_0 .var "MEM_pc", 63 0;
+v0000023712fc3010_0 .var "MEM_pc_plus_4", 63 0;
+v0000023712fc3330_0 .var "MEM_raw_imm", 19 0;
+v0000023712fc2750_0 .var "MEM_rd", 4 0;
+v0000023712fc2cf0_0 .var "MEM_register_file_write_data_select", 2 0;
+v0000023712fc2bb0_0 .var "MEM_register_write_enable", 0 0;
+v0000023712fc2430_0 .var "MEM_rs1", 4 0;
+v0000023712fc1d50_0 .var "MEM_write_enable", 0 0;
+v0000023712fc3a10_0 .net "WB_alu_result", 63 0, v0000023712f6aa20_0;  1 drivers
+v0000023712fc3150_0 .net "WB_byte_enable_logic_register_file_write_data", 63 0, v0000023712f6aac0_0;  1 drivers
+v0000023712fc31f0_0 .net "WB_csr_read_data", 63 0, v0000023712f6ac00_0;  1 drivers
+v0000023712fc3290_0 .net "WB_csr_write_enable", 0 0, v0000023712fc1cb0_0;  1 drivers
+v0000023712fc35b0_0 .net "WB_data_memory_write_data", 63 0, v0000023712fc21b0_0;  1 drivers
+v0000023712fc3970_0 .net "WB_imm", 63 0, v0000023712fc27f0_0;  1 drivers
+v0000023712fc1f30_0 .net "WB_instruction", 31 0, v0000023712fc2890_0;  1 drivers
+v0000023712fc33d0_0 .net "WB_opcode", 6 0, v0000023712fc24d0_0;  1 drivers
+v0000023712fc1e90_0 .net "WB_pc", 63 0, v0000023712fc2b10_0;  1 drivers
+v0000023712fc3470_0 .net "WB_pc_plus_4", 63 0, v0000023712fc2570_0;  1 drivers
+v0000023712fc3510_0 .net "WB_raw_imm", 19 0, v0000023712fc2390_0;  1 drivers
+v0000023712fc36f0_0 .net "WB_rd", 4 0, v0000023712fc2610_0;  1 drivers
+v0000023712fc3790_0 .net "WB_register_file_write_data_select", 2 0, v0000023712fc2d90_0;  1 drivers
+v0000023712fc1fd0_0 .net "WB_register_write_enable", 0 0, v0000023712fc2250_0;  1 drivers
+v0000023712fc2110_0 .net "WB_rs1", 4 0, v0000023712fc2ed0_0;  1 drivers
+v0000023712fc2070_0 .net "WB_write_enable", 0 0, v0000023712fc3b50_0;  1 drivers
+v0000023712fc3830_0 .var "clk", 0 0;
+v0000023712fc41c0_0 .var/i "fail_count", 31 0;
+v0000023712fc4d00_0 .var "flush", 0 0;
+v0000023712fc4e40_0 .var/i "pass_count", 31 0;
+v0000023712fc52a0_0 .var "reset", 0 0;
+E_0000023712f91070 .event posedge, v0000023712fc2e30_0;
+E_0000023712f91270 .event negedge, v0000023712fc2e30_0;
+S_0000023712f844e0 .scope task, "check" "check" 2 97, 2 97 0, S_0000023712f7e5d0;
  .timescale -9 -12;
-v0000024154486f20_0 .var "actual", 63 0;
-v0000024154486b60_0 .var "expected", 63 0;
-v00000241544863e0_0 .var "name", 255 0;
+v0000023712f6aca0_0 .var "actual", 63 0;
+v0000023712f6b240_0 .var "expected", 63 0;
+v0000023712f6af20_0 .var "name", 255 0;
 TD_MEM_WB_Register_tb.check ;
-    %load/vec4 v0000024154486b60_0;
-    %load/vec4 v0000024154486f20_0;
+    %load/vec4 v0000023712f6b240_0;
+    %load/vec4 v0000023712f6aca0_0;
     %cmp/e;
     %jmp/0xz  T_0.0, 6;
-    %vpi_call 2 95 "$display", "[PASS] %0s | Expected: %h | Actual: %h", v00000241544863e0_0, v0000024154486b60_0, v0000024154486f20_0 {0 0 0};
-    %load/vec4 v00000241548aaa60_0;
+    %vpi_call 2 103 "$display", "[PASS] %0s | Expected: %h | Actual: %h", v0000023712f6af20_0, v0000023712f6b240_0, v0000023712f6aca0_0 {0 0 0};
+    %load/vec4 v0000023712fc4e40_0;
     %addi 1, 0, 32;
-    %store/vec4 v00000241548aaa60_0, 0, 32;
+    %store/vec4 v0000023712fc4e40_0, 0, 32;
     %jmp T_0.1;
 T_0.0 ;
-    %vpi_call 2 98 "$display", "[FAIL] %0s | Expected: %h | Actual: %h", v00000241544863e0_0, v0000024154486b60_0, v0000024154486f20_0 {0 0 0};
-    %load/vec4 v00000241548aa420_0;
+    %vpi_call 2 106 "$display", "[FAIL] %0s | Expected: %h | Actual: %h", v0000023712f6af20_0, v0000023712f6b240_0, v0000023712f6aca0_0 {0 0 0};
+    %load/vec4 v0000023712fc41c0_0;
     %addi 1, 0, 32;
-    %store/vec4 v00000241548aa420_0, 0, 32;
+    %store/vec4 v0000023712fc41c0_0, 0, 32;
 T_0.1 ;
     %end;
-S_00000241544a33a0 .scope module, "mem_wb_register" "MEM_WB_Register" 2 49, 3 1 0, S_0000024154482940;
+S_0000023712f9c8f0 .scope module, "mem_wb_register" "MEM_WB_Register" 2 53, 3 1 0, S_0000023712f7e5d0;
  .timescale 0 0;
     .port_info 0 /INPUT 1 "clk";
     .port_info 1 /INPUT 1 "reset";
@@ -88,229 +92,255 @@ S_00000241544a33a0 .scope module, "mem_wb_register" "MEM_WB_Register" 2 49, 3 1 
     .port_info 15 /INPUT 5 "MEM_rd";
     .port_info 16 /INPUT 7 "MEM_opcode";
     .port_info 17 /INPUT 64 "MEM_byte_enable_logic_register_file_write_data";
-    .port_info 18 /OUTPUT 64 "WB_pc";
-    .port_info 19 /OUTPUT 64 "WB_pc_plus_4";
-    .port_info 20 /OUTPUT 32 "WB_instruction";
-    .port_info 21 /OUTPUT 3 "WB_register_file_write_data_select";
-    .port_info 22 /OUTPUT 64 "WB_imm";
-    .port_info 23 /OUTPUT 20 "WB_raw_imm";
-    .port_info 24 /OUTPUT 64 "WB_csr_read_data";
-    .port_info 25 /OUTPUT 64 "WB_alu_result";
-    .port_info 26 /OUTPUT 1 "WB_register_write_enable";
-    .port_info 27 /OUTPUT 1 "WB_csr_write_enable";
-    .port_info 28 /OUTPUT 5 "WB_rs1";
-    .port_info 29 /OUTPUT 5 "WB_rd";
-    .port_info 30 /OUTPUT 7 "WB_opcode";
-    .port_info 31 /OUTPUT 64 "WB_byte_enable_logic_register_file_write_data";
-P_000002415449e360 .param/l "XLEN" 0 3 2, +C4<00000000000000000000000001000000>;
-v00000241544867a0_0 .net "MEM_WB_stall", 0 0, v00000241548ab960_0;  1 drivers
-v0000024154486480_0 .net "MEM_alu_result", 63 0, v00000241548ab6e0_0;  1 drivers
-v0000024154486de0_0 .net "MEM_byte_enable_logic_register_file_write_data", 63 0, v00000241548ab500_0;  1 drivers
-v0000024154486340_0 .net "MEM_csr_read_data", 63 0, v00000241548abdc0_0;  1 drivers
-v0000024154486e80_0 .net "MEM_csr_write_enable", 0 0, v00000241548ab5a0_0;  1 drivers
-v00000241544862a0_0 .net "MEM_imm", 63 0, v00000241548ab0a0_0;  1 drivers
-v00000241544860c0_0 .net "MEM_instruction", 31 0, v00000241548aad80_0;  1 drivers
-v0000024154486c00_0 .net "MEM_opcode", 6 0, v00000241548aace0_0;  1 drivers
-v0000024154486d40_0 .net "MEM_pc", 63 0, v00000241548ab820_0;  1 drivers
-v0000024154486520_0 .net "MEM_pc_plus_4", 63 0, v00000241548ab1e0_0;  1 drivers
-v00000241544865c0_0 .net "MEM_raw_imm", 19 0, v00000241548ab8c0_0;  1 drivers
-v0000024154486660_0 .net "MEM_rd", 4 0, v00000241548ab460_0;  1 drivers
-v0000024154486840_0 .net "MEM_register_file_write_data_select", 2 0, v00000241548aba00_0;  1 drivers
-v0000024154486160_0 .net "MEM_register_write_enable", 0 0, v00000241548aa6a0_0;  1 drivers
-v0000024154486ca0_0 .net "MEM_rs1", 4 0, v00000241548aa880_0;  1 drivers
-v0000024154486200_0 .var "WB_alu_result", 63 0;
-v00000241544868e0_0 .var "WB_byte_enable_logic_register_file_write_data", 63 0;
-v0000024154486980_0 .var "WB_csr_read_data", 63 0;
-v0000024154486a20_0 .var "WB_csr_write_enable", 0 0;
-v0000024154486ac0_0 .var "WB_imm", 63 0;
-v00000241548ab280_0 .var "WB_instruction", 31 0;
-v00000241548aaec0_0 .var "WB_opcode", 6 0;
-v00000241548ab140_0 .var "WB_pc", 63 0;
-v00000241548ab000_0 .var "WB_pc_plus_4", 63 0;
-v00000241548ab640_0 .var "WB_raw_imm", 19 0;
-v00000241548aa600_0 .var "WB_rd", 4 0;
-v00000241548aa060_0 .var "WB_register_file_write_data_select", 2 0;
-v00000241548aa560_0 .var "WB_register_write_enable", 0 0;
-v00000241548ab780_0 .var "WB_rs1", 4 0;
-v00000241548aaf60_0 .net "clk", 0 0, v00000241548aa4c0_0;  1 drivers
-v00000241548abf00_0 .net "flush", 0 0, v00000241548aa7e0_0;  1 drivers
-v00000241548aa2e0_0 .net "reset", 0 0, v00000241548aab00_0;  1 drivers
-E_000002415449e220 .event posedge, v00000241548aa2e0_0, v00000241548aaf60_0;
-    .scope S_00000241544a33a0;
+    .port_info 18 /INPUT 64 "MEM_data_memory_write_data";
+    .port_info 19 /INPUT 1 "MEM_write_enable";
+    .port_info 20 /OUTPUT 64 "WB_pc";
+    .port_info 21 /OUTPUT 64 "WB_pc_plus_4";
+    .port_info 22 /OUTPUT 32 "WB_instruction";
+    .port_info 23 /OUTPUT 3 "WB_register_file_write_data_select";
+    .port_info 24 /OUTPUT 64 "WB_imm";
+    .port_info 25 /OUTPUT 20 "WB_raw_imm";
+    .port_info 26 /OUTPUT 64 "WB_csr_read_data";
+    .port_info 27 /OUTPUT 64 "WB_alu_result";
+    .port_info 28 /OUTPUT 1 "WB_register_write_enable";
+    .port_info 29 /OUTPUT 1 "WB_csr_write_enable";
+    .port_info 30 /OUTPUT 5 "WB_rs1";
+    .port_info 31 /OUTPUT 5 "WB_rd";
+    .port_info 32 /OUTPUT 7 "WB_opcode";
+    .port_info 33 /OUTPUT 64 "WB_byte_enable_logic_register_file_write_data";
+    .port_info 34 /OUTPUT 64 "WB_data_memory_write_data";
+    .port_info 35 /OUTPUT 1 "WB_write_enable";
+P_0000023712f91cb0 .param/l "XLEN" 0 3 2, +C4<00000000000000000000000001000000>;
+v0000023712f6b560_0 .net "MEM_WB_stall", 0 0, v0000023712fc2930_0;  1 drivers
+v0000023712f6b6a0_0 .net "MEM_alu_result", 63 0, v0000023712fc2a70_0;  1 drivers
+v0000023712f6b1a0_0 .net "MEM_byte_enable_logic_register_file_write_data", 63 0, v0000023712fc38d0_0;  1 drivers
+v0000023712f6ad40_0 .net "MEM_csr_read_data", 63 0, v0000023712fc2c50_0;  1 drivers
+v0000023712f6ade0_0 .net "MEM_csr_write_enable", 0 0, v0000023712fc3650_0;  1 drivers
+v0000023712f6ae80_0 .net "MEM_data_memory_write_data", 63 0, v0000023712fc30b0_0;  1 drivers
+v0000023712f6b2e0_0 .net "MEM_imm", 63 0, v0000023712fc26b0_0;  1 drivers
+v0000023712f6ab60_0 .net "MEM_instruction", 31 0, v0000023712fc1df0_0;  1 drivers
+v0000023712f6b380_0 .net "MEM_opcode", 6 0, v0000023712fc22f0_0;  1 drivers
+v0000023712f6b420_0 .net "MEM_pc", 63 0, v0000023712fc2f70_0;  1 drivers
+v0000023712f6b060_0 .net "MEM_pc_plus_4", 63 0, v0000023712fc3010_0;  1 drivers
+v0000023712f6b100_0 .net "MEM_raw_imm", 19 0, v0000023712fc3330_0;  1 drivers
+v0000023712f6b740_0 .net "MEM_rd", 4 0, v0000023712fc2750_0;  1 drivers
+v0000023712f6b4c0_0 .net "MEM_register_file_write_data_select", 2 0, v0000023712fc2cf0_0;  1 drivers
+v0000023712f6b7e0_0 .net "MEM_register_write_enable", 0 0, v0000023712fc2bb0_0;  1 drivers
+v0000023712f6b880_0 .net "MEM_rs1", 4 0, v0000023712fc2430_0;  1 drivers
+v0000023712f6a980_0 .net "MEM_write_enable", 0 0, v0000023712fc1d50_0;  1 drivers
+v0000023712f6aa20_0 .var "WB_alu_result", 63 0;
+v0000023712f6aac0_0 .var "WB_byte_enable_logic_register_file_write_data", 63 0;
+v0000023712f6ac00_0 .var "WB_csr_read_data", 63 0;
+v0000023712fc1cb0_0 .var "WB_csr_write_enable", 0 0;
+v0000023712fc21b0_0 .var "WB_data_memory_write_data", 63 0;
+v0000023712fc27f0_0 .var "WB_imm", 63 0;
+v0000023712fc2890_0 .var "WB_instruction", 31 0;
+v0000023712fc24d0_0 .var "WB_opcode", 6 0;
+v0000023712fc2b10_0 .var "WB_pc", 63 0;
+v0000023712fc2570_0 .var "WB_pc_plus_4", 63 0;
+v0000023712fc2390_0 .var "WB_raw_imm", 19 0;
+v0000023712fc2610_0 .var "WB_rd", 4 0;
+v0000023712fc2d90_0 .var "WB_register_file_write_data_select", 2 0;
+v0000023712fc2250_0 .var "WB_register_write_enable", 0 0;
+v0000023712fc2ed0_0 .var "WB_rs1", 4 0;
+v0000023712fc3b50_0 .var "WB_write_enable", 0 0;
+v0000023712fc2e30_0 .net "clk", 0 0, v0000023712fc3830_0;  1 drivers
+v0000023712fc3ab0_0 .net "flush", 0 0, v0000023712fc4d00_0;  1 drivers
+v0000023712fc29d0_0 .net "reset", 0 0, v0000023712fc52a0_0;  1 drivers
+E_0000023712f91870 .event posedge, v0000023712fc29d0_0, v0000023712fc2e30_0;
+    .scope S_0000023712f9c8f0;
 T_1 ;
-    %wait E_000002415449e220;
-    %load/vec4 v00000241548aa2e0_0;
+    %wait E_0000023712f91870;
+    %load/vec4 v0000023712fc29d0_0;
     %flag_set/vec4 8;
     %jmp/0xz  T_1.0, 8;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v00000241548ab140_0, 0;
+    %assign/vec4 v0000023712fc2b10_0, 0;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v00000241548ab000_0, 0;
+    %assign/vec4 v0000023712fc2570_0, 0;
     %pushi/vec4 19, 0, 32;
-    %assign/vec4 v00000241548ab280_0, 0;
+    %assign/vec4 v0000023712fc2890_0, 0;
     %pushi/vec4 0, 0, 3;
-    %assign/vec4 v00000241548aa060_0, 0;
+    %assign/vec4 v0000023712fc2d90_0, 0;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v0000024154486ac0_0, 0;
+    %assign/vec4 v0000023712fc27f0_0, 0;
     %pushi/vec4 0, 0, 20;
-    %assign/vec4 v00000241548ab640_0, 0;
+    %assign/vec4 v0000023712fc2390_0, 0;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v0000024154486980_0, 0;
+    %assign/vec4 v0000023712f6ac00_0, 0;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v0000024154486200_0, 0;
+    %assign/vec4 v0000023712f6aa20_0, 0;
     %pushi/vec4 0, 0, 1;
-    %assign/vec4 v00000241548aa560_0, 0;
+    %assign/vec4 v0000023712fc2250_0, 0;
     %pushi/vec4 0, 0, 1;
-    %assign/vec4 v0000024154486a20_0, 0;
+    %assign/vec4 v0000023712fc1cb0_0, 0;
     %pushi/vec4 0, 0, 5;
-    %assign/vec4 v00000241548ab780_0, 0;
+    %assign/vec4 v0000023712fc2ed0_0, 0;
     %pushi/vec4 0, 0, 5;
-    %assign/vec4 v00000241548aa600_0, 0;
+    %assign/vec4 v0000023712fc2610_0, 0;
     %pushi/vec4 0, 0, 7;
-    %assign/vec4 v00000241548aaec0_0, 0;
+    %assign/vec4 v0000023712fc24d0_0, 0;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v00000241544868e0_0, 0;
+    %assign/vec4 v0000023712f6aac0_0, 0;
+    %pushi/vec4 0, 0, 64;
+    %assign/vec4 v0000023712fc21b0_0, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0000023712fc3b50_0, 0;
     %jmp T_1.1;
 T_1.0 ;
-    %load/vec4 v00000241548abf00_0;
+    %load/vec4 v0000023712fc3ab0_0;
     %flag_set/vec4 8;
     %jmp/0xz  T_1.2, 8;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v00000241548ab140_0, 0;
+    %assign/vec4 v0000023712fc2b10_0, 0;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v00000241548ab000_0, 0;
+    %assign/vec4 v0000023712fc2570_0, 0;
     %pushi/vec4 19, 0, 32;
-    %assign/vec4 v00000241548ab280_0, 0;
+    %assign/vec4 v0000023712fc2890_0, 0;
     %pushi/vec4 0, 0, 3;
-    %assign/vec4 v00000241548aa060_0, 0;
+    %assign/vec4 v0000023712fc2d90_0, 0;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v0000024154486ac0_0, 0;
+    %assign/vec4 v0000023712fc27f0_0, 0;
     %pushi/vec4 0, 0, 20;
-    %assign/vec4 v00000241548ab640_0, 0;
+    %assign/vec4 v0000023712fc2390_0, 0;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v0000024154486980_0, 0;
+    %assign/vec4 v0000023712f6ac00_0, 0;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v0000024154486200_0, 0;
+    %assign/vec4 v0000023712f6aa20_0, 0;
     %pushi/vec4 0, 0, 1;
-    %assign/vec4 v00000241548aa560_0, 0;
+    %assign/vec4 v0000023712fc2250_0, 0;
     %pushi/vec4 0, 0, 1;
-    %assign/vec4 v0000024154486a20_0, 0;
+    %assign/vec4 v0000023712fc1cb0_0, 0;
     %pushi/vec4 0, 0, 5;
-    %assign/vec4 v00000241548ab780_0, 0;
+    %assign/vec4 v0000023712fc2ed0_0, 0;
     %pushi/vec4 0, 0, 5;
-    %assign/vec4 v00000241548aa600_0, 0;
+    %assign/vec4 v0000023712fc2610_0, 0;
     %pushi/vec4 0, 0, 7;
-    %assign/vec4 v00000241548aaec0_0, 0;
+    %assign/vec4 v0000023712fc24d0_0, 0;
     %pushi/vec4 0, 0, 64;
-    %assign/vec4 v00000241544868e0_0, 0;
+    %assign/vec4 v0000023712f6aac0_0, 0;
+    %pushi/vec4 0, 0, 64;
+    %assign/vec4 v0000023712fc21b0_0, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0000023712fc3b50_0, 0;
     %jmp T_1.3;
 T_1.2 ;
-    %load/vec4 v00000241544867a0_0;
+    %load/vec4 v0000023712f6b560_0;
     %nor/r;
     %flag_set/vec4 8;
     %jmp/0xz  T_1.4, 8;
-    %load/vec4 v0000024154486d40_0;
-    %assign/vec4 v00000241548ab140_0, 0;
-    %load/vec4 v0000024154486520_0;
-    %assign/vec4 v00000241548ab000_0, 0;
-    %load/vec4 v00000241544860c0_0;
-    %assign/vec4 v00000241548ab280_0, 0;
-    %load/vec4 v0000024154486840_0;
-    %assign/vec4 v00000241548aa060_0, 0;
-    %load/vec4 v00000241544862a0_0;
-    %assign/vec4 v0000024154486ac0_0, 0;
-    %load/vec4 v00000241544865c0_0;
-    %assign/vec4 v00000241548ab640_0, 0;
-    %load/vec4 v0000024154486340_0;
-    %assign/vec4 v0000024154486980_0, 0;
-    %load/vec4 v0000024154486480_0;
-    %assign/vec4 v0000024154486200_0, 0;
-    %load/vec4 v0000024154486160_0;
-    %assign/vec4 v00000241548aa560_0, 0;
-    %load/vec4 v0000024154486e80_0;
-    %assign/vec4 v0000024154486a20_0, 0;
-    %load/vec4 v0000024154486ca0_0;
-    %assign/vec4 v00000241548ab780_0, 0;
-    %load/vec4 v0000024154486660_0;
-    %assign/vec4 v00000241548aa600_0, 0;
-    %load/vec4 v0000024154486c00_0;
-    %assign/vec4 v00000241548aaec0_0, 0;
-    %load/vec4 v0000024154486de0_0;
-    %assign/vec4 v00000241544868e0_0, 0;
+    %load/vec4 v0000023712f6b420_0;
+    %assign/vec4 v0000023712fc2b10_0, 0;
+    %load/vec4 v0000023712f6b060_0;
+    %assign/vec4 v0000023712fc2570_0, 0;
+    %load/vec4 v0000023712f6ab60_0;
+    %assign/vec4 v0000023712fc2890_0, 0;
+    %load/vec4 v0000023712f6b4c0_0;
+    %assign/vec4 v0000023712fc2d90_0, 0;
+    %load/vec4 v0000023712f6b2e0_0;
+    %assign/vec4 v0000023712fc27f0_0, 0;
+    %load/vec4 v0000023712f6b100_0;
+    %assign/vec4 v0000023712fc2390_0, 0;
+    %load/vec4 v0000023712f6ad40_0;
+    %assign/vec4 v0000023712f6ac00_0, 0;
+    %load/vec4 v0000023712f6b6a0_0;
+    %assign/vec4 v0000023712f6aa20_0, 0;
+    %load/vec4 v0000023712f6b7e0_0;
+    %assign/vec4 v0000023712fc2250_0, 0;
+    %load/vec4 v0000023712f6ade0_0;
+    %assign/vec4 v0000023712fc1cb0_0, 0;
+    %load/vec4 v0000023712f6b880_0;
+    %assign/vec4 v0000023712fc2ed0_0, 0;
+    %load/vec4 v0000023712f6b740_0;
+    %assign/vec4 v0000023712fc2610_0, 0;
+    %load/vec4 v0000023712f6b380_0;
+    %assign/vec4 v0000023712fc24d0_0, 0;
+    %load/vec4 v0000023712f6b1a0_0;
+    %assign/vec4 v0000023712f6aac0_0, 0;
+    %load/vec4 v0000023712f6ae80_0;
+    %assign/vec4 v0000023712fc21b0_0, 0;
+    %load/vec4 v0000023712f6a980_0;
+    %assign/vec4 v0000023712fc3b50_0, 0;
 T_1.4 ;
 T_1.3 ;
 T_1.1 ;
     %jmp T_1;
     .thread T_1;
-    .scope S_0000024154482940;
+    .scope S_0000023712f7e5d0;
 T_2 ;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548aa4c0_0, 0, 1;
+    %store/vec4 v0000023712fc3830_0, 0, 1;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548aab00_0, 0, 1;
+    %store/vec4 v0000023712fc52a0_0, 0, 1;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548ab960_0, 0, 1;
+    %store/vec4 v0000023712fc2930_0, 0, 1;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548aa7e0_0, 0, 1;
+    %store/vec4 v0000023712fc4d00_0, 0, 1;
     %pushi/vec4 0, 0, 32;
-    %store/vec4 v00000241548aaa60_0, 0, 32;
+    %store/vec4 v0000023712fc4e40_0, 0, 32;
     %pushi/vec4 0, 0, 32;
-    %store/vec4 v00000241548aa420_0, 0, 32;
+    %store/vec4 v0000023712fc41c0_0, 0, 32;
     %end;
     .thread T_2;
-    .scope S_0000024154482940;
+    .scope S_0000023712f7e5d0;
 T_3 ;
     %delay 5000, 0;
-    %load/vec4 v00000241548aa4c0_0;
+    %load/vec4 v0000023712fc3830_0;
     %inv;
-    %store/vec4 v00000241548aa4c0_0, 0, 1;
+    %store/vec4 v0000023712fc3830_0, 0, 1;
     %jmp T_3;
     .thread T_3;
-    .scope S_0000024154482940;
+    .scope S_0000023712f7e5d0;
 T_4 ;
-    %vpi_call 2 105 "$dumpfile", "testbenches/results/waveforms/MEM_WB_Register_tb_result.vcd" {0 0 0};
-    %vpi_call 2 106 "$dumpvars", 32'sb00000000000000000000000000000000, S_00000241544a33a0 {0 0 0};
-    %vpi_call 2 108 "$display", "\012MEM_WB_Register Test START\012" {0 0 0};
+    %vpi_call 2 113 "$dumpfile", "testbenches/results/waveforms/MEM_WB_Register_tb_result.vcd" {0 0 0};
+    %vpi_call 2 114 "$dumpvars", 32'sb00000000000000000000000000000000, S_0000023712f9c8f0 {0 0 0};
+    %vpi_call 2 116 "$display", "\012MEM_WB_Register Test START\012" {0 0 0};
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548ab820_0, 0, 64;
+    %store/vec4 v0000023712fc2f70_0, 0, 64;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548ab1e0_0, 0, 64;
+    %store/vec4 v0000023712fc3010_0, 0, 64;
     %pushi/vec4 19, 0, 32;
-    %store/vec4 v00000241548aad80_0, 0, 32;
+    %store/vec4 v0000023712fc1df0_0, 0, 32;
     %pushi/vec4 0, 0, 3;
-    %store/vec4 v00000241548aba00_0, 0, 3;
+    %store/vec4 v0000023712fc2cf0_0, 0, 3;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548ab0a0_0, 0, 64;
+    %store/vec4 v0000023712fc26b0_0, 0, 64;
     %pushi/vec4 0, 0, 20;
-    %store/vec4 v00000241548ab8c0_0, 0, 20;
+    %store/vec4 v0000023712fc3330_0, 0, 20;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548abdc0_0, 0, 64;
+    %store/vec4 v0000023712fc2c50_0, 0, 64;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548ab6e0_0, 0, 64;
+    %store/vec4 v0000023712fc2a70_0, 0, 64;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548aa6a0_0, 0, 1;
+    %store/vec4 v0000023712fc2bb0_0, 0, 1;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548ab5a0_0, 0, 1;
+    %store/vec4 v0000023712fc3650_0, 0, 1;
     %pushi/vec4 0, 0, 5;
-    %store/vec4 v00000241548aa880_0, 0, 5;
+    %store/vec4 v0000023712fc2430_0, 0, 5;
     %pushi/vec4 0, 0, 5;
-    %store/vec4 v00000241548ab460_0, 0, 5;
+    %store/vec4 v0000023712fc2750_0, 0, 5;
     %pushi/vec4 0, 0, 7;
-    %store/vec4 v00000241548aace0_0, 0, 7;
+    %store/vec4 v0000023712fc22f0_0, 0, 7;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548ab500_0, 0, 64;
+    %store/vec4 v0000023712fc38d0_0, 0, 64;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712fc30b0_0, 0, 64;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000023712fc1d50_0, 0, 1;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000241548aab00_0, 0, 1;
+    %store/vec4 v0000023712fc52a0_0, 0, 1;
     %delay 30000, 0;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548aab00_0, 0, 1;
-    %wait E_000002415449e1e0;
+    %store/vec4 v0000023712fc52a0_0, 0, 1;
+    %wait E_0000023712f91070;
     %delay 1000, 0;
-    %vpi_call 2 132 "$display", "Test 1: After Reset (should be NOP and zero)" {0 0 0};
-    %vpi_call 2 133 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
-    %vpi_call 2 134 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v00000241548abe60_0, v00000241548aa100_0, v00000241548abc80_0, v00000241548aa1a0_0, v00000241548abb40_0, v00000241548aa9c0_0 {0 0 0};
-    %vpi_call 2 135 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
-    %vpi_call 2 136 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v00000241548aa740_0, v00000241548abbe0_0, v00000241548aa240_0, v00000241548abaa0_0, v00000241548aa380_0, v00000241548aa920_0, v00000241548abd20_0 {0 0 0};
+    %vpi_call 2 142 "$display", "Test 1: After Reset (should be NOP and zero)" {0 0 0};
+    %vpi_call 2 143 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
+    %vpi_call 2 144 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v0000023712fc1e90_0, v0000023712fc3470_0, v0000023712fc1f30_0, v0000023712fc3790_0, v0000023712fc3290_0, v0000023712fc1fd0_0 {0 0 0};
+    %vpi_call 2 145 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
+    %vpi_call 2 146 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v0000023712fc3150_0, v0000023712fc3970_0, v0000023712fc31f0_0, v0000023712fc3a10_0, v0000023712fc2110_0, v0000023712fc36f0_0, v0000023712fc33d0_0 {0 0 0};
+    %vpi_call 2 147 "$display", "|  DM_write_data   | write_enable |" {0 0 0};
+    %vpi_call 2 148 "$display", "| %h |      %b       |", v0000023712fc35b0_0, v0000023712fc2070_0 {0 0 0};
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
@@ -326,12 +356,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1113550947, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abe60_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc1e90_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -348,12 +378,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1970495284, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548aa100_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3470_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -370,14 +400,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1953066862, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 19, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 32;
-    %load/vec4 v00000241548abc80_0;
+    %load/vec4 v0000023712fc1f30_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -394,12 +424,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1937075316, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abaa0_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3a10_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -416,14 +446,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1633840229, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 63;
-    %load/vec4 v00000241548aa9c0_0;
+    %load/vec4 v0000023712fc1fd0_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -440,52 +470,104 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1113551460, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 59;
-    %load/vec4 v00000241548aa920_0;
+    %load/vec4 v0000023712fc36f0_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
-    %vpi_call 2 143 "$display", "\000" {0 0 0};
-    %wait E_000002415449e860;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 87, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1113547873, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1952538477, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1701670770, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 2036299634, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1769235807, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1684108385, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548ab820_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc35b0_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
+    %join;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 5718623, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 2003986804, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1700750702, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1633840229, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %pushi/vec4 0, 0, 63;
+    %load/vec4 v0000023712fc2070_0;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
+    %join;
+    %vpi_call 2 157 "$display", "\000" {0 0 0};
+    %wait E_0000023712f91270;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712fc2f70_0, 0, 64;
     %pushi/vec4 4, 0, 64;
-    %store/vec4 v00000241548ab1e0_0, 0, 64;
+    %store/vec4 v0000023712fc3010_0, 0, 64;
     %pushi/vec4 6456627, 0, 32;
-    %store/vec4 v00000241548aad80_0, 0, 32;
+    %store/vec4 v0000023712fc1df0_0, 0, 32;
     %pushi/vec4 2, 0, 3;
-    %store/vec4 v00000241548aba00_0, 0, 3;
+    %store/vec4 v0000023712fc2cf0_0, 0, 3;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548ab0a0_0, 0, 64;
+    %store/vec4 v0000023712fc26b0_0, 0, 64;
     %pushi/vec4 0, 0, 20;
-    %store/vec4 v00000241548ab8c0_0, 0, 20;
+    %store/vec4 v0000023712fc3330_0, 0, 20;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548abdc0_0, 0, 64;
+    %store/vec4 v0000023712fc2c50_0, 0, 64;
     %pushi/vec4 11, 0, 64;
-    %store/vec4 v00000241548ab6e0_0, 0, 64;
+    %store/vec4 v0000023712fc2a70_0, 0, 64;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000241548aa6a0_0, 0, 1;
+    %store/vec4 v0000023712fc2bb0_0, 0, 1;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548ab5a0_0, 0, 1;
+    %store/vec4 v0000023712fc3650_0, 0, 1;
     %pushi/vec4 5, 0, 5;
-    %store/vec4 v00000241548aa880_0, 0, 5;
+    %store/vec4 v0000023712fc2430_0, 0, 5;
     %pushi/vec4 10, 0, 5;
-    %store/vec4 v00000241548ab460_0, 0, 5;
+    %store/vec4 v0000023712fc2750_0, 0, 5;
     %pushi/vec4 51, 0, 7;
-    %store/vec4 v00000241548aace0_0, 0, 7;
+    %store/vec4 v0000023712fc22f0_0, 0, 7;
     %pushi/vec4 10, 0, 64;
-    %store/vec4 v00000241548ab500_0, 0, 64;
-    %wait E_000002415449e1e0;
+    %store/vec4 v0000023712fc38d0_0, 0, 64;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712fc30b0_0, 0, 64;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000023712fc1d50_0, 0, 1;
+    %wait E_0000023712f91070;
     %delay 1000, 0;
-    %vpi_call 2 163 "$display", "Test 2: Normal data transfer" {0 0 0};
-    %vpi_call 2 164 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
-    %vpi_call 2 165 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v00000241548abe60_0, v00000241548aa100_0, v00000241548abc80_0, v00000241548aa1a0_0, v00000241548abb40_0, v00000241548aa9c0_0 {0 0 0};
-    %vpi_call 2 166 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
-    %vpi_call 2 167 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v00000241548aa740_0, v00000241548abbe0_0, v00000241548aa240_0, v00000241548abaa0_0, v00000241548aa380_0, v00000241548aa920_0, v00000241548abd20_0 {0 0 0};
+    %vpi_call 2 179 "$display", "Test 2: Normal data transfer" {0 0 0};
+    %vpi_call 2 180 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
+    %vpi_call 2 181 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v0000023712fc1e90_0, v0000023712fc3470_0, v0000023712fc1f30_0, v0000023712fc3790_0, v0000023712fc3290_0, v0000023712fc1fd0_0 {0 0 0};
+    %vpi_call 2 182 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
+    %vpi_call 2 183 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v0000023712fc3150_0, v0000023712fc3970_0, v0000023712fc31f0_0, v0000023712fc3a10_0, v0000023712fc2110_0, v0000023712fc36f0_0, v0000023712fc33d0_0 {0 0 0};
+    %vpi_call 2 184 "$display", "|  DM_write_data   | write_enable |" {0 0 0};
+    %vpi_call 2 185 "$display", "| %h |      %b       |", v0000023712fc35b0_0, v0000023712fc2070_0 {0 0 0};
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
@@ -501,12 +583,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1113550947, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abe60_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc1e90_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -523,12 +605,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1970495284, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 4, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548aa100_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3470_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -545,14 +627,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1953066862, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 6456627, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 32;
-    %load/vec4 v00000241548abc80_0;
+    %load/vec4 v0000023712fc1f30_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -569,12 +651,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1937075316, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 11, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abaa0_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3a10_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -591,14 +673,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1633840229, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 1, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 63;
-    %load/vec4 v00000241548aa9c0_0;
+    %load/vec4 v0000023712fc1fd0_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -615,14 +697,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1113551460, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 10, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 59;
-    %load/vec4 v00000241548aa920_0;
+    %load/vec4 v0000023712fc36f0_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -639,39 +721,70 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1668244581, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 51, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 57;
-    %load/vec4 v00000241548abd20_0;
+    %load/vec4 v0000023712fc33d0_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
-    %vpi_call 2 175 "$display", "\000" {0 0 0};
-    %wait E_000002415449e860;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 5718623, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 2003986804, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1700750702, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1633840229, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %pushi/vec4 0, 0, 63;
+    %load/vec4 v0000023712fc2070_0;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
+    %join;
+    %vpi_call 2 194 "$display", "\000" {0 0 0};
+    %wait E_0000023712f91270;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000241548ab960_0, 0, 1;
+    %store/vec4 v0000023712fc2930_0, 0, 1;
     %pushi/vec4 4294967295, 0, 32;
     %concati/vec4 4294967295, 0, 32;
-    %store/vec4 v00000241548ab820_0, 0, 64;
+    %store/vec4 v0000023712fc2f70_0, 0, 64;
     %pushi/vec4 4294967295, 0, 32;
     %concati/vec4 4294967295, 0, 32;
-    %store/vec4 v00000241548ab1e0_0, 0, 64;
+    %store/vec4 v0000023712fc3010_0, 0, 64;
     %pushi/vec4 4294967295, 0, 32;
-    %store/vec4 v00000241548aad80_0, 0, 32;
+    %store/vec4 v0000023712fc1df0_0, 0, 32;
     %pushi/vec4 4294967295, 0, 32;
     %concati/vec4 4294967295, 0, 32;
-    %store/vec4 v00000241548ab6e0_0, 0, 64;
+    %store/vec4 v0000023712fc2a70_0, 0, 64;
     %pushi/vec4 31, 0, 5;
-    %store/vec4 v00000241548ab460_0, 0, 5;
-    %wait E_000002415449e1e0;
+    %store/vec4 v0000023712fc2750_0, 0, 5;
+    %pushi/vec4 4294967295, 0, 32;
+    %concati/vec4 4294967295, 0, 32;
+    %store/vec4 v0000023712fc30b0_0, 0, 64;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000023712fc1d50_0, 0, 1;
+    %wait E_0000023712f91070;
     %delay 1000, 0;
-    %vpi_call 2 187 "$display", "Test 3: Stall behavior (should hold previous values)" {0 0 0};
-    %vpi_call 2 188 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
-    %vpi_call 2 189 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v00000241548abe60_0, v00000241548aa100_0, v00000241548abc80_0, v00000241548aa1a0_0, v00000241548abb40_0, v00000241548aa9c0_0 {0 0 0};
-    %vpi_call 2 190 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
-    %vpi_call 2 191 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v00000241548aa740_0, v00000241548abbe0_0, v00000241548aa240_0, v00000241548abaa0_0, v00000241548aa380_0, v00000241548aa920_0, v00000241548abd20_0 {0 0 0};
+    %vpi_call 2 208 "$display", "Test 3: Stall behavior (should hold previous values)" {0 0 0};
+    %vpi_call 2 209 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
+    %vpi_call 2 210 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v0000023712fc1e90_0, v0000023712fc3470_0, v0000023712fc1f30_0, v0000023712fc3790_0, v0000023712fc3290_0, v0000023712fc1fd0_0 {0 0 0};
+    %vpi_call 2 211 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
+    %vpi_call 2 212 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v0000023712fc3150_0, v0000023712fc3970_0, v0000023712fc31f0_0, v0000023712fc3a10_0, v0000023712fc2110_0, v0000023712fc36f0_0, v0000023712fc33d0_0 {0 0 0};
+    %vpi_call 2 213 "$display", "|  DM_write_data   | write_enable |" {0 0 0};
+    %vpi_call 2 214 "$display", "| %h |      %b       |", v0000023712fc35b0_0, v0000023712fc2070_0 {0 0 0};
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
@@ -687,12 +800,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1818584105, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abe60_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc1e90_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -709,12 +822,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1818584105, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 4, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548aa100_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3470_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -731,14 +844,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1818584105, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 6456627, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 32;
-    %load/vec4 v00000241548abc80_0;
+    %load/vec4 v0000023712fc1f30_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -755,12 +868,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1818584105, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 11, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abaa0_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3a10_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -777,54 +890,99 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1818584105, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 10, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 59;
-    %load/vec4 v00000241548aa920_0;
+    %load/vec4 v0000023712fc36f0_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
+    %join;
+    %pushi/vec4 3368216770, 0, 33;
+    %concati/vec4 3202009818, 0, 32;
+    %concati/vec4 3739546302, 0, 32;
+    %concati/vec4 4007973608, 0, 32;
+    %concati/vec4 3401500866, 0, 32;
+    %concati/vec4 3905044560, 0, 32;
+    %concati/vec4 3874013912, 0, 32;
+    %concati/vec4 1818584105, 0, 31;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc35b0_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
+    %join;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 87, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1113552754, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1769235807, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1701732706, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1818566696, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1937006956, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1818584105, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %pushi/vec4 0, 0, 63;
+    %load/vec4 v0000023712fc2070_0;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548ab960_0, 0, 1;
-    %vpi_call 2 198 "$display", "\000" {0 0 0};
-    %wait E_000002415449e860;
+    %store/vec4 v0000023712fc2930_0, 0, 1;
+    %vpi_call 2 223 "$display", "\000" {0 0 0};
+    %wait E_0000023712f91270;
     %pushi/vec4 4, 0, 64;
-    %store/vec4 v00000241548ab820_0, 0, 64;
+    %store/vec4 v0000023712fc2f70_0, 0, 64;
     %pushi/vec4 8, 0, 64;
-    %store/vec4 v00000241548ab1e0_0, 0, 64;
-    %pushi/vec4 4564227, 0, 32;
-    %store/vec4 v00000241548aad80_0, 0, 32;
-    %pushi/vec4 1, 0, 3;
-    %store/vec4 v00000241548aba00_0, 0, 3;
-    %pushi/vec4 4, 0, 64;
-    %store/vec4 v00000241548ab0a0_0, 0, 64;
-    %pushi/vec4 4, 0, 20;
-    %store/vec4 v00000241548ab8c0_0, 0, 20;
+    %store/vec4 v0000023712fc3010_0, 0, 64;
+    %pushi/vec4 11903011, 0, 32;
+    %store/vec4 v0000023712fc1df0_0, 0, 32;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v0000023712fc2cf0_0, 0, 3;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548abdc0_0, 0, 64;
+    %store/vec4 v0000023712fc26b0_0, 0, 64;
+    %pushi/vec4 0, 0, 20;
+    %store/vec4 v0000023712fc3330_0, 0, 20;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712fc2c50_0, 0, 64;
     %pushi/vec4 268435488, 0, 64;
-    %store/vec4 v00000241548ab6e0_0, 0, 64;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000241548aa6a0_0, 0, 1;
+    %store/vec4 v0000023712fc2a70_0, 0, 64;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548ab5a0_0, 0, 1;
+    %store/vec4 v0000023712fc2bb0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000023712fc3650_0, 0, 1;
     %pushi/vec4 11, 0, 5;
-    %store/vec4 v00000241548aa880_0, 0, 5;
-    %pushi/vec4 10, 0, 5;
-    %store/vec4 v00000241548ab460_0, 0, 5;
-    %pushi/vec4 3, 0, 7;
-    %store/vec4 v00000241548aace0_0, 0, 7;
+    %store/vec4 v0000023712fc2430_0, 0, 5;
+    %pushi/vec4 0, 0, 5;
+    %store/vec4 v0000023712fc2750_0, 0, 5;
+    %pushi/vec4 35, 0, 7;
+    %store/vec4 v0000023712fc22f0_0, 0, 7;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712fc38d0_0, 0, 64;
     %pushi/vec4 3735928559, 0, 64;
-    %store/vec4 v00000241548ab500_0, 0, 64;
-    %wait E_000002415449e1e0;
+    %store/vec4 v0000023712fc30b0_0, 0, 64;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000023712fc1d50_0, 0, 1;
+    %wait E_0000023712f91070;
     %delay 1000, 0;
-    %vpi_call 2 218 "$display", "Test 4: New data after stall released" {0 0 0};
-    %vpi_call 2 219 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
-    %vpi_call 2 220 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v00000241548abe60_0, v00000241548aa100_0, v00000241548abc80_0, v00000241548aa1a0_0, v00000241548abb40_0, v00000241548aa9c0_0 {0 0 0};
-    %vpi_call 2 221 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
-    %vpi_call 2 222 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v00000241548aa740_0, v00000241548abbe0_0, v00000241548aa240_0, v00000241548abaa0_0, v00000241548aa380_0, v00000241548aa920_0, v00000241548abd20_0 {0 0 0};
+    %vpi_call 2 245 "$display", "Test 4: Store instruction data transfer" {0 0 0};
+    %vpi_call 2 246 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
+    %vpi_call 2 247 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v0000023712fc1e90_0, v0000023712fc3470_0, v0000023712fc1f30_0, v0000023712fc3790_0, v0000023712fc3290_0, v0000023712fc1fd0_0 {0 0 0};
+    %vpi_call 2 248 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
+    %vpi_call 2 249 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v0000023712fc3150_0, v0000023712fc3970_0, v0000023712fc31f0_0, v0000023712fc3a10_0, v0000023712fc2110_0, v0000023712fc36f0_0, v0000023712fc33d0_0 {0 0 0};
+    %vpi_call 2 250 "$display", "|  DM_write_data   | write_enable |" {0 0 0};
+    %vpi_call 2 251 "$display", "| %h |      %b       |", v0000023712fc35b0_0, v0000023712fc2070_0 {0 0 0};
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
@@ -840,12 +998,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1113550947, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 4, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abe60_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc1e90_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -862,12 +1020,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1970495284, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 8, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548aa100_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3470_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -884,14 +1042,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1953066862, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
-    %pushi/vec4 4564227, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 11903011, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 32;
-    %load/vec4 v00000241548abc80_0;
+    %load/vec4 v0000023712fc1f30_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -908,27 +1066,34 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1937075316, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 268435488, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abaa0_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3a10_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
-    %pushi/vec4 3401504990, 0, 33;
-    %concati/vec4 3469919934, 0, 32;
-    %concati/vec4 3838496466, 0, 32;
-    %concati/vec4 3874015972, 0, 32;
-    %concati/vec4 3201094360, 0, 32;
-    %concati/vec4 3401510628, 0, 32;
-    %concati/vec4 3538471614, 0, 32;
-    %concati/vec4 1684108385, 0, 31;
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 87, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1113547873, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1952538477, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1701670770, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 2036299634, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1769235807, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1684108385, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 3735928559, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548aa740_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc35b0_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -937,22 +1102,22 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 5718623, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 2003986804, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %pushi/vec4 22338, 0, 32; draw_string_vec4
+    %pushi/vec4 1700750702, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %pushi/vec4 1601336113, 0, 32; draw_string_vec4
+    %pushi/vec4 1633840229, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
-    %pushi/vec4 11, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %pushi/vec4 0, 0, 59;
-    %load/vec4 v00000241548aa380_0;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 1, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %pushi/vec4 0, 0, 63;
+    %load/vec4 v0000023712fc2070_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -969,43 +1134,50 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1668244581, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
-    %pushi/vec4 3, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 35, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 57;
-    %load/vec4 v00000241548abd20_0;
+    %load/vec4 v0000023712fc33d0_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
-    %vpi_call 2 230 "$display", "\000" {0 0 0};
-    %wait E_000002415449e860;
+    %vpi_call 2 259 "$display", "\000" {0 0 0};
+    %wait E_0000023712f91270;
     %pushi/vec4 8, 0, 64;
-    %store/vec4 v00000241548ab820_0, 0, 64;
+    %store/vec4 v0000023712fc2f70_0, 0, 64;
     %pushi/vec4 12, 0, 64;
-    %store/vec4 v00000241548ab1e0_0, 0, 64;
+    %store/vec4 v0000023712fc3010_0, 0, 64;
     %pushi/vec4 3405691582, 0, 32;
-    %store/vec4 v00000241548aad80_0, 0, 32;
+    %store/vec4 v0000023712fc1df0_0, 0, 32;
     %pushi/vec4 2882343476, 0, 32;
     %concati/vec4 1450744508, 0, 32;
-    %store/vec4 v00000241548ab6e0_0, 0, 64;
+    %store/vec4 v0000023712fc2a70_0, 0, 64;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000241548aa6a0_0, 0, 1;
+    %store/vec4 v0000023712fc2bb0_0, 0, 1;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000241548ab5a0_0, 0, 1;
+    %store/vec4 v0000023712fc3650_0, 0, 1;
     %pushi/vec4 20, 0, 5;
-    %store/vec4 v00000241548ab460_0, 0, 5;
+    %store/vec4 v0000023712fc2750_0, 0, 5;
+    %pushi/vec4 2443359172, 0, 35;
+    %concati/vec4 448585456, 0, 29;
+    %store/vec4 v0000023712fc30b0_0, 0, 64;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000241548aa7e0_0, 0, 1;
-    %wait E_000002415449e1e0;
+    %store/vec4 v0000023712fc1d50_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000023712fc4d00_0, 0, 1;
+    %wait E_0000023712f91070;
     %delay 1000, 0;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548aa7e0_0, 0, 1;
-    %vpi_call 2 245 "$display", "Test 5: Flush behavior (should be NOP and zero)" {0 0 0};
-    %vpi_call 2 246 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
-    %vpi_call 2 247 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v00000241548abe60_0, v00000241548aa100_0, v00000241548abc80_0, v00000241548aa1a0_0, v00000241548abb40_0, v00000241548aa9c0_0 {0 0 0};
-    %vpi_call 2 248 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
-    %vpi_call 2 249 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v00000241548aa740_0, v00000241548abbe0_0, v00000241548aa240_0, v00000241548abaa0_0, v00000241548aa380_0, v00000241548aa920_0, v00000241548abd20_0 {0 0 0};
+    %store/vec4 v0000023712fc4d00_0, 0, 1;
+    %vpi_call 2 276 "$display", "Test 5: Flush behavior (should be NOP and zero)" {0 0 0};
+    %vpi_call 2 277 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
+    %vpi_call 2 278 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v0000023712fc1e90_0, v0000023712fc3470_0, v0000023712fc1f30_0, v0000023712fc3790_0, v0000023712fc3290_0, v0000023712fc1fd0_0 {0 0 0};
+    %vpi_call 2 279 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
+    %vpi_call 2 280 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v0000023712fc3150_0, v0000023712fc3970_0, v0000023712fc31f0_0, v0000023712fc3a10_0, v0000023712fc2110_0, v0000023712fc36f0_0, v0000023712fc33d0_0 {0 0 0};
+    %vpi_call 2 281 "$display", "|  DM_write_data   | write_enable |" {0 0 0};
+    %vpi_call 2 282 "$display", "| %h |      %b       |", v0000023712fc35b0_0, v0000023712fc2070_0 {0 0 0};
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
@@ -1021,12 +1193,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1751475241, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abe60_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc1e90_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -1043,12 +1215,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1751475241, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548aa100_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3470_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -1065,14 +1237,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1751475241, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 19, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 32;
-    %load/vec4 v00000241548abc80_0;
+    %load/vec4 v0000023712fc1f30_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -1089,12 +1261,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1751475241, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abaa0_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3a10_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 3202665166, 0, 33;
     %concati/vec4 3538348234, 0, 32;
@@ -1104,14 +1276,14 @@ T_4 ;
     %concati/vec4 3637133392, 0, 32;
     %concati/vec4 3436767974, 0, 32;
     %concati/vec4 1751475241, 0, 31;
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 63;
-    %load/vec4 v00000241548aa9c0_0;
+    %load/vec4 v0000023712fc1fd0_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 87, 0, 32; draw_string_vec4
     %pushi/vec4 1113547635, 0, 32; draw_string_vec4
@@ -1128,14 +1300,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1751475241, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 63;
-    %load/vec4 v00000241548abb40_0;
+    %load/vec4 v0000023712fc3290_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -1152,52 +1324,97 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1751475241, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 59;
-    %load/vec4 v00000241548aa920_0;
+    %load/vec4 v0000023712fc36f0_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
-    %vpi_call 2 257 "$display", "\000" {0 0 0};
-    %wait E_000002415449e860;
+    %pushi/vec4 3368216770, 0, 33;
+    %concati/vec4 3202009818, 0, 32;
+    %concati/vec4 3739546302, 0, 32;
+    %concati/vec4 4007973608, 0, 32;
+    %concati/vec4 3401500866, 0, 32;
+    %concati/vec4 3905044560, 0, 32;
+    %concati/vec4 3436767974, 0, 32;
+    %concati/vec4 1751475241, 0, 31;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc35b0_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
+    %join;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 87, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1113552754, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1769235807, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1701732706, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1818566696, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1718383987, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1751475241, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %pushi/vec4 0, 0, 63;
+    %load/vec4 v0000023712fc2070_0;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
+    %join;
+    %vpi_call 2 292 "$display", "\000" {0 0 0};
+    %wait E_0000023712f91270;
     %pushi/vec4 12, 0, 64;
-    %store/vec4 v00000241548ab820_0, 0, 64;
+    %store/vec4 v0000023712fc2f70_0, 0, 64;
     %pushi/vec4 16, 0, 64;
-    %store/vec4 v00000241548ab1e0_0, 0, 64;
+    %store/vec4 v0000023712fc3010_0, 0, 64;
     %pushi/vec4 4044367219, 0, 32;
-    %store/vec4 v00000241548aad80_0, 0, 32;
+    %store/vec4 v0000023712fc1df0_0, 0, 32;
     %pushi/vec4 3, 0, 3;
-    %store/vec4 v00000241548aba00_0, 0, 3;
+    %store/vec4 v0000023712fc2cf0_0, 0, 3;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548ab0a0_0, 0, 64;
+    %store/vec4 v0000023712fc26b0_0, 0, 64;
     %pushi/vec4 987394, 0, 20;
-    %store/vec4 v00000241548ab8c0_0, 0, 20;
+    %store/vec4 v0000023712fc3330_0, 0, 20;
     %pushi/vec4 1381387075, 0, 64;
-    %store/vec4 v00000241548abdc0_0, 0, 64;
+    %store/vec4 v0000023712fc2c50_0, 0, 64;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v00000241548ab6e0_0, 0, 64;
+    %store/vec4 v0000023712fc2a70_0, 0, 64;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000241548aa6a0_0, 0, 1;
+    %store/vec4 v0000023712fc2bb0_0, 0, 1;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548ab5a0_0, 0, 1;
+    %store/vec4 v0000023712fc3650_0, 0, 1;
     %pushi/vec4 0, 0, 5;
-    %store/vec4 v00000241548aa880_0, 0, 5;
+    %store/vec4 v0000023712fc2430_0, 0, 5;
     %pushi/vec4 10, 0, 5;
-    %store/vec4 v00000241548ab460_0, 0, 5;
+    %store/vec4 v0000023712fc2750_0, 0, 5;
     %pushi/vec4 115, 0, 7;
-    %store/vec4 v00000241548aace0_0, 0, 7;
+    %store/vec4 v0000023712fc22f0_0, 0, 7;
     %pushi/vec4 1381387075, 0, 64;
-    %store/vec4 v00000241548ab500_0, 0, 64;
-    %wait E_000002415449e1e0;
+    %store/vec4 v0000023712fc38d0_0, 0, 64;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712fc30b0_0, 0, 64;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000023712fc1d50_0, 0, 1;
+    %wait E_0000023712f91070;
     %delay 1000, 0;
-    %vpi_call 2 277 "$display", "Test 6: CSR instruction" {0 0 0};
-    %vpi_call 2 278 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
-    %vpi_call 2 279 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v00000241548abe60_0, v00000241548aa100_0, v00000241548abc80_0, v00000241548aa1a0_0, v00000241548abb40_0, v00000241548aa9c0_0 {0 0 0};
-    %vpi_call 2 280 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
-    %vpi_call 2 281 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v00000241548aa740_0, v00000241548abbe0_0, v00000241548aa240_0, v00000241548abaa0_0, v00000241548aa380_0, v00000241548aa920_0, v00000241548abd20_0 {0 0 0};
+    %vpi_call 2 314 "$display", "Test 6: CSR instruction" {0 0 0};
+    %vpi_call 2 315 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
+    %vpi_call 2 316 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v0000023712fc1e90_0, v0000023712fc3470_0, v0000023712fc1f30_0, v0000023712fc3790_0, v0000023712fc3290_0, v0000023712fc1fd0_0 {0 0 0};
+    %vpi_call 2 317 "$display", "|     BERF_WD      |       imm      |  csr_read_data |   ALU result   | rs1 |  rd | opcode |" {0 0 0};
+    %vpi_call 2 318 "$display", "| %h | %h | %h | %h | %b | %b | %b |", v0000023712fc3150_0, v0000023712fc3970_0, v0000023712fc31f0_0, v0000023712fc3a10_0, v0000023712fc2110_0, v0000023712fc36f0_0, v0000023712fc33d0_0 {0 0 0};
+    %vpi_call 2 319 "$display", "|  DM_write_data   | write_enable |" {0 0 0};
+    %vpi_call 2 320 "$display", "| %h |      %b       |", v0000023712fc35b0_0, v0000023712fc2070_0 {0 0 0};
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
@@ -1213,12 +1430,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1684108385, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 1381387075, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548aa240_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc31f0_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -1235,14 +1452,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1600744813, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 987394, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 44;
-    %load/vec4 v00000241548ab320_0;
+    %load/vec4 v0000023712fc3510_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
@@ -1259,36 +1476,67 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1668244581, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 115, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 57;
-    %load/vec4 v00000241548abd20_0;
+    %load/vec4 v0000023712fc33d0_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
-    %vpi_call 2 285 "$display", "\000" {0 0 0};
-    %wait E_000002415449e860;
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 0, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 5718623, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 2003986804, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1700750702, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1633840229, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %pushi/vec4 0, 0, 63;
+    %load/vec4 v0000023712fc2070_0;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
+    %join;
+    %vpi_call 2 325 "$display", "\000" {0 0 0};
+    %wait E_0000023712f91270;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000241548ab960_0, 0, 1;
+    %store/vec4 v0000023712fc2930_0, 0, 1;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v00000241548aa7e0_0, 0, 1;
+    %store/vec4 v0000023712fc4d00_0, 0, 1;
     %pushi/vec4 2443359172, 0, 35;
     %concati/vec4 448585456, 0, 29;
-    %store/vec4 v00000241548ab820_0, 0, 64;
+    %store/vec4 v0000023712fc2f70_0, 0, 64;
     %pushi/vec4 4275878552, 0, 32;
     %concati/vec4 1985229328, 0, 32;
-    %store/vec4 v00000241548ab6e0_0, 0, 64;
-    %wait E_000002415449e1e0;
+    %store/vec4 v0000023712fc2a70_0, 0, 64;
+    %pushi/vec4 2863315899, 0, 32;
+    %concati/vec4 3435978205, 0, 32;
+    %store/vec4 v0000023712fc30b0_0, 0, 64;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000023712fc1d50_0, 0, 1;
+    %wait E_0000023712f91070;
     %delay 1000, 0;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548ab960_0, 0, 1;
+    %store/vec4 v0000023712fc2930_0, 0, 1;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v00000241548aa7e0_0, 0, 1;
-    %vpi_call 2 297 "$display", "Test 7: Flush priority over stall (flush should win)" {0 0 0};
-    %vpi_call 2 298 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
-    %vpi_call 2 299 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v00000241548abe60_0, v00000241548aa100_0, v00000241548abc80_0, v00000241548aa1a0_0, v00000241548abb40_0, v00000241548aa9c0_0 {0 0 0};
+    %store/vec4 v0000023712fc4d00_0, 0, 1;
+    %vpi_call 2 339 "$display", "Test 7: Flush priority over stall (flush should win)" {0 0 0};
+    %vpi_call 2 340 "$display", "|       PC       |     PC+4     |  instruction | RF_WD_sel | CSR_WE | Reg_WE |" {0 0 0};
+    %vpi_call 2 341 "$display", "| %h | %h |   %h   |    %b    |   %b    |   %b    |", v0000023712fc1e90_0, v0000023712fc3470_0, v0000023712fc1f30_0, v0000023712fc3790_0, v0000023712fc3290_0, v0000023712fc1fd0_0 {0 0 0};
+    %vpi_call 2 342 "$display", "|  DM_write_data   | write_enable |" {0 0 0};
+    %vpi_call 2 343 "$display", "| %h |      %b       |", v0000023712fc35b0_0, v0000023712fc2070_0 {0 0 0};
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %pushi/vec4 0, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
@@ -1304,12 +1552,12 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1769240873, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abe60_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc1e90_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 5718623, 0, 32; draw_string_vec4
     %pushi/vec4 1768846196, 0, 32; draw_string_vec4
@@ -1326,14 +1574,14 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1769240873, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 19, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
     %pushi/vec4 0, 0, 32;
-    %load/vec4 v00000241548abc80_0;
+    %load/vec4 v0000023712fc1f30_0;
     %concat/vec4; draw_concat_vec4
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
     %pushi/vec4 22338, 0, 32; draw_string_vec4
     %pushi/vec4 1600220277, 0, 32; draw_string_vec4
@@ -1350,25 +1598,64 @@ T_4 ;
     %concat/vec4; draw_string_vec4
     %pushi/vec4 1769240873, 0, 32; draw_string_vec4
     %concat/vec4; draw_string_vec4
-    %store/vec4 v00000241544863e0_0, 0, 256;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
     %pushi/vec4 0, 0, 64;
-    %store/vec4 v0000024154486b60_0, 0, 64;
-    %load/vec4 v00000241548abaa0_0;
-    %store/vec4 v0000024154486f20_0, 0, 64;
-    %fork TD_MEM_WB_Register_tb.check, S_00000241544a3210;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc3a10_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
     %join;
-    %vpi_call 2 303 "$display", "\000" {0 0 0};
-    %vpi_call 2 306 "$display", "Test Summary: PASS = %0d, FAIL = %0d", v00000241548aaa60_0, v00000241548aa420_0 {0 0 0};
-    %load/vec4 v00000241548aa420_0;
+    %pushi/vec4 3672040690, 0, 33;
+    %concati/vec4 3203327186, 0, 32;
+    %concati/vec4 3905601224, 0, 32;
+    %concati/vec4 3270033984, 0, 32;
+    %concati/vec4 2711204309, 0, 33;
+    %concati/vec4 3449848257, 0, 32;
+    %concati/vec4 3383082441, 0, 32;
+    %concati/vec4 695499049, 0, 30;
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %load/vec4 v0000023712fc35b0_0;
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
+    %join;
+    %pushi/vec4 1463967607, 0, 32; draw_string_vec4
+    %pushi/vec4 1919513701, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1600482913, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1651270944, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 677801077, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1936203888, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1919512434, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %pushi/vec4 1769240873, 0, 32; draw_string_vec4
+    %concat/vec4; draw_string_vec4
+    %store/vec4 v0000023712f6af20_0, 0, 256;
+    %pushi/vec4 0, 0, 64;
+    %store/vec4 v0000023712f6b240_0, 0, 64;
+    %pushi/vec4 0, 0, 63;
+    %load/vec4 v0000023712fc2070_0;
+    %concat/vec4; draw_concat_vec4
+    %store/vec4 v0000023712f6aca0_0, 0, 64;
+    %fork TD_MEM_WB_Register_tb.check, S_0000023712f844e0;
+    %join;
+    %vpi_call 2 349 "$display", "\000" {0 0 0};
+    %vpi_call 2 352 "$display", "Test Summary: PASS = %0d, FAIL = %0d", v0000023712fc4e40_0, v0000023712fc41c0_0 {0 0 0};
+    %load/vec4 v0000023712fc41c0_0;
     %cmpi/e 0, 0, 32;
     %jmp/0xz  T_4.0, 4;
-    %vpi_call 2 308 "$display", "All tests PASSED!\012" {0 0 0};
+    %vpi_call 2 354 "$display", "All tests PASSED!\012" {0 0 0};
     %jmp T_4.1;
 T_4.0 ;
-    %vpi_call 2 310 "$display", "Some tests FAILED!\012" {0 0 0};
+    %vpi_call 2 356 "$display", "Some tests FAILED!\012" {0 0 0};
 T_4.1 ;
-    %vpi_call 2 312 "$display", "MEM_WB_Register Test END\012" {0 0 0};
-    %vpi_call 2 313 "$finish" {0 0 0};
+    %vpi_call 2 358 "$display", "MEM_WB_Register Test END\012" {0 0 0};
+    %vpi_call 2 359 "$finish" {0 0 0};
     %end;
     .thread T_4;
 # The file index is used to find the file name in the following table.
