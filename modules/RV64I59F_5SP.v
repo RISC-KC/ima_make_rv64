@@ -770,7 +770,7 @@ module RV64I59F5SP #(
             alu_normal_source_b = EX_imm;
         end
         else if (EX_alu_src_B_select == `ALU_SRC_B_SHAMT) begin
-            alu_normal_source_b = {59'b0, EX_imm[4:0]};
+            alu_normal_source_b = {58'b0, EX_imm[5:0]};
         end
         else if (EX_alu_src_B_select == `ALU_SRC_B_CSR) begin
             alu_normal_source_b = csr_forward_data;
