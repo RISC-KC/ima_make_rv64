@@ -144,6 +144,7 @@ module RV64I59F5SP #(
     wire [11:0] csr_trap_address;
     wire [XLEN-1:0] csr_trap_write_data;
     wire pth_done_flush;
+    wire standby_mode;
     
     // IF_ID_Register
     wire [XLEN-1:0] ID_pc;
@@ -222,6 +223,7 @@ module RV64I59F5SP #(
     // Hazard Unit
     wire IF_ID_flush;
     wire ID_EX_flush;
+    wire EX_MEM_flush;
     wire IF_ID_stall;
     wire ID_EX_stall;
     wire EX_MEM_stall;
@@ -230,6 +232,8 @@ module RV64I59F5SP #(
     wire csr_hazard_wb;
     wire store_hazard_mem;
     wire store_hazard_wb;
+    wire misaligned_instruction_flush;
+    wire misaligned_memory_flush;
 
     // Forward Unit
     wire [1:0] hazard_mem;
@@ -252,6 +256,7 @@ module RV64I59F5SP #(
 
     // Branch Predictor
     wire branch_estimation;
+    wire branch_prediction_miss;
     
     wire [31:0] writeback_instruction = WB_instruction;
     assign retire_instruction = writeback_instruction;
@@ -451,7 +456,6 @@ module RV64I59F5SP #(
         .hazard_wb(hazard_wb),
         .csr_hazard_mem(csr_hazard_mem),
         .csr_hazard_wb(csr_hazard_wb),
-        //.csr_reg_hazard(csr_reg_hazard),
         .store_hazard_mem(store_hazard_mem),
         .store_hazard_wb(store_hazard_wb),
 
@@ -753,7 +757,7 @@ module RV64I59F5SP #(
             alu_normal_source_a = EX_pc;
         end
         else if (EX_alu_src_A_select == `ALU_SRC_A_RS1) begin
-            alu_normal_source_a = {27'b0, EX_rs1};
+            alu_normal_source_a = {59'b0, EX_rs1};
         end
         else begin
             alu_normal_source_a = {XLEN{1'b0}};
@@ -766,7 +770,7 @@ module RV64I59F5SP #(
             alu_normal_source_b = EX_imm;
         end
         else if (EX_alu_src_B_select == `ALU_SRC_B_SHAMT) begin
-            alu_normal_source_b = {27'b0, EX_imm[4:0]};
+            alu_normal_source_b = {59'b0, EX_imm[4:0]};
         end
         else if (EX_alu_src_B_select == `ALU_SRC_B_CSR) begin
             alu_normal_source_b = csr_forward_data;
@@ -803,11 +807,7 @@ module RV64I59F5SP #(
                 register_file_write_data = WB_pc_plus_4;
             end
             `RF_WD_CSR: begin
-                /*if (csr_reg_hazard) begin
-                    register_file_write_data = retired_alu_result;
-                end else */begin
-                    register_file_write_data = WB_csr_read_data; 
-                end
+                register_file_write_data = WB_csr_read_data; 
             end
             default: begin
                 register_file_write_data = {XLEN{1'b0}};
