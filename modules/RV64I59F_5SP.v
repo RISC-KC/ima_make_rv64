@@ -42,7 +42,7 @@ module RV64I59F5SP #(
 
     // IO signals for MMIO Interface
     assign MMIO_data_memory_write_data = WB_data_memory_write_data;
-    assign MMIO_data_memory_write_enable = WB_write_enable;
+    assign MMIO_data_memory_write_enable = WB_memory_write;
     assign MMIO_data_memory_address = WB_alu_result;
 
     // MMIO Interface logics
@@ -217,7 +217,7 @@ module RV64I59F5SP #(
 
     wire [XLEN-1:0] WB_byte_enable_logic_register_file_write_data;
     wire [XLEN-1:0] WB_data_memory_write_data;
-    wire WB_write_enable;
+    wire WB_memory_write;
 
     // Hazard Unit
     wire IF_ID_flush;
