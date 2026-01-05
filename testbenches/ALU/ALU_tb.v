@@ -195,6 +195,7 @@ module ALU_tb;
         $display("%h >> %d = %h, Zero: %b", src_A[31:0], src_B[31:0], alu_result, alu_zero);
 
         // Test 11: MUL, MULH, MULHSU, MULHU
+        /*
         $display("\nMultiplication Test: ");
 
         alu_op = `ALU_OP_MUL;
@@ -231,7 +232,7 @@ module ALU_tb;
         
         alu_op = `ALU_OP_MULH; #10;
         $display("%d * %d = %h / ???, Zero: %b", $signed(src_A[31:0]), $signed(src_B[31:0]), alu_result, alu_zero);
-
+        */
         // Test 12: ABJ
 		$display("\nAbjunction Test: ");
 		

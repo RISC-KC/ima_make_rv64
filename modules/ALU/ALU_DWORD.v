@@ -1,11 +1,13 @@
 `include "modules/headers/alu_op.vh"
 
-module ALU_DWORD (
-    input [63:0] src_A,             // source operand A
-    input [63:0] src_B,             // source operand B
+module ALU_DWORD #(
+    parameter XLEN = 64
+)(
+    input [XLEN-1:0] src_A,             // source operand A
+    input [XLEN-1:0] src_B,             // source operand B
     input [4:0] alu_op,        		// ALU operation signal (from ALU Control module)
-    
-    output reg [63:0] alu_result,   // ALU result
+
+    output reg [XLEN-1:0] alu_result,   // ALU result
     output reg alu_zero             // zero flag
 );
     always @(*) begin
