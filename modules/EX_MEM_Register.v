@@ -20,7 +20,7 @@ module EX_MEM_Register #(
     input wire [6:0] EX_opcode,
     input wire [2:0] EX_funct3,
     input wire [4:0] EX_rs1,
-    input wire [4:0] EX_rs2,
+    input wire [5:0] EX_rs2,
     input wire [4:0] EX_rd,
     input wire [XLEN-1:0] EX_read_data2, // Register File to Data Memory read data
     input wire [XLEN-1:0] EX_imm,
@@ -43,7 +43,7 @@ module EX_MEM_Register #(
     output reg [6:0] MEM_opcode,
     output reg [2:0] MEM_funct3,
     output reg [4:0] MEM_rs1,
-    output reg [4:0] MEM_rs2,
+    output reg [5:0] MEM_rs2,
     output reg [4:0] MEM_rd,
     output reg [XLEN-1:0] MEM_read_data2,
     output reg [XLEN-1:0] MEM_imm,
@@ -67,7 +67,7 @@ always @(posedge clk or posedge reset) begin
         MEM_opcode <= 7'b0;
         MEM_funct3 <= 3'b0;
         MEM_rs1 <= 5'b0;
-        MEM_rs2 <= 5'b0;
+        MEM_rs2 <= 6'b0;
         MEM_rd <= 5'b0;
         MEM_read_data2 <= {XLEN{1'b0}};
         MEM_imm <= {XLEN{1'b0}};
@@ -90,7 +90,7 @@ always @(posedge clk or posedge reset) begin
             MEM_opcode <= 7'b0;
             MEM_funct3 <= 3'b0;
             MEM_rs1 <= 5'b0;
-            MEM_rs2 <= 5'b0;
+            MEM_rs2 <= 6'b0;
             MEM_rd <= 5'b0;
             MEM_read_data2 <= {XLEN{1'b0}};
             MEM_imm <= {XLEN{1'b0}};
