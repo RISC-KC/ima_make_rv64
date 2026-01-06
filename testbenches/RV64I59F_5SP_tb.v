@@ -36,11 +36,9 @@ module RV32I46F5SPMMIO_tb #(
 
         reset = 0;
 
-        #2265;
+        #5340;
 
-        #3075;
-
-        $display("\n====================  RV32I46F_5SP Test END  ====================");
+        $display("\n====================  RV64I59F_5SP Test END  ====================");
         $stop;
     end
 
