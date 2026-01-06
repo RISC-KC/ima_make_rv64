@@ -32,24 +32,13 @@ module RV64I59F5SP #(
 )(
     input clk,
     input reset,
-    input MMIO_uart_status,
+    input UART_busy,
     
     output wire [31:0] retire_instruction,
     output wire [XLEN-1:0] MMIO_data_memory_write_data,
     output wire [XLEN-1:0] MMIO_data_memory_address,
     output wire MMIO_data_memory_write_enable
 );
-
-    // IO signals for MMIO Interface
-    assign MMIO_data_memory_write_data = WB_data_memory_write_data;
-    assign MMIO_data_memory_write_enable = WB_memory_write;
-    assign MMIO_data_memory_address = WB_alu_result;
-
-    // MMIO Interface logics
-    wire mmio_uart_status_hit;
-    assign mmio_uart_status_hit = (MEM_alu_result == 64'h0000_0000_1001_0004);
-    wire [XLEN-1:0] data_memory_read_data_muxed;
-    assign data_memory_read_data_muxed = mmio_uart_status_hit ? MMIO_uart_status : data_memory_read_data;
 
     // Program Counter and  PC Plus 4
     wire [XLEN-1:0] pc;
@@ -108,6 +97,7 @@ module RV64I59F5SP #(
 
     // ALU Controller
     wire [4:0] alu_op;
+    wire input_size_word;
 
     // ALUsrcA, srcB MUX
     reg [XLEN-1:0] src_A;
@@ -192,12 +182,14 @@ module RV64I59F5SP #(
     wire [6:0] MEM_opcode;
     wire [2:0] MEM_funct3;
     wire [4:0] MEM_rs1;
+    wire [5:0] MEM_rs2;
     wire [4:0] MEM_rd;
     wire [XLEN-1:0] MEM_read_data2;
     wire [XLEN-1:0] MEM_imm;
     wire [19:0] MEM_raw_imm;
     wire [XLEN-1:0] MEM_csr_read_data;
     wire [XLEN-1:0] MEM_alu_result;
+    wire [XLEN-1:0] MEM_data_memory_write_data;
 
     wire [XLEN-1:0] WB_pc;
     wire [XLEN-1:0] WB_pc_plus_4;
@@ -220,6 +212,16 @@ module RV64I59F5SP #(
     wire [XLEN-1:0] WB_data_memory_write_data;
     wire WB_memory_write;
 
+    // Retire stage registers
+    reg [4:0] retire_rd;
+    reg retire_register_write_enable;
+    reg [6:0] retire_opcode;
+    reg [XLEN-1:0] retire_alu_result;
+    reg [XLEN-1:0] retire_imm;
+    reg [XLEN-1:0] retire_pc_plus_4;
+    reg [XLEN-1:0] retire_csr_read_data;
+    reg [XLEN-1:0] retire_byte_enable_logic_register_file_write_data;
+
     // Hazard Unit
     wire IF_ID_flush;
     wire ID_EX_flush;
@@ -232,12 +234,15 @@ module RV64I59F5SP #(
     wire csr_hazard_wb;
     wire store_hazard_mem;
     wire store_hazard_wb;
+    wire store_hazard_retire;
+    wire store_hazard_wb_to_mem;
     wire misaligned_instruction_flush;
     wire misaligned_memory_flush;
 
     // Forward Unit
     wire [1:0] hazard_mem;
     wire [1:0] hazard_wb;
+    wire [1:0] hazard_retire;
     wire [XLEN-1:0] csr_forward_data;
     wire [XLEN-1:0] alu_forward_source_data_a;
     wire [XLEN-1:0] alu_forward_source_data_b;
@@ -246,13 +251,16 @@ module RV64I59F5SP #(
     reg [XLEN-1:0] alu_normal_source_a;
     reg [XLEN-1:0] alu_normal_source_b;
 
-    reg [XLEN-1:0] retired_alu_result;
-    reg [XLEN-1:0] retired_csr_read_data;
-
     wire [XLEN-1:0] store_forward_data;
     wire store_forward_enable;
     wire [XLEN-1:0] EX_read_data2_MUX;
     assign EX_read_data2_MUX = store_forward_enable ? store_forward_data : EX_read_data2;
+
+    // WB->MEM store data forwarding
+    wire [XLEN-1:0] store_wb_to_mem_forward_data;
+    wire store_wb_to_mem_forward_enable;
+    wire [XLEN-1:0] MEM_read_data2_MUX;
+    assign MEM_read_data2_MUX = store_wb_to_mem_forward_enable ? store_wb_to_mem_forward_data : MEM_read_data2;
 
     // Branch Predictor
     wire branch_estimation;
@@ -264,10 +272,24 @@ module RV64I59F5SP #(
     wire csr_write_enable_source;
     assign csr_write_enable_source = tc_csr_write_enable ? tc_csr_write_enable : WB_csr_write_enable;
 
+    // IO signals for MMIO Interface
+    assign MMIO_data_memory_write_data = WB_data_memory_write_data;
+    assign MMIO_data_memory_write_enable = WB_memory_write;
+    assign MMIO_data_memory_address = WB_alu_result;
+
+    // MMIO Interface logics
+    wire mmio_uart_status_hit;
+    assign mmio_uart_status_hit = (MEM_alu_result == 64'h0000_0000_1001_0004);
+    wire [XLEN-1:0] data_memory_read_data_muxed;
+    assign data_memory_read_data_muxed = mmio_uart_status_hit ? {31'b0, UART_busy, 32'b0} : data_memory_read_data;
+
+    // Module Instantces
+
     ALU alu (
         .src_A(src_A),
         .src_B(src_B),
         .alu_op(alu_op),
+        .input_size_word(input_size_word),
 
         .alu_result(alu_result),
         .alu_zero(alu_zero)
@@ -277,7 +299,9 @@ module RV64I59F5SP #(
         .opcode(EX_opcode),
 	    .funct3(EX_funct3),
         .funct7_5(EX_funct7[5]),
+        .funct7_0(1'b0),
         .imm_10(EX_imm[10]),
+        .input_size_word(input_size_word),
 	
         .alu_op(alu_op)
     );
@@ -312,9 +336,9 @@ module RV64I59F5SP #(
         .memory_read(MEM_memory_read),
         .memory_write(MEM_memory_write),
         .funct3(MEM_funct3),
-	    .register_file_read_data(MEM_read_data2),
+	    .register_file_read_data(MEM_read_data2_MUX),
 	    .data_memory_read_data(data_memory_read_data_muxed),
-	    .address(MEM_alu_result[1:0]),
+	    .address(MEM_alu_result[2:0]),
 	
 	    .register_file_write_data(byte_enable_logic_register_file_write_data),
 	    .data_memory_write_data(data_memory_write_data),
@@ -391,6 +415,7 @@ module RV64I59F5SP #(
     ForwardUnit forward_unit (
         .hazard_mem(hazard_mem),
         .hazard_wb(hazard_wb),
+        .hazard_retire(hazard_retire),
         .MEM_imm(MEM_imm),
         .MEM_alu_result(MEM_alu_result),
         .MEM_csr_read_data(MEM_csr_read_data),
@@ -403,20 +428,34 @@ module RV64I59F5SP #(
         .WB_csr_read_data(WB_csr_read_data),
         .WB_byte_enable_logic_register_file_write_data(WB_byte_enable_logic_register_file_write_data),
         .WB_pc_plus_4(WB_pc_plus_4),
+
+        // Retire stage inputs
+        .retire_opcode(retire_opcode),
+        .retire_imm(retire_imm),
+        .retire_alu_result(retire_alu_result),
+        .retire_csr_read_data(retire_csr_read_data),
+        .retire_byte_enable_logic_register_file_write_data(retire_byte_enable_logic_register_file_write_data),
+        .retire_pc_plus_4(retire_pc_plus_4),
+
         .alu_forward_source_data_a(alu_forward_source_data_a),
         .alu_forward_source_data_b(alu_forward_source_data_b),
         .alu_forward_source_select_a(alu_forward_source_select_a),
         .alu_forward_source_select_b(alu_forward_source_select_b),
 
+        .store_hazard_mem(store_hazard_mem),
+        .store_hazard_wb(store_hazard_wb),
+        .store_hazard_retire(store_hazard_retire),
         .store_forward_data(store_forward_data),
         .store_forward_enable(store_forward_enable),
+
+        .store_hazard_wb_to_mem(store_hazard_wb_to_mem),
+        .store_wb_to_mem_forward_data(store_wb_to_mem_forward_data),
+        .store_wb_to_mem_forward_enable(store_wb_to_mem_forward_enable),
 
         .csr_hazard_mem(csr_hazard_mem),
         .csr_hazard_wb(csr_hazard_wb),
         .MEM_csr_write_data(MEM_alu_result),
         .WB_csr_write_data(WB_alu_result),
-        .store_hazard_mem(store_hazard_mem),
-        .store_hazard_wb(store_hazard_wb),
         .csr_read_data(csr_read_out),
 
         .csr_forward_data(csr_forward_data)
@@ -437,6 +476,8 @@ module RV64I59F5SP #(
         .ID_raw_imm(raw_imm[11:0]),
         .EX_csr_write_enable(EX_csr_write_enable),
         .MEM_rd(MEM_rd),
+        .MEM_opcode(MEM_opcode),
+        .MEM_rs2(MEM_rs2),
         .MEM_register_write_enable(MEM_register_write_enable),
         .MEM_csr_write_enable(MEM_csr_write_enable),
         .MEM_csr_write_address(MEM_raw_imm[11:0]),
@@ -451,13 +492,22 @@ module RV64I59F5SP #(
         .EX_imm(EX_raw_imm[11:0]),
         .branch_prediction_miss(branch_prediction_miss),
         .EX_jump(EX_jump),
+        .EX_alu_src_A_select(EX_alu_src_A_select),
+        .EX_alu_src_B_select(EX_alu_src_B_select),
+
+        // Retire stage inputs
+        .retire_rd(retire_rd),
+        .retire_register_write_enable(retire_register_write_enable),
 
         .hazard_mem(hazard_mem),
         .hazard_wb(hazard_wb),
+        .hazard_retire(hazard_retire),
         .csr_hazard_mem(csr_hazard_mem),
         .csr_hazard_wb(csr_hazard_wb),
         .store_hazard_mem(store_hazard_mem),
         .store_hazard_wb(store_hazard_wb),
+        .store_hazard_retire(store_hazard_retire),
+        .store_hazard_wb_to_mem(store_hazard_wb_to_mem),
 
         .IF_ID_flush(IF_ID_flush),
         .ID_EX_flush(ID_EX_flush),
@@ -653,6 +703,7 @@ module RV64I59F5SP #(
         .EX_opcode(EX_opcode),
         .EX_funct3(EX_funct3),
         .EX_rs1(EX_rs1),
+        .EX_rs2(EX_rs2),
         .EX_rd(EX_rd),
         .EX_raw_imm(EX_raw_imm),
         .EX_read_data2(EX_read_data2_MUX),
@@ -674,6 +725,7 @@ module RV64I59F5SP #(
         .MEM_opcode(MEM_opcode),
         .MEM_funct3(MEM_funct3),
         .MEM_rs1(MEM_rs1),
+        .MEM_rs2(MEM_rs2),
         .MEM_rd(MEM_rd),
         .MEM_raw_imm(MEM_raw_imm),
         .MEM_read_data2(MEM_read_data2),
@@ -728,16 +780,28 @@ module RV64I59F5SP #(
         .WB_memory_write(WB_memory_write)
     );
 
+    // Retire stage registers update
     always @(posedge clk or posedge reset) begin
         if (reset) begin
-            retired_alu_result <= {XLEN{1'b0}};
-            retired_csr_read_data <= {XLEN{1'b0}};
-
+            retire_rd <= 5'b0;
+            retire_register_write_enable <= 1'b0;
+            retire_opcode <= 7'b0;
+            retire_alu_result <= {XLEN{1'b0}};
+            retire_imm <= {XLEN{1'b0}};
+            retire_pc_plus_4 <= {XLEN{1'b0}};
+            retire_csr_read_data <= {XLEN{1'b0}};
+            retire_byte_enable_logic_register_file_write_data <= {XLEN{1'b0}};
             instruction_retired <= 1'b0;
         end 
-        else begin
-            retired_alu_result <= WB_alu_result;
-            retired_csr_read_data <= WB_csr_read_data;
+        else if (clk_enable) begin
+            retire_rd <= WB_rd;
+            retire_register_write_enable <= WB_register_write_enable;
+            retire_opcode <= WB_opcode;
+            retire_alu_result <= WB_alu_result;
+            retire_imm <= WB_imm;
+            retire_pc_plus_4 <= WB_pc_plus_4;
+            retire_csr_read_data <= WB_csr_read_data;
+            retire_byte_enable_logic_register_file_write_data <= WB_byte_enable_logic_register_file_write_data;
 
             if (!MEM_WB_stall && !MEM_WB_flush && 
                 WB_instruction != 32'h00000013) begin
@@ -750,35 +814,22 @@ module RV64I59F5SP #(
     end
 
     always @(*) begin
-        if (EX_alu_src_A_select == `ALU_SRC_A_RD1) begin
-            alu_normal_source_a = EX_read_data1;
-        end
-        else if (EX_alu_src_A_select == `ALU_SRC_A_PC) begin
-            alu_normal_source_a = EX_pc;
-        end
-        else if (EX_alu_src_A_select == `ALU_SRC_A_RS1) begin
-            alu_normal_source_a = {59'b0, EX_rs1};
-        end
-        else begin
-            alu_normal_source_a = {XLEN{1'b0}};
-        end
+        case (EX_alu_src_A_select)
+            `ALU_SRC_A_RD1: alu_normal_source_a = EX_read_data1;
+            `ALU_SRC_A_PC: alu_normal_source_a = EX_pc;
+            `ALU_SRC_A_RS1: alu_normal_source_a = {59'b0, EX_rs1};
+            default: alu_normal_source_a = {XLEN{1'b0}};
+        endcase
 
-        if (EX_alu_src_B_select == `ALU_SRC_B_RD2) begin
-            alu_normal_source_b = EX_read_data2;
-        end
-        else if (EX_alu_src_B_select == `ALU_SRC_B_IMM) begin
-            alu_normal_source_b = EX_imm;
-        end
-        else if (EX_alu_src_B_select == `ALU_SRC_B_SHAMT) begin
-            alu_normal_source_b = {58'b0, EX_imm[5:0]};
-        end
-        else if (EX_alu_src_B_select == `ALU_SRC_B_CSR) begin
-            alu_normal_source_b = csr_forward_data;
-        end
-        else begin
-            alu_normal_source_b = {XLEN{1'b0}};
-        end
+        case (EX_alu_src_B_select)
+            `ALU_SRC_B_RD2: alu_normal_source_b = EX_read_data2;
+            `ALU_SRC_B_IMM: alu_normal_source_b = EX_imm;
+            `ALU_SRC_B_SHAMT: alu_normal_source_b = {58'b0, EX_imm[5:0]};
+            `ALU_SRC_B_CSR: alu_normal_source_b = csr_forward_data;
+            default: alu_normal_source_b = {XLEN{1'b0}};
+        endcase
 
+        // CSR address and data selection
         if (!standby_mode && trapped) begin
             csr_write_data  = csr_trap_write_data;
             csr_write_address = csr_trap_address;
@@ -790,37 +841,31 @@ module RV64I59F5SP #(
             csr_read_address = raw_imm[11:0];
         end
 
+        // Debug mode instruction selection
         if (debug_mode) instruction = dbg_instruction;
         else instruction = im_instruction;
 
+        // Register file write data selection
         case (WB_register_file_write_data_select)
-            `RF_WD_LOAD: begin
-                register_file_write_data = WB_byte_enable_logic_register_file_write_data;
-            end
-            `RF_WD_ALU: begin
-                register_file_write_data = WB_alu_result;
-            end
-            `RF_WD_LUI: begin
-                register_file_write_data = WB_imm;
-            end
-            `RF_WD_JUMP: begin
-                register_file_write_data = WB_pc_plus_4;
-            end
-            `RF_WD_CSR: begin
-                register_file_write_data = WB_csr_read_data; 
-            end
-            default: begin
-                register_file_write_data = {XLEN{1'b0}};
-            end
+            `RF_WD_LOAD: register_file_write_data = WB_byte_enable_logic_register_file_write_data;
+            `RF_WD_ALU: register_file_write_data = WB_alu_result;
+            `RF_WD_LUI: register_file_write_data = WB_imm;
+            `RF_WD_JUMP: register_file_write_data = WB_pc_plus_4;
+            `RF_WD_CSR: register_file_write_data = WB_csr_read_data; 
+            default: register_file_write_data = {XLEN{1'b0}};
         endcase
 
+        // ALU source A forwarding: 2'b00=normal, 2'b01=MEM, 2'b10=WB, 2'b11=Retire
         case (alu_forward_source_select_a)
+            2'b01: src_A = alu_forward_source_data_a;
             2'b10: src_A = alu_forward_source_data_a;
             2'b11: src_A = alu_forward_source_data_a;
             default: src_A = alu_normal_source_a;
         endcase
 
+        // ALU source B forwarding: 2'b00=normal, 2'b01=MEM, 2'b10=WB, 2'b11=Retire
         case (alu_forward_source_select_b)
+            2'b01: src_B = alu_forward_source_data_b;
             2'b10: src_B = alu_forward_source_data_b;
             2'b11: src_B = alu_forward_source_data_b;
             default: src_B = alu_normal_source_b;
