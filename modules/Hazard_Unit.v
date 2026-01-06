@@ -1,5 +1,6 @@
 `include "modules/headers/opcode.vh"
 `include "modules/headers/trap.vh"
+`include "modules/headers/alu_src_select.vh"
 
 module HazardUnit (
     input clk,
@@ -38,6 +39,9 @@ module HazardUnit (
     input wire EX_jump,
     input wire branch_prediction_miss,
 
+    input wire [1:0] EX_alu_src_A_select,
+    input wire [2:0] EX_alu_src_B_select,
+
     // to Forward Unit - ALU forwarding
     output reg [1:0] hazard_mem,
     output reg [1:0] hazard_wb,
@@ -63,6 +67,9 @@ module HazardUnit (
     // Store instruction detection
     wire is_store = (EX_opcode == `OPCODE_STORE);
 
+    wire uses_rs1 = (EX_alu_src_A_select == `ALU_SRC_A_RD1);
+    wire uses_rs2 = (EX_alu_src_B_select == `ALU_SRC_B_RD2);
+
     // Store instruction rs2 hazard detections
     assign store_hazard_mem = is_store && mem_hazard_rs2;
     assign store_hazard_wb = is_store && wb_hazard_rs2 && !mem_hazard_rs2;
@@ -70,11 +77,11 @@ module HazardUnit (
     // wire reg_csr_hazard = (EX_opcode == `OPCODE_ENVIRONMENT && (WB_rd == retire_rd) && (WB_csr_write_address == retire_csr_write_address));
 
     // Register ALU hazard detections
-    wire mem_hazard_rs1 = MEM_register_write_enable && (MEM_rd != 5'd0) && (MEM_rd == EX_rs1);
-    wire mem_hazard_rs2 = MEM_register_write_enable && (MEM_rd != 5'd0) && (MEM_rd == EX_rs2);
-    wire wb_hazard_rs1 = WB_register_write_enable && (WB_rd != 5'd0) && (WB_rd == EX_rs1);
-    wire wb_hazard_rs2 = WB_register_write_enable && (WB_rd != 5'd0) && (WB_rd == EX_rs2);
-    
+    wire mem_hazard_rs1 = uses_rs1 && MEM_register_write_enable && (MEM_rd != 5'd0) && (MEM_rd == EX_rs1);
+    wire mem_hazard_rs2 = uses_rs2 && MEM_register_write_enable && (MEM_rd != 5'd0) && (MEM_rd == EX_rs2);
+    wire wb_hazard_rs1 = uses_rs1 && WB_register_write_enable && (WB_rd != 5'd0) && (WB_rd == EX_rs1);
+    wire wb_hazard_rs2 = uses_rs2 && WB_register_write_enable && (WB_rd != 5'd0) && (WB_rd == EX_rs2);
+
     // CSR hazard detection
     assign csr_hazard_mem = MEM_csr_write_enable && (MEM_csr_write_address == EX_imm);
     assign csr_hazard_wb = WB_csr_write_enable && (WB_csr_write_address == EX_imm);
