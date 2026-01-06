@@ -17,6 +17,7 @@ module DataMemory #(
     wire ram_access = (address[31:16] == 16'h1000);
     wire rom_access = (address[31:16] == 16'h0000);
     wire [12:0] ram_address = address[14:2];
+    
     assign rom_address = address;
 
     integer i;

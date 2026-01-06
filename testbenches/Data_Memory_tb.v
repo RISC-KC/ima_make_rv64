@@ -43,7 +43,8 @@ module DataMemory_tb;
                 $display("  [PASS] #%0d %s", test_num, test_name);
                 $display("         Expected: %016h | Actual: %016h", expected_val, read_data);
                 pass_count = pass_count + 1;
-            end else begin
+            end 
+            else begin
                 $display("  [FAIL] #%0d %s", test_num, test_name);
                 $display("         Expected: %016h | Actual: %016h", expected_val, read_data);
                 fail_count = fail_count + 1;
@@ -61,7 +62,8 @@ module DataMemory_tb;
                 $display("  [PASS] #%0d %s", test_num, test_name);
                 $display("         Expected: %016h | Actual: %016h", expected_addr, rom_address);
                 pass_count = pass_count + 1;
-            end else begin
+            end 
+            else begin
                 $display("  [FAIL] #%0d %s", test_num, test_name);
                 $display("         Expected: %016h | Actual: %016h", expected_addr, rom_address);
                 fail_count = fail_count + 1;
