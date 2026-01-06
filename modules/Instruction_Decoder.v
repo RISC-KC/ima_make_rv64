@@ -18,12 +18,10 @@ module InstructionDecoder (
 	assign rs1 = instruction[19:15];
 	assign rd = instruction[11:7];
 
-	wire r_shift = (opcode == `OPCODE_RTYPE) && (funct3 == `RTYPE_SLL || funct3 == `RTYPE_SRX);
 	wire i_shift = (opcode == `OPCODE_ITYPE) && (funct3 == `ITYPE_SLLI || funct3 == `ITYPE_SRXI);
-	wire rv64_shift = i_shift || r_shift;
 
-	assign rs2 = rv64_shift ? instruction[25:20] : {1'b0, instruction[24:20]}; // 6-bit shamt for RV64I shifts
-	assign funct7 = rv64_shift ? {1'b0, instruction[31:26]} : {instruction[31:25]};
+	assign rs2 = i_shift ? {1'b0, instruction[25:20]} : {1'b0, instruction[24:20]}; // 6-bit shamt for RV64I shifts
+	assign funct7 = i_shift ? {1'b0, instruction[31:26]} : {instruction[31:25]};
 
     always @(*) begin
         case (opcode)
@@ -41,7 +39,7 @@ module InstructionDecoder (
 
 			`OPCODE_ITYPE: begin
 				if ((funct3 == `ITYPE_SLLI) || (funct3 == `ITYPE_SRXI)) begin
-					raw_imm = {14'b0, instruction[25:20]}; // 6-bit shamt for RV64I shifts
+					raw_imm = {9'b0, instruction[30], 4'b0, instruction[25:20]}; // 6-bit shamt for RV64I shifts
 				end 
 				else begin
 					raw_imm = {8'b0, instruction[31:20]};
@@ -50,7 +48,7 @@ module InstructionDecoder (
 
 			`OPCODE_ITYPE_WORD: begin
 				if ((funct3 == `ITYPE_SLLI) || (funct3 == `ITYPE_SRXI)) begin
-					raw_imm = {15'b0, instruction[24:20]}; // 5-bit shamt for RV32I shifts
+					raw_imm = {9'b0, instruction[30], 5'b0, instruction[24:20]}; // 5-bit shamt for RV32I shifts
 				end 
 				else begin
 					raw_imm = {8'b0, instruction[31:20]};
