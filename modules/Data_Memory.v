@@ -16,7 +16,7 @@ module DataMemory #(
     wire [XLEN-1:0] extended_mask = {{8{write_mask[7]}}, {8{write_mask[6]}}, {8{write_mask[5]}}, {8{write_mask[4]}}, {8{write_mask[3]}}, {8{write_mask[2]}}, {8{write_mask[1]}}, {8{write_mask[0]}}};
     wire ram_access = (address[31:16] == 16'h1000);
     wire rom_access = (address[31:16] == 16'h0000);
-    wire [12:0] ram_address = address[14:2];
+    wire [12:0] ram_address = address[15:3];
     
     assign rom_address = address;
 
