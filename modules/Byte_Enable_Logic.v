@@ -24,55 +24,55 @@ module ByteEnableLogic #(
 			case (funct3)
 				`LOAD_LB: begin
                 case (address[2:0])
-                    3'b000: register_file_write_data = {{56{data_memory_read_data[7]}},  data_memory_read_data[7:0]};
-                    3'b001: register_file_write_data = {{56{data_memory_read_data[15]}}, data_memory_read_data[15:8]};
-                    3'b010: register_file_write_data = {{56{data_memory_read_data[23]}}, data_memory_read_data[23:16]};
-                    3'b011: register_file_write_data = {{56{data_memory_read_data[31]}}, data_memory_read_data[31:24]};
-                    3'b100: register_file_write_data = {{56{data_memory_read_data[39]}}, data_memory_read_data[39:32]};
-                    3'b101: register_file_write_data = {{56{data_memory_read_data[47]}}, data_memory_read_data[47:40]};
-                    3'b110: register_file_write_data = {{56{data_memory_read_data[55]}}, data_memory_read_data[55:48]};
-                    3'b111: register_file_write_data = {{56{data_memory_read_data[63]}}, data_memory_read_data[63:56]};
+                    3'b000: register_file_write_data = {{(XLEN-8){data_memory_read_data[7]}},  data_memory_read_data[7:0]};
+                    3'b001: register_file_write_data = {{(XLEN-8){data_memory_read_data[15]}}, data_memory_read_data[15:8]};
+                    3'b010: register_file_write_data = {{(XLEN-8){data_memory_read_data[23]}}, data_memory_read_data[23:16]};
+                    3'b011: register_file_write_data = {{(XLEN-8){data_memory_read_data[31]}}, data_memory_read_data[31:24]};
+                    3'b100: register_file_write_data = {{(XLEN-8){data_memory_read_data[39]}}, data_memory_read_data[39:32]};
+                    3'b101: register_file_write_data = {{(XLEN-8){data_memory_read_data[47]}}, data_memory_read_data[47:40]};
+                    3'b110: register_file_write_data = {{(XLEN-8){data_memory_read_data[55]}}, data_memory_read_data[55:48]};
+                    3'b111: register_file_write_data = {{(XLEN-8){data_memory_read_data[63]}}, data_memory_read_data[63:56]};
                 endcase
             end
 				`LOAD_LH: begin
                 case (address[2:1])
-                    2'b00: register_file_write_data = {{48{data_memory_read_data[15]}}, data_memory_read_data[15:0]};
-                    2'b01: register_file_write_data = {{48{data_memory_read_data[31]}}, data_memory_read_data[31:16]};
-                    2'b10: register_file_write_data = {{48{data_memory_read_data[47]}}, data_memory_read_data[47:32]};
-                    2'b11: register_file_write_data = {{48{data_memory_read_data[63]}}, data_memory_read_data[63:48]};
+                    2'b00: register_file_write_data = {{(XLEN-16){data_memory_read_data[15]}}, data_memory_read_data[15:0]};
+                    2'b01: register_file_write_data = {{(XLEN-16){data_memory_read_data[31]}}, data_memory_read_data[31:16]};
+                    2'b10: register_file_write_data = {{(XLEN-16){data_memory_read_data[47]}}, data_memory_read_data[47:32]};
+                    2'b11: register_file_write_data = {{(XLEN-16){data_memory_read_data[63]}}, data_memory_read_data[63:48]};
                 endcase
             end
 				`LOAD_LW: begin
                 case (address[2])
-                    1'b0: register_file_write_data = {{32{data_memory_read_data[31]}}, data_memory_read_data[31:0]};
-                    1'b1: register_file_write_data = {{32{data_memory_read_data[63]}}, data_memory_read_data[63:32]};
+                    1'b0: register_file_write_data = {{(XLEN-32){data_memory_read_data[31]}}, data_memory_read_data[31:0]};
+                    1'b1: register_file_write_data = {{(XLEN-32){data_memory_read_data[63]}}, data_memory_read_data[63:32]};
                 endcase
             end
 				`LOAD_LD: register_file_write_data = data_memory_read_data;
 				`LOAD_LBU: begin
                 case (address[2:0])
-                    3'b000: register_file_write_data = {56'b0, data_memory_read_data[7:0]};
-                    3'b001: register_file_write_data = {56'b0, data_memory_read_data[15:8]};
-                    3'b010: register_file_write_data = {56'b0, data_memory_read_data[23:16]};
-                    3'b011: register_file_write_data = {56'b0, data_memory_read_data[31:24]};
-                    3'b100: register_file_write_data = {56'b0, data_memory_read_data[39:32]};
-                    3'b101: register_file_write_data = {56'b0, data_memory_read_data[47:40]};
-                    3'b110: register_file_write_data = {56'b0, data_memory_read_data[55:48]};
-                    3'b111: register_file_write_data = {56'b0, data_memory_read_data[63:56]};
+                    3'b000: register_file_write_data = {{(XLEN-8){1'b0}}, data_memory_read_data[7:0]};
+                    3'b001: register_file_write_data = {{(XLEN-8){1'b0}}, data_memory_read_data[15:8]};
+                    3'b010: register_file_write_data = {{(XLEN-8){1'b0}}, data_memory_read_data[23:16]};
+                    3'b011: register_file_write_data = {{(XLEN-8){1'b0}}, data_memory_read_data[31:24]};
+                    3'b100: register_file_write_data = {{(XLEN-8){1'b0}}, data_memory_read_data[39:32]};
+                    3'b101: register_file_write_data = {{(XLEN-8){1'b0}}, data_memory_read_data[47:40]};
+                    3'b110: register_file_write_data = {{(XLEN-8){1'b0}}, data_memory_read_data[55:48]};
+                    3'b111: register_file_write_data = {{(XLEN-8){1'b0}}, data_memory_read_data[63:56]};
                 endcase
             end
 				`LOAD_LHU: begin
                 case (address[2:1])
-                    2'b00: register_file_write_data = {48'b0, data_memory_read_data[15:0]};
-                    2'b01: register_file_write_data = {48'b0, data_memory_read_data[31:16]};
-                    2'b10: register_file_write_data = {48'b0, data_memory_read_data[47:32]};
-                    2'b11: register_file_write_data = {48'b0, data_memory_read_data[63:48]};
+                    2'b00: register_file_write_data = {{(XLEN-16){1'b0}}, data_memory_read_data[15:0]};
+                    2'b01: register_file_write_data = {{(XLEN-16){1'b0}}, data_memory_read_data[31:16]};
+                    2'b10: register_file_write_data = {{(XLEN-16){1'b0}}, data_memory_read_data[47:32]};
+                    2'b11: register_file_write_data = {{(XLEN-16){1'b0}}, data_memory_read_data[63:48]};
                 endcase
             end
                 `LOAD_LWU: begin
                 case (address[2])
-                    1'b0: register_file_write_data = {32'b0, data_memory_read_data[31:0]};
-                    1'b1: register_file_write_data = {32'b0, data_memory_read_data[63:32]};
+                    1'b0: register_file_write_data = {{(XLEN-32){1'b0}}, data_memory_read_data[31:0]};
+                    1'b1: register_file_write_data = {{(XLEN-32){1'b0}}, data_memory_read_data[63:32]};
                 endcase
             end
 				default: register_file_write_data = {XLEN{1'b0}};
