@@ -109,7 +109,9 @@ module ALUController (
 					default: alu_op = `ALU_OP_NOP;
 				endcase
 			end
-			default: alu_op = `ALU_OP_NOP;
+			default: begin
+				alu_op = `ALU_OP_NOP;
+			end
         endcase
 	end
 endmodule
