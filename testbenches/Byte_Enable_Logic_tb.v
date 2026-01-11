@@ -9,7 +9,7 @@ module ByteEnableLogic_tb;
     reg [2:0] funct3;
 	reg [63:0] register_file_read_data;
 	reg [63:0] data_memory_read_data;
-	reg [63:0] address;
+	reg [2:0] address;
 	
 	reg [63:0] original_data;
 	
