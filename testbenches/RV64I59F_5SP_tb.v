@@ -13,6 +13,7 @@ module RV32I46F5SPMMIO_tb #(
     RV64I59F5SP rv64i59f_5sp (
         .clk(clk),
         .reset(reset),
+        .UART_busy(1'b0),
 
         .retire_instruction(retire_instruction),
         .MMIO_data_memory_address(mmio_data_memory_address),
@@ -36,7 +37,7 @@ module RV32I46F5SPMMIO_tb #(
 
         reset = 0;
 
-        #5340;
+        #3340;
 
         $display("\n====================  RV64I59F_5SP Test END  ====================");
         $stop;
