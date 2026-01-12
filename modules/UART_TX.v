@@ -23,14 +23,16 @@ module UARTTX (
             baud_counter <= 1'b0;
             bit_counter <= 1'b0;
             shift_reg <= 10'h3FF;
-        end else begin
+        end 
+        else begin
             if (!tx_busy && tx_start) begin
                 // Start : start(0) + data + stop(1)
                 shift_reg <= {1'b1, tx_data, 1'b0};
                 tx_busy <= 1'b1;
                 baud_counter <= 1'b0;
                 bit_counter <= 1'b0;
-            end else if (tx_busy) begin
+            end 
+            else if (tx_busy) begin
                 if (baud_counter >= BAUD_DIV-1) begin
                     baud_counter <= 0;
                     tx <= shift_reg[0];
@@ -39,10 +41,12 @@ module UARTTX (
                     if (bit_counter >= BITS-1) begin
                         tx_busy <= 1'b0;
                         tx <= 1'b1;
-                    end else begin
+                    end 
+                    else begin
                         bit_counter <= bit_counter + 1;
                     end
-                end else begin
+                end 
+                else begin
                     baud_counter <= baud_counter +1;
                 end
             end

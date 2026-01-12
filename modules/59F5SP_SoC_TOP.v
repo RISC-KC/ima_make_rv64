@@ -22,7 +22,8 @@ module RV64I59F5SPSoCTOP #(
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             clk_50mhz_unbuffered <= 1'b0;
-        end else begin
+        end 
+        else begin
             clk_50mhz_unbuffered <= ~clk_50mhz_unbuffered;
         end
     end
@@ -35,7 +36,8 @@ module RV64I59F5SPSoCTOP #(
     always @(posedge clk_50mhz or posedge reset) begin
         if (reset) begin
             reset_sync <= 3'b111;
-        end else begin
+        end 
+        else begin
             reset_sync <= {reset_sync[1:0], 1'b0};
         end
     end
@@ -48,7 +50,8 @@ module RV64I59F5SPSoCTOP #(
     always @(posedge clk_50mhz or posedge internal_reset) begin
         if (internal_reset) begin
             cpu_clk_enable <= 1'b0;
-        end else begin
+        end 
+        else begin
             if (benchmark_start) begin
                 cpu_clk_enable <= 1'b1;
             end
