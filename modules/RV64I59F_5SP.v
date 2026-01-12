@@ -182,7 +182,7 @@ module RV64I59F5SP #(
     wire [6:0] MEM_opcode;
     wire [2:0] MEM_funct3;
     wire [4:0] MEM_rs1;
-    wire [5:0] MEM_rs2;
+    wire [4:0] MEM_rs2;
     wire [4:0] MEM_rd;
     wire [XLEN-1:0] MEM_read_data2;
     wire [XLEN-1:0] MEM_imm;
@@ -381,7 +381,7 @@ module RV64I59F5SP #(
 
     DataMemory data_memory (
         .clk(clk),
-        .write_enable(MEM_memory_write && !mmio_uart_status_hit),   // UART status 조회시 ROM이므로 쓰기 방지.
+        .write_enable(MEM_memory_write && !mmio_uart_status_hit),
         .address(MEM_alu_result),
         .write_data(data_memory_write_data),
         .write_mask(write_mask),
@@ -703,7 +703,7 @@ module RV64I59F5SP #(
         .EX_opcode(EX_opcode),
         .EX_funct3(EX_funct3),
         .EX_rs1(EX_rs1),
-        .EX_rs2(EX_rs2),
+        .EX_rs2(EX_rs2[4:0]),
         .EX_rd(EX_rd),
         .EX_raw_imm(EX_raw_imm),
         .EX_read_data2(EX_read_data2_MUX),
@@ -793,7 +793,7 @@ module RV64I59F5SP #(
             retire_byte_enable_logic_register_file_write_data <= {XLEN{1'b0}};
             instruction_retired <= 1'b0;
         end 
-        else if (clk_enable) begin
+        else begin
             retire_rd <= WB_rd;
             retire_register_write_enable <= WB_register_write_enable;
             retire_opcode <= WB_opcode;
