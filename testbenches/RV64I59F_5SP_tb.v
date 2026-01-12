@@ -8,7 +8,7 @@ module RV32I46F5SPMMIO_tb #(
     wire [31:0] retire_instruction;
     wire [XLEN-1:0] mmio_data_memory_address;
     wire [XLEN-1:0] mmio_data_memory_write_data;
-    wire [7:0] mmio_data_memory_write_enable;
+    wire mmio_data_memory_write_enable;
 
     RV64I59F5SP rv64i59f_5sp (
         .clk(clk),
