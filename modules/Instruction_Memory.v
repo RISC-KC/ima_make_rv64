@@ -309,7 +309,8 @@ module InstructionMemory #(
 	always @(*) begin
 		if (rom_access) begin
 			rom_read_data = data[rom_address[31:2]];
-		end else begin
+		end 
+		else begin
 			rom_read_data = 32'b0;
 		end
 	end
