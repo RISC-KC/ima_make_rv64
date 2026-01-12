@@ -33,7 +33,8 @@ always @(posedge clk or posedge reset) begin
             ID_pc_plus_4 <= {XLEN{1'b0}};
             ID_instruction <= 32'h0000_0013; // ADDI x0, x0, 0 = RISC-V NOP, HINT
             ID_branch_estimation <= 1'b0;
-        end else if (!IF_ID_stall) begin
+        end 
+        else if (!IF_ID_stall) begin
             ID_pc <= IF_pc;
             ID_pc_plus_4 <= IF_pc_plus_4;
             ID_instruction <= IF_instruction;
