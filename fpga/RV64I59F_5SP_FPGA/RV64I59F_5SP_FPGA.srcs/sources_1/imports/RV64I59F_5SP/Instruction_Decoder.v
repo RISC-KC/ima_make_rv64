@@ -18,7 +18,6 @@ module InstructionDecoder (
 	assign rs1 = instruction[19:15];
 	assign rd = instruction[11:7];
 
-	wire r_shift = (opcode == `OPCODE_RTYPE) && (funct3 == `RTYPE_SLL || funct3 == `RTYPE_SRX);
 	wire i_shift = (opcode == `OPCODE_ITYPE) && (funct3 == `ITYPE_SLLI || funct3 == `ITYPE_SRXI);
 
 	assign rs2 = i_shift ? {1'b0, instruction[25:20]} : {1'b0, instruction[24:20]}; // 6-bit shamt for RV64I shifts
