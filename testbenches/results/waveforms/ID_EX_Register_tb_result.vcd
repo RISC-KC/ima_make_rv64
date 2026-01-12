@@ -1,0 +1,305 @@
+$date
+	Mon Dec 29 12:49:52 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module ID_EX_Register_tb $end
+$scope module dut $end
+$var wire 1 ! ID_EX_stall $end
+$var wire 2 " ID_alu_src_A_select [1:0] $end
+$var wire 3 # ID_alu_src_B_select [2:0] $end
+$var wire 1 $ ID_branch $end
+$var wire 1 % ID_branch_estimation $end
+$var wire 64 & ID_csr_read_data [63:0] $end
+$var wire 1 ' ID_csr_write_enable $end
+$var wire 3 ( ID_funct3 [2:0] $end
+$var wire 7 ) ID_funct7 [6:0] $end
+$var wire 64 * ID_imm [63:0] $end
+$var wire 32 + ID_instruction [31:0] $end
+$var wire 1 , ID_jump $end
+$var wire 1 - ID_memory_read $end
+$var wire 1 . ID_memory_write $end
+$var wire 7 / ID_opcode [6:0] $end
+$var wire 64 0 ID_pc [63:0] $end
+$var wire 64 1 ID_pc_plus_4 [63:0] $end
+$var wire 20 2 ID_raw_imm [19:0] $end
+$var wire 5 3 ID_rd [4:0] $end
+$var wire 64 4 ID_read_data1 [63:0] $end
+$var wire 64 5 ID_read_data2 [63:0] $end
+$var wire 3 6 ID_register_file_write_data_select [2:0] $end
+$var wire 1 7 ID_register_write_enable $end
+$var wire 5 8 ID_rs1 [4:0] $end
+$var wire 5 9 ID_rs2 [4:0] $end
+$var wire 1 : clk $end
+$var wire 1 ; flush $end
+$var wire 1 < reset $end
+$var parameter 32 = XLEN $end
+$var reg 2 > EX_alu_src_A_select [1:0] $end
+$var reg 3 ? EX_alu_src_B_select [2:0] $end
+$var reg 1 @ EX_branch $end
+$var reg 1 A EX_branch_estimation $end
+$var reg 64 B EX_csr_read_data [63:0] $end
+$var reg 1 C EX_csr_write_enable $end
+$var reg 3 D EX_funct3 [2:0] $end
+$var reg 7 E EX_funct7 [6:0] $end
+$var reg 64 F EX_imm [63:0] $end
+$var reg 32 G EX_instruction [31:0] $end
+$var reg 1 H EX_jump $end
+$var reg 1 I EX_memory_read $end
+$var reg 1 J EX_memory_write $end
+$var reg 7 K EX_opcode [6:0] $end
+$var reg 64 L EX_pc [63:0] $end
+$var reg 64 M EX_pc_plus_4 [63:0] $end
+$var reg 20 N EX_raw_imm [19:0] $end
+$var reg 5 O EX_rd [4:0] $end
+$var reg 64 P EX_read_data1 [63:0] $end
+$var reg 64 Q EX_read_data2 [63:0] $end
+$var reg 3 R EX_register_file_write_data_select [2:0] $end
+$var reg 1 S EX_register_write_enable $end
+$var reg 5 T EX_rs1 [4:0] $end
+$var reg 5 U EX_rs2 [4:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1000000 =
+$end
+#0
+$dumpvars
+b0 U
+b0 T
+0S
+b0 R
+b0 Q
+b0 P
+b0 O
+b0 N
+b0 M
+b0 L
+b0 K
+0J
+0I
+0H
+b10011 G
+b0 F
+b0 E
+b0 D
+0C
+b0 B
+0A
+0@
+b0 ?
+b0 >
+1<
+0;
+0:
+bz 9
+bx 8
+x7
+bx 6
+bx 5
+bx 4
+bx 3
+bx 2
+bx 1
+bx 0
+bx /
+x.
+x-
+x,
+bz +
+bx *
+bx )
+bx (
+x'
+bx &
+x%
+x$
+bx #
+bx "
+0!
+$end
+#5000
+1:
+#10000
+0:
+#15000
+1:
+#20000
+0:
+#25000
+1:
+#30000
+0:
+0<
+#35000
+bx B
+bx F
+bz U
+bx T
+bx Q
+bx P
+bx N
+bx O
+bx E
+bx D
+bx K
+bx ?
+bx >
+x@
+xC
+xS
+bx R
+xJ
+xI
+xH
+bz G
+xA
+bx M
+bx L
+1:
+#40000
+0:
+#45000
+1:
+#50000
+b0 &
+b0 *
+b1100 8
+b1011101110111011101110111011101110111011101110111011101110111011 5
+b1010101010101010101010101010101010101010101010101010101010101010 4
+b0 2
+b110 3
+b11110 )
+b10 (
+b11000 /
+0'
+07
+b1 6
+0.
+0-
+b10 #
+b1 "
+0$
+1,
+0%
+b100 1
+b0 0
+0:
+#55000
+b0 B
+b0 F
+b1100 T
+b1011101110111011101110111011101110111011101110111011101110111011 Q
+b1010101010101010101010101010101010101010101010101010101010101010 P
+b0 N
+b110 O
+b11110 E
+b10 D
+b11000 K
+b10 ?
+b1 >
+0@
+0C
+0S
+b1 R
+0J
+0I
+1H
+0A
+b100 M
+b0 L
+1:
+#60000
+0:
+#65000
+1:
+#70000
+b101 8
+b1010 5
+b101 4
+b1000 3
+b0 )
+b0 (
+b110011 /
+17
+b0 6
+b0 #
+b0 "
+0,
+0:
+#75000
+b101 T
+b1010 Q
+b101 P
+b1000 O
+b0 E
+b0 D
+b110011 K
+b0 ?
+b0 >
+1S
+b0 R
+0H
+1:
+#76000
+1;
+#80000
+0:
+#85000
+b0 U
+b0 T
+b0 Q
+b0 P
+b0 O
+b0 K
+0S
+b10011 G
+b0 M
+1:
+#86000
+b11110000 *
+b10 8
+b0 5
+b100 4
+b11110000 2
+b1111 3
+b10 (
+b11 /
+1'
+07
+b1 6
+1-
+b1 #
+1$
+1%
+b10000000000000001000000000100 1
+b10000000000000001000000000000 0
+0;
+#90000
+0:
+#95000
+b11110000 F
+bz U
+b10 T
+b100 P
+b11110000 N
+b1111 O
+b10 D
+b11 K
+b1 ?
+1@
+1C
+b1 R
+1I
+bz G
+1A
+b10000000000000001000000000100 M
+b10000000000000001000000000000 L
+1:
+#96000

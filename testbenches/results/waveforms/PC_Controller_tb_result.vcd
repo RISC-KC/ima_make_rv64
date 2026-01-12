@@ -1,0 +1,71 @@
+$date
+	Sun Dec 28 23:45:49 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module PCController_tb $end
+$scope module dut $end
+$var wire 1 ! branch_estimation $end
+$var wire 1 " branch_prediction_miss $end
+$var wire 64 # branch_target [63:0] $end
+$var wire 64 $ branch_target_actual [63:0] $end
+$var wire 1 % jump $end
+$var wire 64 & jump_target [63:0] $end
+$var wire 64 ' pc [63:0] $end
+$var wire 1 ( pc_stall $end
+$var wire 64 ) trap_target [63:0] $end
+$var wire 1 * trapped $end
+$var parameter 32 + XLEN $end
+$var reg 64 , next_pc [63:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1000000 +
+$end
+#0
+$dumpvars
+b0 ,
+0*
+b0 )
+1(
+b0 '
+b1001000110100010101100111100010011010101111001101111011110000 &
+1%
+bz $
+b0 #
+z"
+0!
+$end
+#10000
+b100 ,
+0%
+0(
+b0 &
+#20000
+b1101111010101101000000000000000010111110111011111100101011111000 ,
+b1101111010101101000000000000000010111110111011111100101011111000 &
+1%
+b100 '
+#30000
+b110011001100110011011101110111011101110111011100 ,
+b110011001100110011011101110111011101110111011100 #
+1!
+0%
+b1101111010101101000000000000000010111110111011111100101011111000 '
+#40000
+b1100101011111110101110101011111011011110101011011011111011100000 ,
+b1100101011111110101110101011111011011110101011011011111011100000 )
+1*
+0!
+b110011001100110011011101110111011101110111011100 '
+#50000
+b1000000000100 ,
+0*
+b1000000000000 '
+#60000

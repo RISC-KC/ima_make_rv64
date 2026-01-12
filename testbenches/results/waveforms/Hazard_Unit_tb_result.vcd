@@ -1,0 +1,366 @@
+$date
+	Mon Jan 05 01:04:09 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module HazardUnit_tb $end
+$scope module dut $end
+$var wire 2 ! EX_alu_src_A_select [1:0] $end
+$var wire 3 " EX_alu_src_B_select [2:0] $end
+$var wire 1 # EX_csr_write_enable $end
+$var wire 12 $ EX_imm [11:0] $end
+$var wire 1 % EX_jump $end
+$var wire 7 & EX_opcode [6:0] $end
+$var wire 5 ' EX_rd [4:0] $end
+$var wire 5 ( EX_rs1 [4:0] $end
+$var wire 5 ) EX_rs2 [4:0] $end
+$var wire 12 * ID_raw_imm [11:0] $end
+$var wire 5 + ID_rs1 [4:0] $end
+$var wire 5 , ID_rs2 [4:0] $end
+$var wire 12 - MEM_csr_write_address [11:0] $end
+$var wire 1 . MEM_csr_write_enable $end
+$var wire 5 / MEM_rd [4:0] $end
+$var wire 1 0 MEM_register_write_enable $end
+$var wire 12 1 WB_csr_write_address [11:0] $end
+$var wire 1 2 WB_csr_write_enable $end
+$var wire 5 3 WB_rd [4:0] $end
+$var wire 1 4 WB_register_write_enable $end
+$var wire 1 5 branch_prediction_miss $end
+$var wire 1 6 clk $end
+$var wire 1 7 csr_hazard_mem $end
+$var wire 1 8 csr_hazard_wb $end
+$var wire 1 9 csr_ready $end
+$var wire 1 : mem_hazard_rs1 $end
+$var wire 1 ; mem_hazard_rs2 $end
+$var wire 1 < misaligned_instruction_flush $end
+$var wire 1 = misaligned_memory_flush $end
+$var wire 1 > pth_done_flush $end
+$var wire 1 ? reset $end
+$var wire 1 @ standby_mode $end
+$var wire 1 A store_hazard_mem $end
+$var wire 1 B store_hazard_wb $end
+$var wire 1 C trap_done $end
+$var wire 3 D trap_status [2:0] $end
+$var wire 1 E wb_hazard_rs1 $end
+$var wire 1 F wb_hazard_rs2 $end
+$var wire 1 G uses_rs2 $end
+$var wire 1 H uses_rs1 $end
+$var wire 1 I is_store $end
+$var reg 1 J EX_MEM_flush $end
+$var reg 1 K EX_MEM_stall $end
+$var reg 1 L ID_EX_flush $end
+$var reg 1 M ID_EX_stall $end
+$var reg 1 N IF_ID_flush $end
+$var reg 1 O IF_ID_stall $end
+$var reg 1 P MEM_WB_flush $end
+$var reg 1 Q MEM_WB_stall $end
+$var reg 2 R hazard_mem [1:0] $end
+$var reg 2 S hazard_wb [1:0] $end
+$var reg 12 T retire_csr_write_address [11:0] $end
+$var reg 5 U retire_rd [4:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+b0 U
+b0 T
+b0 S
+b0 R
+0Q
+0P
+0O
+0N
+0M
+0L
+0K
+0J
+0I
+xH
+xG
+0F
+0E
+b0 D
+1C
+0B
+0A
+0@
+1?
+0>
+0=
+0<
+0;
+0:
+19
+08
+07
+06
+05
+04
+b0 3
+02
+b0 1
+00
+b0 /
+0.
+b0 -
+b0 ,
+b0 +
+b0 *
+b0 )
+b0 (
+b0 '
+b110011 &
+0%
+b0 $
+0#
+bz "
+bz !
+$end
+#5000
+16
+#10000
+06
+0?
+#15000
+b100 U
+14
+b100 3
+10
+b11 /
+b10 )
+b1 (
+16
+#20000
+06
+#25000
+b0 U
+b0x R
+x:
+b100 )
+b11 (
+04
+b0 3
+10
+b11 /
+16
+#30000
+06
+#35000
+bx0 R
+x;
+0:
+b101 )
+b110 (
+10
+b101 /
+16
+#40000
+06
+#45000
+b111 U
+b0x S
+xE
+b0 R
+0;
+14
+b111 3
+b1000 )
+b111 (
+10
+b1001 /
+16
+#50000
+06
+#55000
+b0 U
+bx R
+b0 S
+x;
+x:
+0E
+b111 )
+b111 (
+04
+b0 3
+10
+b111 /
+16
+#60000
+06
+#65000
+b1010 U
+b0x S
+xE
+b0x R
+0;
+14
+b1010 3
+b1011 )
+b1010 (
+10
+b1010 /
+16
+#70000
+06
+#75000
+b0 U
+xA
+b0 S
+b0 R
+x;
+0E
+0:
+1I
+b100011 &
+b101 )
+b1 (
+04
+b0 3
+10
+b101 /
+16
+#80000
+06
+#85000
+b110 U
+xB
+xF
+0A
+0;
+14
+b110 3
+b110 )
+b1 (
+1I
+b100011 &
+00
+b0 /
+16
+#90000
+06
+#95000
+b0 U
+0B
+0F
+17
+b0 S
+b1100000101 -
+1.
+b1100000101 $
+b0 )
+b0 (
+0I
+b110011 &
+04
+b0 3
+16
+#100000
+06
+#105000
+b1101000001 T
+18
+07
+b1101000001 1
+12
+b1101000001 $
+b0 -
+0.
+16
+#110000
+06
+#115000
+b0 T
+1L
+1N
+08
+15
+b0 $
+b0 1
+02
+16
+#120000
+06
+#125000
+1L
+1N
+1%
+05
+16
+#130000
+06
+#135000
+1P
+1J
+1L
+1N
+1>
+0%
+16
+#140000
+06
+#145000
+1M
+1O
+0P
+0J
+0L
+0N
+1@
+0>
+16
+#150000
+06
+#155000
+1Q
+1K
+1M
+1O
+0C
+0@
+16
+#160000
+06
+#165000
+1Q
+1K
+1M
+1O
+09
+1C
+16
+#170000
+06
+#175000
+0Q
+0K
+0M
+0O
+10
+19
+16
+#180000
+06
+#185000
+b101 /
+b101 )
+b101 (
+00
+16
+#190000
+06
+#195000
+b0 )
+b0 (
+b0 /
+16
+#200000
+06
+#205000

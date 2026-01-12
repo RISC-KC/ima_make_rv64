@@ -1,0 +1,65 @@
+$date
+	Thu Dec 25 14:12:35 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module ProgramCounter_tb $end
+$scope module dut $end
+$var wire 1 ! clk $end
+$var wire 64 " next_pc [63:0] $end
+$var wire 1 # reset $end
+$var parameter 32 $ XLEN $end
+$var reg 64 % pc [63:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1000000 $
+$end
+#0
+$dumpvars
+bx %
+0#
+b100 "
+0!
+$end
+#5000
+b100 %
+1!
+#10000
+b0 %
+0!
+b1000 "
+1#
+#15000
+1!
+#20000
+0!
+0#
+#25000
+b1000 %
+1!
+#30000
+0!
+b1101111010101101101111101110111111011110101011011011111011101111 "
+#35000
+b1101111010101101101111101110111111011110101011011011111011101111 %
+1!
+#40000
+0!
+b1100101011111110101111101011111011001010111111101011111010111110 "
+#45000
+b1100101011111110101111101011111011001010111111101011111010111110 %
+1!
+#50000
+0!
+#55000
+b0 %
+1!
+1#
+#60000
