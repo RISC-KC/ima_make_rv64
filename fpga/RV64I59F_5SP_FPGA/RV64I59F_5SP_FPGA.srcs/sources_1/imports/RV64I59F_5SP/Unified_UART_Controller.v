@@ -26,7 +26,8 @@ module UnifiedUARTController (
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             btn_sync <= 3'b0;
-        end else begin
+        end 
+        else begin
             btn_sync <= {btn_sync[1:0], btn_up};
         end
     end
@@ -36,15 +37,18 @@ module UnifiedUARTController (
         if (reset) begin
             debounce_counter <= 20'b0;
             btn_stable <= 1'b0;
-        end else begin
+        end 
+        else begin
             if (btn_sync[2] != btn_stable) begin
                 if (debounce_counter < DEBOUNCE_CYCLES) begin
                     debounce_counter <= debounce_counter + 1;
-                end else begin
+                end 
+                else begin
                     btn_stable <= btn_sync[2];
                     debounce_counter <= 20'b0;
                 end
-            end else begin
+            end 
+            else begin
                 debounce_counter <= 20'b0;
             end
         end
@@ -54,7 +58,8 @@ module UnifiedUARTController (
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             btn_prev <= 1'b0;
-        end else begin
+        end 
+        else begin
             btn_prev <= btn_stable;
         end
     end
@@ -65,7 +70,8 @@ module UnifiedUARTController (
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             benchmark_start <= 1'b0;
-        end else begin
+        end 
+        else begin
             benchmark_start <= btn_rising_edge;
         end
     end
