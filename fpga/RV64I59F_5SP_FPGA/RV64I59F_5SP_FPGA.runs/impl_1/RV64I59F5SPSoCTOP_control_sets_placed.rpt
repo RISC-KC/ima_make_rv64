@@ -1,0 +1,133 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.2 (win64) Build 6299465 Fri Nov 14 19:35:11 GMT 2025
+| Date         : Mon Jan 12 12:41:12 2026
+| Host         : DESKTOP-CLDIC98 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file RV64I59F5SPSoCTOP_control_sets_placed.rpt
+| Design       : RV64I59F5SPSoCTOP
+| Device       : xc7a200t
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    55 |
+|    Minimum number of control sets                        |    55 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    96 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    55 |
+| >= 0 to < 4        |     9 |
+| >= 4 to < 6        |     1 |
+| >= 6 to < 8        |     0 |
+| >= 8 to < 10       |     3 |
+| >= 10 to < 12      |     0 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |    42 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |               0 |            0 |
+| No           | No                    | Yes                    |              29 |           10 |
+| No           | Yes                   | No                     |               0 |            0 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |            2403 |          937 |
+| Yes          | Yes                   | No                     |               0 |            0 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------+---------------------------------------------------------------+------------------+------------------+----------------+--------------+
+|  Clock Signal  |                         Enable Signal                         | Set/Reset Signal | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------+---------------------------------------------------------------+------------------+------------------+----------------+--------------+
+|  clk_50mhz     | rv64i59f_5sp/exception_detector/trap_status_reg[0]_1          | internal_reset   |                1 |              1 |         1.00 |
+|  clk_IBUF_BUFG |                                                               | reset            |                1 |              1 |         1.00 |
+|  clk_50mhz     | rv64i59f_5sp/csr_file/csr_processing0_out                     | internal_reset   |                1 |              1 |         1.00 |
+|  clk_50mhz     | uart_tx/tx_busy_i_1_n_0                                       | internal_reset   |                1 |              1 |         1.00 |
+|  clk_50mhz     | uart_tx/tx_i_1_n_0                                            | internal_reset   |                1 |              1 |         1.00 |
+|  clk_50mhz     | unified_uart_controller/benchmark_start                       | internal_reset   |                1 |              1 |         1.00 |
+|  clk_50mhz     | unified_uart_controller/btn_stable0_out                       | internal_reset   |                1 |              1 |         1.00 |
+|  clk_50mhz     | rv64i59f_5sp/id_ex_register/E[0]                              | internal_reset   |                1 |              2 |         2.00 |
+|  clk_50mhz     |                                                               | reset            |                2 |              3 |         1.50 |
+|  clk_50mhz     | uart_tx/bit_counter[3]_i_1_n_0                                | internal_reset   |                2 |              4 |         2.00 |
+|  clk_50mhz     | rv64i59f_5sp/mem_wb_register/WB_memory_write_reg_0[0]         | internal_reset   |                1 |              8 |         8.00 |
+|  clk_50mhz     | mmio_interface/tx_busy_reg[0]                                 | internal_reset   |                3 |              9 |         3.00 |
+|  clk_50mhz     | uart_tx/shift_reg[8]_i_1_n_0                                  | internal_reset   |                2 |              9 |         4.50 |
+|  clk_50mhz     |                                                               | internal_reset   |                7 |             25 |         3.57 |
+|  clk_50mhz     | rv64i59f_5sp/csr_file/csr_read_out[63]_i_1_n_0                | internal_reset   |               24 |             64 |         2.67 |
+|  clk_50mhz     | rv64i59f_5sp/csr_file/minstret[0]                             | internal_reset   |               16 |             64 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/trap_controller/cpu_clk_enable_reg[0]            | internal_reset   |               17 |             64 |         3.76 |
+|  clk_50mhz     | rv64i59f_5sp/trap_controller/cpu_clk_enable_reg_0[0]          | internal_reset   |               17 |             64 |         3.76 |
+|  clk_50mhz     | rv64i59f_5sp/trap_controller/E[0]                             | internal_reset   |               21 |             64 |         3.05 |
+|  clk_50mhz     | rv64i59f_5sp/mem_wb_register/p_0_in2_out                      |                  |               22 |            176 |         8.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[13]_rep__1_6  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[13]_rep__1_7  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[12]_rep__2_7  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[12]_rep__2_3  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[12]_rep__2_1  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[14]_3         |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[14]_4         |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[11]_rep__11_5 |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[14]_2         |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[14]_1         |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[15]_0         |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[15]_3         |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[15]_1         |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[15]_2         |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[13]_rep__1_8  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[14]_5         |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[11]_rep__11_3 |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[11]_rep__11_1 |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[11]_rep__11_6 |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[11]_rep__11_4 |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[11]_rep__11_2 |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[12]_rep__2_2  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[13]_rep__1_1  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[12]_rep__2_4  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[12]_rep__2_8  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[13]_rep__1_2  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[14]_0         |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[12]_rep__2_5  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[12]_rep__2_6  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[13]_rep__1_3  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[13]_rep__1_4  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | rv64i59f_5sp/ex_mem_register/MEM_alu_result_reg[13]_rep__1_5  |                  |               64 |            256 |         4.00 |
+|  clk_50mhz     | cpu_clk_enable                                                | internal_reset   |              202 |            515 |         2.55 |
+|  clk_50mhz     | rv64i59f_5sp/trap_controller/cpu_clk_enable_reg_1[0]          | internal_reset   |              165 |            574 |         3.48 |
+|  clk_50mhz     | rv64i59f_5sp/trap_controller/cpu_clk_enable_reg_2[0]          | internal_reset   |              460 |            956 |         2.08 |
++----------------+---------------------------------------------------------------+------------------+------------------+----------------+--------------+
+
+
