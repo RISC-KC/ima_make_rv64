@@ -58,7 +58,8 @@ module InstructionMemory #(
     always @(*) begin
     if (rom_access) begin
         rom_read_data = {data[{rom_address[15:3], 1'b1}], data[{rom_address[15:3], 1'b0}]};
-    end else begin
+    end 
+    else begin
         rom_read_data = 64'b0;
     end
 end

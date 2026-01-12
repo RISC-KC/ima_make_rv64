@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.runs/impl_1'
+HD_PWD='C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

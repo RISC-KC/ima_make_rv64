@@ -4,7 +4,7 @@
 
 set TIME_start [clock seconds] 
 namespace eval ::optrace {
-  variable script "C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.runs/synth_1/RV64I59F5SPSoCTOP.tcl"
+  variable script "C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.runs/synth_1/RV64I59F5SPSoCTOP.tcl"
   variable category "vivado_synth"
 }
 
@@ -65,64 +65,64 @@ create_project -in_memory -part xc7a200tsbg484-3
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.cache/wt [current_project]
-set_property parent.project_path C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.xpr [current_project]
+set_property webtalk.parent_dir C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.cache/wt [current_project]
+set_property parent.project_path C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property ip_output_repo c:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.cache/ip [current_project]
+set_property ip_output_repo c:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog {
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/alu_op.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/branch_funct3.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/rtype_funct3.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/csr_funct3.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/itype_funct3.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/opcode.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/rtype_mul_funct3.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/load_funct3.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/store_funct3.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/alu_src_select.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/rf_wd_select.vh
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/trap.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/alu_op.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/branch_funct3.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/rtype_funct3.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/csr_funct3.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/itype_funct3.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/opcode.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/rtype_mul_funct3.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/load_funct3.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/store_funct3.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/alu_src_select.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/rf_wd_select.vh
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/trap.vh
 }
 read_mem {
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/data_init.mem
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/coremark.mem
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/dhrystone.mem
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/data_init.mem
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/coremark.mem
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/dhrystone.mem
 }
 read_verilog -library xil_defaultlib {
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/ALU.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/ALU_Controller.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/ALU_DWORD.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/ALU_WORD.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Branch_Logic.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Branch_Predictor.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Byte_Enable_Logic.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/CSR_File.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Control_Unit.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Data_Memory.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/EX_MEM_Register.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Exception_Detector.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Forward_Unit.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Hazard_Unit.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/ID_EX_Register.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/IF_ID_Register.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Immediate_Generator.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Instruction_Decoder.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Instruction_Memory.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/MEM_WB_Register.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/MMIO_Interface.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/PC_Controller.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/PC_Plus_4.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Program_Counter.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/RV64I59F_5SP.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Register_File.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Trap_Controller.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/UART_TX.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Unified_UART_Controller.v
-  C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/59F5SP_SoC_TOP.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/ALU.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/ALU_Controller.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/ALU_DWORD.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/ALU_WORD.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Branch_Logic.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Branch_Predictor.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Byte_Enable_Logic.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/CSR_File.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Control_Unit.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Data_Memory.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/EX_MEM_Register.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Exception_Detector.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Forward_Unit.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Hazard_Unit.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/ID_EX_Register.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/IF_ID_Register.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Immediate_Generator.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Instruction_Decoder.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Instruction_Memory.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/MEM_WB_Register.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/MMIO_Interface.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/PC_Controller.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/PC_Plus_4.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Program_Counter.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/RV64I59F_5SP.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Register_File.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Trap_Controller.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/UART_TX.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/Unified_UART_Controller.v
+  C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/sources_1/imports/RV64I59F_5SP/59F5SP_SoC_TOP.v
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being
@@ -133,12 +133,12 @@ OPTRACE "Adding files" END { }
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
-read_xdc C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/constrs_1/imports/RV64I59F_5SP/RV32I46F_5SP_Debug_XDC.xdc
-set_property used_in_implementation false [get_files C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/constrs_1/imports/RV64I59F_5SP/RV32I46F_5SP_Debug_XDC.xdc]
+read_xdc C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/constrs_1/imports/RV64I59F_5SP/RV32I46F_5SP_Debug_XDC.xdc
+set_property used_in_implementation false [get_files C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/constrs_1/imports/RV64I59F_5SP/RV32I46F_5SP_Debug_XDC.xdc]
 
 set_param ips.enableIPCacheLiteLoad 1
 
-read_checkpoint -auto_incremental -incremental C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/utils_1/imports/synth_1/RV64I59F5SPSoCTOP.dcp
+read_checkpoint -auto_incremental -incremental C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/utils_1/imports/synth_1/RV64I59F5SPSoCTOP.dcp
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }

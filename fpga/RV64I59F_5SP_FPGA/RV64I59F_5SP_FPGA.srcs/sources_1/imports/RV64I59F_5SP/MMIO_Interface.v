@@ -27,7 +27,8 @@ module MMIOInterface #(
         if (reset) begin
             mmio_uart_tx_data <= 8'h0;
             mmio_uart_tx_start <= 1'b0;
-        end else begin
+        end 
+        else begin
             mmio_uart_tx_start <= 1'b0;
 
             if (clk_enable && data_memory_write_enable && uart_tx_hit && !UART_busy) begin

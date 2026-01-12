@@ -1,5 +1,5 @@
 namespace eval ::optrace {
-  variable script "C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.runs/impl_1/RV64I59F5SPSoCTOP.tcl"
+  variable script "C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.runs/impl_1/RV64I59F5SPSoCTOP.tcl"
   variable category "vivado_impl"
 }
 
@@ -114,15 +114,15 @@ OPTRACE "create in-memory project" START { }
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
 OPTRACE "set parameters" START { }
-  set_property webtalk.parent_dir C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.cache/wt [current_project]
-  set_property parent.project_path C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.xpr [current_project]
-  set_property ip_output_repo C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.cache/ip [current_project]
+  set_property webtalk.parent_dir C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.cache/wt [current_project]
+  set_property parent.project_path C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.xpr [current_project]
+  set_property ip_output_repo C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
-  add_files -quiet C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.runs/synth_1/RV64I59F5SPSoCTOP.dcp
+  add_files -quiet C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.runs/synth_1/RV64I59F5SPSoCTOP.dcp
 OPTRACE "read constraints: implementation" START { }
-  read_xdc C:/Users/HyunWoo/Desktop/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/constrs_1/imports/RV64I59F_5SP/RV32I46F_5SP_Debug_XDC.xdc
+  read_xdc C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/constrs_1/imports/RV64I59F_5SP/RV32I46F_5SP_Debug_XDC.xdc
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "read constraints: implementation_pre" START { }
 OPTRACE "read constraints: implementation_pre" END { }
@@ -185,6 +185,10 @@ set rc [catch {
   create_msg_db place_design.pb
 OPTRACE "read constraints: place_design" START { }
 OPTRACE "read constraints: place_design" END { }
+OPTRACE "read incremental checkpoint" START { }
+  read_checkpoint -auto_incremental  -incremental C:/Users/HyunWoo/Desktop/KHWL2025/ima_make_rv64/fpga/RV64I59F_5SP_FPGA/RV64I59F_5SP_FPGA.srcs/utils_1/imports/impl_1/RV64I59F5SPSoCTOP_routed.dcp
+  catch { report_incremental_reuse -file RV64I59F5SPSoCTOP_incremental_reuse_pre_placed.rpt }
+OPTRACE "read incremental checkpoint" END { }
   if { [llength [get_debug_cores -quiet] ] > 0 }  { 
 OPTRACE "implement_debug_core" START { }
     implement_debug_core 
