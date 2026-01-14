@@ -195,48 +195,80 @@ module ALU_tb;
         $display("%h >> %d = %h, Zero: %b", src_A[31:0], src_B[31:0], alu_result, alu_zero);
 
         // Test 11: MUL, MULH, MULHSU, MULHU
-        /*
-        $display("\nMultiplication Test: ");
+
+        $display("\nMultiplication Test (DWORD): ");
 
         alu_op = `ALU_OP_MUL;
         input_size_word = 0;
 
+        // 간단한 검증용 테스트
+        src_A = 64'd10; src_B = 64'd20; #10;
+        $display("MUL: %d * %d = %d (expected: 200), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'd200) ? "PASS" : "FAIL");
+
+        src_A = 64'd1000; src_B = 64'd1000; #10;
+        $display("MUL: %d * %d = %d (expected: 1000000), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'd1000000) ? "PASS" : "FAIL");
+
         src_A = 64'd1972; src_B = 64'd1121; #10;
-        $display("%d * %d = ??? / %d, Zero: %b", src_A, src_B, alu_result, alu_zero);
+        $display("MUL: %d * %d = %d (expected: 2210612), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'd2210612) ? "PASS" : "FAIL");
+
+        // MULH 테스트 - 상위 64비트 확인
+        // 2^32 * 2^32 = 2^64, 상위 64비트 = 1, 하위 64비트 = 0
+        alu_op = `ALU_OP_MUL;
+        src_A = 64'h1_0000_0000; src_B = 64'h1_0000_0000; #10;
+        $display("MUL: 0x%h * 0x%h = low 0x%h (expected: 0x0), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'h0) ? "PASS" : "FAIL");
+
+        alu_op = `ALU_OP_MULHU; #10;
+        $display("MULHU: 0x%h * 0x%h = high 0x%h (expected: 0x1), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'h1) ? "PASS" : "FAIL");
+
+        // 부호 있는 곱셈 테스트: -1 * 10 = -10
+        alu_op = `ALU_OP_MUL;
+        src_A = 64'hFFFF_FFFF_FFFF_FFFF; src_B = 64'd10; #10; // -1 * 10
+        $display("MUL: %d * %d = %d (expected: -10), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == -10) ? "PASS" : "FAIL");
 
         alu_op = `ALU_OP_MULH; #10;
-        $display("%d * %d = %d / ???, Zero: %b", src_A, src_B, alu_result, alu_zero);
+        $display("MULH: %d * %d = high %d (expected: -1), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == -1) ? "PASS" : "FAIL");
 
+        // 큰 값 테스트
         alu_op = `ALU_OP_MUL;
         src_A = 64'hDEAD_BEEF_DEAD_BEEF; src_B = 64'hCAFE_BABE_CAFE_BABE; #10;
-        $display("%h * %h = ??? / %h, Zero: %b", src_A, src_B, alu_result, alu_zero);
+        $display("MUL: 0x%h * 0x%h = low 0x%h (expected: 0xC231623F88CF5B62), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'hC231623F88CF5B62) ? "PASS" : "FAIL");
 
         alu_op = `ALU_OP_MULHU; #10;
-        $display("%h * %h = %h / ???, Zero: %b", src_A, src_B, alu_result, alu_zero);
+        $display("MULHU: 0x%h * 0x%h = high 0x%h (expected: 0xB092AB7CE9F4B259), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'hB092AB7CE9F4B259) ? "PASS" : "FAIL");
 
-        alu_op = `ALU_OP_MULHSU; #10;
-        $display("%d * %d = %h / ???, Zero: %b", $signed(src_A), src_B, alu_result, alu_zero);
-
-        alu_op = `ALU_OP_MULH; #10;
-        $display("%d * %d = %h / ???, Zero: %b\n", $signed(src_A), $signed(src_B), alu_result, alu_zero);
+        $display("\nMultiplication Test (WORD): ");
 
         input_size_word = 1;
-        alu_op = `ALU_OP_MUL; #10;
-        $display("%h * %h = ??? / %h, Zero: %b", src_A[31:0], src_B[31:0], alu_result, alu_zero);
+        
+        // 간단한 검증용 테스트
+        alu_op = `ALU_OP_MUL;
+        src_A = 64'd7; src_B = 64'd8; #10;
+        $display("MUL: %d * %d = %d (expected: 56), Zero: %b, %s", src_A[31:0], src_B[31:0], $signed(alu_result), alu_zero, ($signed(alu_result) == 56) ? "PASS" : "FAIL");
+
+        src_A = 64'd100; src_B = 64'd100; #10;
+        $display("MUL: %d * %d = %d (expected: 10000), Zero: %b, %s", src_A[31:0], src_B[31:0], $signed(alu_result), alu_zero, ($signed(alu_result) == 10000) ? "PASS" : "FAIL");
+
+        // MULH 테스트 - 상위 32비트 확인
+        // 2^16 * 2^16 = 2^32, 상위 32비트 = 1, 하위 32비트 = 0
+        src_A = 64'h0001_0000; src_B = 64'h0001_0000; #10;
+        $display("MUL: 0x%h * 0x%h = low 0x%h (expected: 0x0, sign-ext), Zero: %b, %s", src_A[31:0], src_B[31:0], alu_result, alu_zero, (alu_result == 64'h0) ? "PASS" : "FAIL");
 
         alu_op = `ALU_OP_MULHU; #10;
-        $display("%h * %h = %h / ???, Zero: %b", src_A[31:0], src_B[31:0], alu_result, alu_zero);
+        $display("MULHU: 0x%h * 0x%h = high 0x%h (expected: 0x1, sign-ext), Zero: %b, %s", src_A[31:0], src_B[31:0], alu_result, alu_zero, (alu_result == 64'h0000_0000_0000_0001) ? "PASS" : "FAIL");
 
-        alu_op = `ALU_OP_MULHSU; #10;
-        $display("%d * %d = %h / ???, Zero: %b", $signed(src_A[31:0]), src_B[31:0], alu_result, alu_zero);
-        
+        // 부호 있는 곱셈 테스트: -1 * 5 = -5
+        alu_op = `ALU_OP_MUL;
+        src_A = 64'hFFFF_FFFF; src_B = 64'd5; #10; // -1 * 5
+        $display("MUL: %d * %d = %d (expected: -5), Zero: %b, %s", $signed(src_A[31:0]), $signed(src_B[31:0]), $signed(alu_result), alu_zero, ($signed(alu_result) == -5) ? "PASS" : "FAIL");
+
         alu_op = `ALU_OP_MULH; #10;
-        $display("%d * %d = %h / ???, Zero: %b", $signed(src_A[31:0]), $signed(src_B[31:0]), alu_result, alu_zero);
-        */
+        $display("MULH: %d * %d = high %d (expected: -1), Zero: %b, %s", $signed(src_A[31:0]), $signed(src_B[31:0]), $signed(alu_result), alu_zero, ($signed(alu_result) == -1) ? "PASS" : "FAIL");
+        
         // Test 12: ABJ
 		$display("\nAbjunction Test: ");
 		
         alu_op = `ALU_OP_ABJ;
+        input_size_word = 0;
 
         src_B = 64'hFFFF_FFFF_FFFF_FFFF; src_A = 64'h0FF0_0FF0_0FF0_0FF0; #10;
         $display("%h & ~%h = %h, Zero: %b", src_B, src_A, alu_result, alu_zero);
@@ -247,7 +279,7 @@ module ALU_tb;
 		src_B = 64'hFFFF_FFFF_FFFF_FFFF; src_A = 64'hFFFF_FFFF_FFFF_FFFF;  #10;
         $display("%h & ~%h = %h, Zero: %b", src_B, src_A, alu_result, alu_zero);
 
-        // Test 12: NOP
+        // Test 13: NOP
 		$display("\nNOP Test: ");
 		
         alu_op = `ALU_OP_NOP;
