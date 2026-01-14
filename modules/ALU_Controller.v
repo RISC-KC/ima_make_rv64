@@ -56,7 +56,6 @@ module ALUController (
 				endcase
 			end
 			`OPCODE_RTYPE, `OPCODE_RTYPE_WORD: begin
-				/*
 				if (funct7_0) begin // M extension operations
 					case (funct3)
 						`RTYPE_MUL: alu_op = `ALU_OP_MUL;
@@ -69,6 +68,7 @@ module ALUController (
 						`RTYPE_REMU: alu_op = `ALU_OP_REMU;
 					endcase
 				end
+			end
 				
 				else begin // I extension operations*/
 					case (funct3)
