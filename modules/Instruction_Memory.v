@@ -2,6 +2,7 @@
 `include "modules/headers/itype_funct3.vh"
 `include "modules/headers/load_funct3.vh"
 `include "modules/headers/rtype_funct3.vh"
+`include "modules/headers/rtype_mul_funct3.vh"
 `include "modules/headers/store_funct3.vh"
 `include "modules/headers/opcode.vh"
 `include "modules/headers/csr_funct3.vh"
@@ -262,8 +263,90 @@ module InstructionMemory #(
 		data[132] = {7'b0000000, 5'd8, 5'd19, `ITYPE_SRXI, 5'd29, `OPCODE_ITYPE_WORD};		// SRLIW: x29 = (x19[31:0] >> 8)  = 0x0000_0000_009A_BC56
 		data[133] = {7'b0100000, 5'd8, 5'd19, `ITYPE_SRXI, 5'd30, `OPCODE_ITYPE_WORD};		// SRAIW: x30 = (x19[31:0] >>>8)  = 0xFFFF_FFFF_FF9A_BC56
 
+		// ──────────────────────────────────────────────
+		// RV64M 확장 명령어 테스트 블록 (data[134] ~)
+		// MUL, MULH, MULHSU, MULHU, MULW 테스트
+		// M extension: funct7 = 7'b0000001
+
+		// ── 테스트용 값 설정: 간단한 곱셈 검증용 ──
+		data[134] = {12'd7, 5'd0, `ITYPE_ADDI, 5'd2, `OPCODE_ITYPE};						// ADDI: x2 = 7
+		data[135] = {12'd13, 5'd0, `ITYPE_ADDI, 5'd3, `OPCODE_ITYPE};						// ADDI: x3 = 13
+		data[136] = {12'hFFB, 5'd0, `ITYPE_ADDI, 5'd4, `OPCODE_ITYPE};						// ADDI: x4 = -5 = 0xFFFF_FFFF_FFFF_FFFB
+
+		// MUL 테스트 (곱셈 결과의 하위 64비트) 
+		// {funct7=0000001, rs2, rs1, funct3=000, rd, OPCODE_RTYPE}
+		data[137] = {7'b0000001, 5'd3, 5'd2, `RTYPE_MUL, 5'd11, `OPCODE_RTYPE};				// MUL: x11 = x2 * x3 = 7 * 13 = 91 = 0x0000_0000_0000_005B
+		data[138] = {7'b0000001, 5'd4, 5'd3, `RTYPE_MUL, 5'd12, `OPCODE_RTYPE};				// MUL: x12 = x3 * x4 = 13 * (-5) = -65 = 0xFFFF_FFFF_FFFF_FFBF
+		
+		// 큰 수 곱셈: x8 * x9 (기존 레지스터 활용)
+		// x8 = 0xFFFF_FFFF_9ABC_5678 (signed: -1,698,898,312)
+		// x9 = 0x0000_0000_9ABC_5678 (unsigned: 2,596,069,496)
+		// x8 * x9 (signed 128비트) = 0xFFFF_FFFF_FFFF_FFFF_C2B5_F41B_4F5C_5840
+		data[139] = {7'b0000001, 5'd9, 5'd8, `RTYPE_MUL, 5'd11, `OPCODE_RTYPE};				// MUL: x11 = (x8 * x9)[63:0] = 0xC2B5_F41B_4F5C_5840
+
+		// MULH 테스트 (signed × signed, 상위 64비트)
+		// {funct7=0000001, rs2, rs1, funct3=001, rd, OPCODE_RTYPE}
+		data[140] = {7'b0000001, 5'd3, 5'd2, `RTYPE_MULH, 5'd12, `OPCODE_RTYPE};			// MULH: x12 = (x2 * x3)[127:64] = 0 (작은 양수 곱)
+		data[141] = {7'b0000001, 5'd4, 5'd3, `RTYPE_MULH, 5'd11, `OPCODE_RTYPE};			// MULH: x11 = (x3 * x4)[127:64] = 0xFFFF_FFFF_FFFF_FFFF (음수 결과 부호확장)
+		
+		// x8 * x9 (signed) = -4,410,039,189,025,044,352
+		// 128비트: 0xFFFF_FFFF_FFFF_FFFF_C2B5_F41B_4F5C_5840
+		data[142] = {7'b0000001, 5'd9, 5'd8, `RTYPE_MULH, 5'd12, `OPCODE_RTYPE};			// MULH: x12 = (x8 * x9)[127:64] = 0xFFFF_FFFF_FFFF_FFFF
+
+		// MULHU 테스트 (unsigned × unsigned, 상위 64비트)
+		// {funct7=0000001, rs2, rs1, funct3=011, rd, OPCODE_RTYPE}
+		// x4 as unsigned = 0xFFFF_FFFF_FFFF_FFFB = 18,446,744,073,709,551,611
+		// x3 * x4 (unsigned) = 13 * 18,446,744,073,709,551,611
+		// 128비트: 0x0000_0000_0000_000C_FFFF_FFFF_FFFF_FFC1
+		data[143] = {7'b0000001, 5'd3, 5'd2, `RTYPE_MULHU, 5'd11, `OPCODE_RTYPE};			// MULHU: x11 = 0 (작은 양수 곱, 상위 없음)
+		data[144] = {7'b0000001, 5'd4, 5'd3, `RTYPE_MULHU, 5'd12, `OPCODE_RTYPE};			// MULHU: x12 = 0x0000_0000_0000_000C = 12
+		
+		// x8 * x9 as unsigned:
+		// x8 = 0xFFFF_FFFF_9ABC_5678 = 18,446,744,071,560,653,432
+		// x9 = 0x0000_0000_9ABC_5678 = 2,596,069,496
+		// 곱 (128비트) = 0x0000_0000_9ABC_5677_C2B5_F41B_4F5C_5840
+		data[145] = {7'b0000001, 5'd9, 5'd8, `RTYPE_MULHU, 5'd11, `OPCODE_RTYPE};			// MULHU: x11 = 0x0000_0000_9ABC_5677
+
+		// MULHSU 테스트 (signed × unsigned, 상위 64비트)
+		// rs1 (signed) × rs2 (unsigned)
+		// {funct7=0000001, rs2, rs1, funct3=010, rd, OPCODE_RTYPE}
+		// x4 (signed: -5) × x3 (unsigned: 13) = -65
+		// 128비트: 0xFFFF_FFFF_FFFF_FFFF_FFFF_FFFF_FFFF_FFBF
+		data[146] = {7'b0000001, 5'd3, 5'd4, `RTYPE_MULHSU, 5'd12, `OPCODE_RTYPE};			// MULHSU: x12 = 0xFFFF_FFFF_FFFF_FFFF
+
+		// x8 (signed: -1,698,898,312) × x9 (unsigned: 2,596,069,496)
+		// = -4,410,039,189,025,044,352
+		// 128비트: 0xFFFF_FFFF_FFFF_FFFF_C2B5_F41B_4F5C_5840
+		data[147] = {7'b0000001, 5'd9, 5'd8, `RTYPE_MULHSU, 5'd11, `OPCODE_RTYPE};			// MULHSU: x11 = 0xFFFF_FFFF_FFFF_FFFF
+
+		// MULW 테스트 (32비트 곱셈, 결과 부호확장)
+		// MULW: opcode = OPCODE_RTYPE_WORD (0111011), funct7 = 0000001, funct3 = 000
+		data[148] = {7'b0000001, 5'd3, 5'd2, `RTYPE_MUL, 5'd12, `OPCODE_RTYPE_WORD};		// MULW: x12 = sext32(x2[31:0] * x3[31:0]) = sext32(7 * 13) = 91 = 0x0000_0000_0000_005B
+		data[149] = {7'b0000001, 5'd4, 5'd3, `RTYPE_MUL, 5'd11, `OPCODE_RTYPE_WORD};		// MULW: x11 = sext32(x3[31:0] * x4[31:0]) = sext32(13 * 0xFFFFFFFB) = sext32(-65) = 0xFFFF_FFFF_FFFF_FFBF
+
+		// MULW with larger 32-bit values:
+		// x8[31:0] = 0x9ABC5678, x9[31:0] = 0x9ABC5678
+		// 0x9ABC5678 * 0x9ABC5678 (32비트 signed 곱의 하위 32비트)
+		// = (-1,698,898,312) * (-1,698,898,312) 의 하위 32비트
+		// = 2,886,217,038,337,505,344 의 하위 32비트 = 0x4F5C5840
+		// sext32(0x4F5C5840) = 0x0000_0000_4F5C_5840 (MSB=0, 양수)
+		data[150] = {7'b0000001, 5'd9, 5'd8, `RTYPE_MUL, 5'd12, `OPCODE_RTYPE_WORD};		// MULW: x12 = sext32(0x9ABC5678 * 0x9ABC5678) = 0x0000_0000_4F5C_5840
+
+		// 큰 음수 결과 MULW 테스트:
+		// x19[31:0] = 0x9ABC5678 (signed 32-bit: -1,698,898,312)
+		// x3 = 13
+		// (-1,698,898,312) * 13 = -22,085,678,056
+		// 하위 32비트 = 0x7D2C7088 (MSB=0 -> 양수로 sign-extend)
+		data[151] = {7'b0000001, 5'd3, 5'd19, `RTYPE_MUL, 5'd11, `OPCODE_RTYPE_WORD};		// MULW: x11 = sext32(0x9ABC5678 * 13) = 0x0000_0000_7D2C_7088
+
+		// MULW: 32비트 overflow로 음수 결과 생성 테스트
+		// x6[31:0] = 0x9ABC5678, x10 = 40
+		// 0x9ABC5678 * 40 하위 32비트 = 0xB6D50E00 (MSB=1, 음수로 sign-extend)
+		data[152] = {7'b0000001, 5'd10, 5'd6, `RTYPE_MUL, 5'd12, `OPCODE_RTYPE_WORD};		// MULW: x12 = sext32(0x9ABC5678 * 40) = 0xFFFF_FFFF_B6D5_0E00
+
 		// data[57]로 복귀해서 기존 UART/MMIO 테스트 시퀀스 계속 진행
-		data[134] = {1'b1, 10'b1101100110, 1'b1, 8'b11111111, 5'd0, `OPCODE_JAL};			// JAL x0, -308: data[57]로 복귀
+		// 점프 오프셋: (57 - 153) * 4 = -384 바이트
+		data[153] = {1'b1, 10'b1101000000, 1'b1, 8'b11111111, 5'd0, `OPCODE_JAL};			// JAL x0, -384: data[57]로 복귀
 
 		// ──────────────────────────────────────────────
 		// Trap Handler 시작 주소. mtvec = 0000_1000 = 4096 ÷ 4 Byte = 1024
