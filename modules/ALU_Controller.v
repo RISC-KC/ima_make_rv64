@@ -68,7 +68,6 @@ module ALUController (
 						`RTYPE_REMU: alu_op = `ALU_OP_REMU;
 					endcase
 				end
-			end
 				
 				else begin // I extension operations*/
 					case (funct3)
@@ -96,7 +95,7 @@ module ALUController (
 						`RTYPE_AND: alu_op = `ALU_OP_AND;
 						default: alu_op = `ALU_OP_NOP;
 					endcase
-                
+				end
             end
 			`OPCODE_ENVIRONMENT: begin
 				case (funct3)
