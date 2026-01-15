@@ -282,7 +282,7 @@ module InstructionMemory #(
 		// x8 = 0xFFFF_FFFF_9ABC_5678 (signed: -1,698,898,312)
 		// x9 = 0x0000_0000_9ABC_5678 (unsigned: 2,596,069,496)
 		// x8 * x9 (signed 128비트) = 0xFFFF_FFFF_FFFF_FFFF_C2B5_F41B_4F5C_5840
-		data[139] = {7'b0000001, 5'd9, 5'd8, `RTYPE_MUL, 5'd11, `OPCODE_RTYPE};				// MUL: x11 = (x8 * x9)[63:0] = 0xC2B5_F41B_4F5C_5840
+		data[139] = {7'b0000001, 5'd9, 5'd8, `RTYPE_MUL, 5'd11, `OPCODE_RTYPE};				// MUL: x11 = (x8 * x9)[63:0] = 0xC2CA_CC1F_7D74_D840
 
 		// MULH 테스트 (signed × signed, 상위 64비트)
 		// {funct7=0000001, rs2, rs1, funct3=001, rd, OPCODE_RTYPE}
@@ -330,19 +330,19 @@ module InstructionMemory #(
 		// = (-1,698,898,312) * (-1,698,898,312) 의 하위 32비트
 		// = 2,886,217,038,337,505,344 의 하위 32비트 = 0x4F5C5840
 		// sext32(0x4F5C5840) = 0x0000_0000_4F5C_5840 (MSB=0, 양수)
-		data[150] = {7'b0000001, 5'd9, 5'd8, `RTYPE_MUL, 5'd12, `OPCODE_RTYPE_WORD};		// MULW: x12 = sext32(0x9ABC5678 * 0x9ABC5678) = 0x0000_0000_4F5C_5840
+		data[150] = {7'b0000001, 5'd9, 5'd8, `RTYPE_MUL, 5'd12, `OPCODE_RTYPE_WORD};		// MULW: x12 = sext32(0x9ABC5678 * 0x9ABC5678) = 0x0000_0000_7D74_D840
 
 		// 큰 음수 결과 MULW 테스트:
 		// x19[31:0] = 0x9ABC5678 (signed 32-bit: -1,698,898,312)
 		// x3 = 13
 		// (-1,698,898,312) * 13 = -22,085,678,056
 		// 하위 32비트 = 0x7D2C7088 (MSB=0 -> 양수로 sign-extend)
-		data[151] = {7'b0000001, 5'd3, 5'd19, `RTYPE_MUL, 5'd11, `OPCODE_RTYPE_WORD};		// MULW: x11 = sext32(0x9ABC5678 * 13) = 0x0000_0000_7D2C_7088
+		data[151] = {7'b0000001, 5'd3, 5'd19, `RTYPE_MUL, 5'd11, `OPCODE_RTYPE_WORD};		// MULW: x11 = sext32(0x9ABC5678 * 13) = 0xFFFF_FFFF_DB90_6418
 
 		// MULW: 32비트 overflow로 음수 결과 생성 테스트
 		// x6[31:0] = 0x9ABC5678, x10 = 40
 		// 0x9ABC5678 * 40 하위 32비트 = 0xB6D50E00 (MSB=1, 음수로 sign-extend)
-		data[152] = {7'b0000001, 5'd10, 5'd6, `RTYPE_MUL, 5'd12, `OPCODE_RTYPE_WORD};		// MULW: x12 = sext32(0x9ABC5678 * 40) = 0xFFFF_FFFF_B6D5_0E00
+		data[152] = {7'b0000001, 5'd10, 5'd6, `RTYPE_MUL, 5'd12, `OPCODE_RTYPE_WORD};		// MULW: x12 = sext32(0x9ABC5678 * 40) = 0x0000_0000_2D6D_82C0
 
 		// data[57]로 복귀해서 기존 UART/MMIO 테스트 시퀀스 계속 진행
 		// 점프 오프셋: (57 - 153) * 4 = -384 바이트
