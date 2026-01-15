@@ -7,8 +7,12 @@ Architecture is based on our previous project [basic_RV32s](https://github.com/R
 
 ## Roadmap
 
-- RV64I59F_5SP
-- RV64IM72F_5SP
+- RV64I59F_5SP  
+  RV64I (52) + Zicsr (6) + mret (1) = 59
+- RV64IZmmul64F_5SP  
+  RV64I (52) + Zmmul (5) + Zicsr (6) + mret (1) = 64
+- RV64IM72F_5SP  
+  RV64I (52) + M (13) + Zicsr (6) + mret (1) = 72
 - RV64IMA
 
 ## Benchmarks
