@@ -2,8 +2,8 @@
 
 `include "modules/ALU/ALU_WORD.v"
 `include "modules/ALU/ALU_DWORD.v"
-// `include "modules/ALU/Multiplier_WORD.v"
-// `include "modules/ALU/Multiplier_DWORD.v"
+`include "modules/ALU/Multiplier_WORD.v"
+`include "modules/ALU/Multiplier_DWORD.v"
 
 module ALU #(
     parameter XLEN = 64
@@ -22,12 +22,12 @@ module ALU #(
     wire [XLEN-1:0] alu_dword_result;
     wire alu_dword_zero;
 
-    /*wire [31:0] prod_high_word;
+    wire [31:0] prod_high_word;
     wire [31:0] prod_low_word;
 
     wire [63:0] prod_high_dword;
     wire [63:0] prod_low_dword;
-*/
+
     ALU_WORD alu_word (
         .src_A(src_A[31:0]),
         .src_B(src_B[31:0]),
@@ -45,7 +45,7 @@ module ALU #(
         .alu_result(alu_dword_result),
         .alu_zero(alu_dword_zero)
     );
-/*
+
     Multiplier_WORD multiplier_word (
         .src_A(src_A[31:0]),
         .src_B(src_B[31:0]),
@@ -65,10 +65,10 @@ module ALU #(
         .prod_high(prod_high_dword),
         .prod_low(prod_low_dword)
     );
-*/
+
     always @(*) begin
         case (alu_op)
-            /*
+            
             `ALU_OP_MUL: begin
                 if (input_size_word) begin
                     alu_result = {{32{prod_low_word[31]}}, prod_low_word};
@@ -89,7 +89,7 @@ module ALU #(
                     alu_zero = (prod_high_dword == 0);
                 end
             end
-            */
+            
             default: begin
                 if (input_size_word) begin
                     alu_result = {{32{alu_word_result[31]}}, alu_word_result};
