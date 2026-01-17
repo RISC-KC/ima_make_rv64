@@ -2,6 +2,7 @@
 
 `include "modules/headers/opcode.vh"
 `include "modules/headers/trap.vh"
+`include "modules/headers/alu_src_select.vh"
 
 module HazardUnit_tb;
     reg clk = 0;
@@ -11,6 +12,8 @@ module HazardUnit_tb;
     reg trap_done;
     reg csr_ready;
     reg standby_mode;
+    reg div_start;
+    reg div_busy;
     reg [2:0] trap_status;
     reg misaligned_instruction_flush;
     reg misaligned_memory_flush;
@@ -23,6 +26,8 @@ module HazardUnit_tb;
 
     // MEM stage signals
     reg [4:0] MEM_rd;
+    reg [4:0] MEM_rs2;
+    reg [6:0] MEM_opcode;
     reg MEM_register_write_enable;
     reg MEM_csr_write_enable;
     reg [11:0] MEM_csr_write_address;
@@ -40,6 +45,12 @@ module HazardUnit_tb;
     reg [4:0] EX_rs2;
     reg [11:0] EX_imm;
     reg EX_csr_write_enable;
+    reg [1:0] EX_alu_src_A_select;
+    reg [2:0] EX_alu_src_B_select;
+
+    // Retire stage signals
+    reg [4:0] retire_rd;
+    reg retire_register_write_enable;
 
     // Control signals
     reg EX_jump;
@@ -48,12 +59,15 @@ module HazardUnit_tb;
     // Outputs - ALU forwarding
     wire [1:0] hazard_mem;
     wire [1:0] hazard_wb;
+    wire [1:0] hazard_retire;
     wire csr_hazard_mem;
     wire csr_hazard_wb;
 
     // Outputs - Store data forwarding
     wire store_hazard_mem;
     wire store_hazard_wb;
+    wire store_hazard_wb_to_mem;
+    wire store_hazard_retire;
 
     // Outputs - Flush signals
     wire IF_ID_flush;
@@ -73,6 +87,8 @@ module HazardUnit_tb;
         .trap_done(trap_done),
         .csr_ready(csr_ready),
         .standby_mode(standby_mode),
+        .div_start(div_start),
+        .div_busy(div_busy),
         .trap_status(trap_status),
         .misaligned_instruction_flush(misaligned_instruction_flush),
         .misaligned_memory_flush(misaligned_memory_flush),
@@ -81,6 +97,8 @@ module HazardUnit_tb;
         .ID_rs2(ID_rs2),
         .ID_raw_imm(ID_raw_imm),
         .MEM_rd(MEM_rd),
+        .MEM_rs2(MEM_rs2),
+        .MEM_opcode(MEM_opcode),
         .MEM_register_write_enable(MEM_register_write_enable),
         .MEM_csr_write_enable(MEM_csr_write_enable),
         .MEM_csr_write_address(MEM_csr_write_address),
@@ -94,15 +112,22 @@ module HazardUnit_tb;
         .EX_rs2(EX_rs2),
         .EX_imm(EX_imm),
         .EX_csr_write_enable(EX_csr_write_enable),
+        .EX_alu_src_A_select(EX_alu_src_A_select),
+        .EX_alu_src_B_select(EX_alu_src_B_select),
+        .retire_rd(retire_rd),
+        .retire_register_write_enable(retire_register_write_enable),
         .EX_jump(EX_jump),
         .branch_prediction_miss(branch_prediction_miss),
 
         .hazard_mem(hazard_mem),
         .hazard_wb(hazard_wb),
+        .hazard_retire(hazard_retire),
         .csr_hazard_mem(csr_hazard_mem),
         .csr_hazard_wb(csr_hazard_wb),
         .store_hazard_mem(store_hazard_mem),
         .store_hazard_wb(store_hazard_wb),
+        .store_hazard_wb_to_mem(store_hazard_wb_to_mem),
+        .store_hazard_retire(store_hazard_retire),
         .IF_ID_flush(IF_ID_flush),
         .ID_EX_flush(ID_EX_flush),
         .EX_MEM_flush(EX_MEM_flush),
@@ -121,6 +146,8 @@ module HazardUnit_tb;
         trap_done = 1'b1;
         csr_ready = 1'b1;
         standby_mode = 1'b0;
+        div_start = 1'b0;
+        div_busy = 1'b0;
         trap_status = `TRAP_NONE;
         misaligned_instruction_flush = 1'b0;
         misaligned_memory_flush = 1'b0;
@@ -129,6 +156,8 @@ module HazardUnit_tb;
         ID_rs2 = 5'd0;
         ID_raw_imm = 12'd0;
         MEM_rd = 5'd0;
+        MEM_rs2 = 5'd0;
+        MEM_opcode = `OPCODE_RTYPE;
         MEM_register_write_enable = 1'b0;
         MEM_csr_write_enable = 1'b0;
         MEM_csr_write_address = 12'd0;
@@ -142,6 +171,10 @@ module HazardUnit_tb;
         EX_rs2 = 5'd0;
         EX_imm = 12'd0;
         EX_csr_write_enable = 1'b0;
+        EX_alu_src_A_select = `ALU_SRC_A_RD1;
+        EX_alu_src_B_select = `ALU_SRC_B_RD2;
+        retire_rd = 5'd0;
+        retire_register_write_enable = 1'b0;
         EX_jump = 1'b0;
         branch_prediction_miss = 1'b0;
     end
@@ -397,6 +430,238 @@ module HazardUnit_tb;
         $display("ID_EX_stall  = %b (expect 0)", ID_EX_stall);
         $display("EX_MEM_stall = %b (expect 0)", EX_MEM_stall);
         $display("MEM_WB_stall = %b (expect 0)\n", MEM_WB_stall);
+
+        // ===================== NEW: Retire Stage Forwarding Tests =====================
+
+        // Test 20 : Retire stage rs1 hazard (retire_rd == EX_rs1, no MEM/WB hazard)
+        $display("Test 20 (Retire rs1 hazard)");
+        reset_inputs();
+        EX_rs1 = 5'd12;
+        EX_rs2 = 5'd13;
+        retire_rd = 5'd12;
+        retire_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("hazard_mem    = %b (expect 00)", hazard_mem);
+        $display("hazard_wb     = %b (expect 00)", hazard_wb);
+        $display("hazard_retire = %b (expect 01)\n", hazard_retire);
+
+        // Test 21 : Retire stage rs2 hazard (retire_rd == EX_rs2, no MEM/WB hazard)
+        $display("Test 21 (Retire rs2 hazard)");
+        reset_inputs();
+        EX_rs1 = 5'd14;
+        EX_rs2 = 5'd15;
+        retire_rd = 5'd15;
+        retire_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("hazard_mem    = %b (expect 00)", hazard_mem);
+        $display("hazard_wb     = %b (expect 00)", hazard_wb);
+        $display("hazard_retire = %b (expect 10)\n", hazard_retire);
+
+        // Test 22 : Retire stage both rs1/rs2 hazard
+        $display("Test 22 (Retire both rs1/rs2 hazard)");
+        reset_inputs();
+        EX_rs1 = 5'd16;
+        EX_rs2 = 5'd16;
+        retire_rd = 5'd16;
+        retire_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("hazard_mem    = %b (expect 00)", hazard_mem);
+        $display("hazard_wb     = %b (expect 00)", hazard_wb);
+        $display("hazard_retire = %b (expect 11)\n", hazard_retire);
+
+        // Test 23 : MEM > WB > Retire priority (all have same rd)
+        $display("Test 23 (MEM > WB > Retire priority)");
+        reset_inputs();
+        EX_rs1 = 5'd17;
+        EX_rs2 = 5'd18;
+        MEM_rd = 5'd17;
+        MEM_register_write_enable = 1'b1;
+        WB_rd = 5'd17;
+        WB_register_write_enable = 1'b1;
+        retire_rd = 5'd17;
+        retire_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("hazard_mem    = %b (expect 01, MEM has priority)", hazard_mem);
+        $display("hazard_wb     = %b (expect 00)", hazard_wb);
+        $display("hazard_retire = %b (expect 00)\n", hazard_retire);
+
+        // Test 24 : WB > Retire priority (no MEM hazard)
+        $display("Test 24 (WB > Retire priority)");
+        reset_inputs();
+        EX_rs1 = 5'd19;
+        EX_rs2 = 5'd20;
+        WB_rd = 5'd19;
+        WB_register_write_enable = 1'b1;
+        retire_rd = 5'd19;
+        retire_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("hazard_mem    = %b (expect 00)", hazard_mem);
+        $display("hazard_wb     = %b (expect 01, WB has priority)", hazard_wb);
+        $display("hazard_retire = %b (expect 00)\n", hazard_retire);
+
+        // ===================== NEW: Store Retire Forwarding Tests =====================
+
+        // Test 25 : Store instruction - Retire stage rs2 hazard
+        $display("Test 25 (Store Retire rs2 hazard)");
+        reset_inputs();
+        EX_opcode = `OPCODE_STORE;
+        EX_rs1 = 5'd1;
+        EX_rs2 = 5'd21;
+        retire_rd = 5'd21;
+        retire_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("hazard_retire      = %b (expect 00, store disables ALUsrcB)", hazard_retire);
+        $display("store_hazard_mem    = %b (expect 0)", store_hazard_mem);
+        $display("store_hazard_wb     = %b (expect 0)", store_hazard_wb);
+        $display("store_hazard_retire = %b (expect 1)\n", store_hazard_retire);
+
+        // Test 26 : Store - MEM > WB > Retire priority
+        $display("Test 26 (Store forwarding priority MEM > WB > Retire)");
+        reset_inputs();
+        EX_opcode = `OPCODE_STORE;
+        EX_rs1 = 5'd1;
+        EX_rs2 = 5'd22;
+        MEM_rd = 5'd22;
+        MEM_register_write_enable = 1'b1;
+        WB_rd = 5'd22;
+        WB_register_write_enable = 1'b1;
+        retire_rd = 5'd22;
+        retire_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("store_hazard_mem    = %b (expect 1, MEM priority)", store_hazard_mem);
+        $display("store_hazard_wb     = %b (expect 0)", store_hazard_wb);
+        $display("store_hazard_retire = %b (expect 0)\n", store_hazard_retire);
+
+        // ===================== NEW: WB→MEM Store Forwarding Tests =====================
+
+        // Test 27 : WB→MEM store data forwarding (SD in MEM, producer in WB)
+        $display("Test 27 (WB to MEM store forwarding)");
+        reset_inputs();
+        MEM_opcode = `OPCODE_STORE;
+        MEM_rs2 = 5'd23;
+        WB_rd = 5'd23;
+        WB_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("store_hazard_wb_to_mem = %b (expect 1)\n", store_hazard_wb_to_mem);
+
+        // Test 28 : WB→MEM no hazard (different registers)
+        $display("Test 28 (WB to MEM no hazard - different regs)");
+        reset_inputs();
+        MEM_opcode = `OPCODE_STORE;
+        MEM_rs2 = 5'd24;
+        WB_rd = 5'd25;
+        WB_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("store_hazard_wb_to_mem = %b (expect 0)\n", store_hazard_wb_to_mem);
+
+        // Test 29 : WB→MEM no hazard (MEM not store)
+        $display("Test 29 (WB to MEM no hazard - MEM not store)");
+        reset_inputs();
+        MEM_opcode = `OPCODE_RTYPE;  // not store
+        MEM_rs2 = 5'd26;
+        WB_rd = 5'd26;
+        WB_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("store_hazard_wb_to_mem = %b (expect 0)\n", store_hazard_wb_to_mem);
+
+        // Test 30 : WB→MEM no hazard (x0 register)
+        $display("Test 30 (WB to MEM no hazard - x0)");
+        reset_inputs();
+        MEM_opcode = `OPCODE_STORE;
+        MEM_rs2 = 5'd0;
+        WB_rd = 5'd0;
+        WB_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("store_hazard_wb_to_mem = %b (expect 0)\n", store_hazard_wb_to_mem);
+
+        // ===================== NEW: Division Stall Tests =====================
+
+        // Test 31 : div_start stall (all stages)
+        $display("Test 31 (div_start stall - all stages)");
+        reset_inputs();
+        div_start = 1'b1;
+        @(posedge clk);
+        $display("IF_ID_stall  = %b (expect 1)", IF_ID_stall);
+        $display("ID_EX_stall  = %b (expect 1)", ID_EX_stall);
+        $display("EX_MEM_stall = %b (expect 1)", EX_MEM_stall);
+        $display("MEM_WB_stall = %b (expect 1)\n", MEM_WB_stall);
+
+        // Test 32 : div_busy stall (all stages)
+        $display("Test 32 (div_busy stall - all stages)");
+        reset_inputs();
+        div_busy = 1'b1;
+        @(posedge clk);
+        $display("IF_ID_stall  = %b (expect 1)", IF_ID_stall);
+        $display("ID_EX_stall  = %b (expect 1)", ID_EX_stall);
+        $display("EX_MEM_stall = %b (expect 1)", EX_MEM_stall);
+        $display("MEM_WB_stall = %b (expect 1)\n", MEM_WB_stall);
+
+        // Test 33 : div_start and div_busy together
+        $display("Test 33 (div_start + div_busy stall)");
+        reset_inputs();
+        div_start = 1'b1;
+        div_busy = 1'b1;
+        @(posedge clk);
+        $display("IF_ID_stall  = %b (expect 1)", IF_ID_stall);
+        $display("ID_EX_stall  = %b (expect 1)", ID_EX_stall);
+        $display("EX_MEM_stall = %b (expect 1)", EX_MEM_stall);
+        $display("MEM_WB_stall = %b (expect 1)\n", MEM_WB_stall);
+
+        // ===================== NEW: ALU Source Select Tests =====================
+
+        // Test 34 : No rs1 hazard when ALU_SRC_A is not RD1
+        $display("Test 34 (No rs1 hazard - ALU_SRC_A_PC)");
+        reset_inputs();
+        EX_alu_src_A_select = `ALU_SRC_A_PC;  // not using rs1
+        EX_rs1 = 5'd27;
+        MEM_rd = 5'd27;
+        MEM_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("hazard_mem = %b (expect 00, not using rs1)\n", hazard_mem);
+
+        // Test 35 : No rs2 hazard when ALU_SRC_B is not RD2
+        $display("Test 35 (No rs2 hazard - ALU_SRC_B_IMM)");
+        reset_inputs();
+        EX_alu_src_B_select = `ALU_SRC_B_IMM;  // not using rs2
+        EX_rs2 = 5'd28;
+        MEM_rd = 5'd28;
+        MEM_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("hazard_mem = %b (expect 00, not using rs2)\n", hazard_mem);
+
+        // Test 36 : rs1 hazard when ALU_SRC_A is RD1
+        $display("Test 36 (rs1 hazard - ALU_SRC_A_RD1)");
+        reset_inputs();
+        EX_alu_src_A_select = `ALU_SRC_A_RD1;  // using rs1
+        EX_rs1 = 5'd29;
+        MEM_rd = 5'd29;
+        MEM_register_write_enable = 1'b1;
+        @(posedge clk);
+        $display("hazard_mem = %b (expect 01, using rs1)\n", hazard_mem);
+
+        // ===================== NEW: Combined Scenario Tests =====================
+
+        // Test 37 : Stall priority - standby_mode over div_busy
+        $display("Test 37 (Stall priority - standby over div)");
+        reset_inputs();
+        standby_mode = 1'b1;
+        div_busy = 1'b1;
+        @(posedge clk);
+        $display("IF_ID_stall  = %b (expect 1)", IF_ID_stall);
+        $display("ID_EX_stall  = %b (expect 1)", ID_EX_stall);
+        $display("EX_MEM_stall = %b (expect 0, standby only stalls IF/ID)", EX_MEM_stall);
+        $display("MEM_WB_stall = %b (expect 0)\n", MEM_WB_stall);
+
+        // Test 38 : Stall priority - trap_done over div_busy
+        $display("Test 38 (Stall priority - trap_done over div)");
+        reset_inputs();
+        trap_done = 1'b0;
+        div_busy = 1'b1;
+        @(posedge clk);
+        $display("IF_ID_stall  = %b (expect 1)", IF_ID_stall);
+        $display("ID_EX_stall  = %b (expect 1)", ID_EX_stall);
+        $display("EX_MEM_stall = %b (expect 1)", EX_MEM_stall);
+        $display("MEM_WB_stall = %b (expect 1)\n", MEM_WB_stall);
 
         $display("==================== Hazard Unit Test END ====================\n");
         $stop;
