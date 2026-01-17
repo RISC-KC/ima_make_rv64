@@ -7,17 +7,46 @@
 `include "modules/headers/rtype_mul_funct3.vh"
 
 module ALUController (
+	input clk,
+	input reset,
     input [6:0] opcode,        		// opcode
 	input [2:0] funct3,				// funct3
 	input funct7_0,					// 0th index of funct7
     input funct7_5,					// 5th index of funct7
     input imm_10,					// 10th index of imm
+	input div_busy,
 	
     output reg [4:0] alu_op,		// ALU operation signal
+	output div_start,
     output input_size_word          // signal indicating if input for ALU is WORD or DWORD
 );
 
+	wire is_div;
+	reg div_inflight;
+	assign is_div = ((opcode == `OPCODE_RTYPE) || (opcode == `OPCODE_RTYPE_WORD)) && (funct7_0) &&
+					((funct3 == `RTYPE_DIV) ||
+					(funct3 == `RTYPE_DIVU) ||
+					(funct3 == `RTYPE_REM) ||
+					(funct3 == `RTYPE_REMU));
+	assign div_start = is_div && !div_inflight;		// FSM inflight for pulse signal
     assign input_size_word = ((opcode == `OPCODE_ITYPE_WORD) | (opcode == `OPCODE_RTYPE_WORD));
+
+	always @(posedge clk or posedge reset) begin
+		if (reset) begin
+			div_inflight <= 1'b0;
+		end
+		else begin
+			if (div_start) begin
+				div_inflight <= 1'b1;
+			end
+			else if (!div_busy) begin
+				div_inflight <= 1'b0;
+			end
+			else if (!is_div) begin
+				div_inflight <= 1'b0;
+			end
+		end
+	end
 
     always @(*) begin
         case (opcode)
@@ -66,6 +95,7 @@ module ALUController (
 						`RTYPE_DIVU: alu_op = `ALU_OP_DIVU;
 						`RTYPE_REM: alu_op = `ALU_OP_REM;
 						`RTYPE_REMU: alu_op = `ALU_OP_REMU;
+						default: alu_op = `ALU_OP_NOP;
 					endcase
 				end
 				
