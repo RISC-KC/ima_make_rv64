@@ -29,6 +29,9 @@ module Divider_DWORD #(
     reg [2*XLEN-1:0] remainder_quotient; //128-bit
     reg quotient_sign;
     reg remainder_sign;
+    reg div_by_zero_flag;
+    reg div_overflow_flag;
+    reg [XLEN-1:0] dividend_reg;
 
     wire [2*XLEN-1:0] shifted_rq;
     wire [XLEN:0] subtract_result;  // 65-bit subtract
@@ -38,10 +41,11 @@ module Divider_DWORD #(
 
     wire div_by_zero = (divisor == {XLEN{1'b0}});
     wire div_overflow = (is_signed && (dividend == {1'b1, {XLEN-1{1'b0}}}) && (divisor == {XLEN{1'b1}}));
-    assign quotient = quotient_reg;
-    assign remainder = remainder_reg;
-    assign busy = busy_reg;
-
+    assign quotient = (div_by_zero_flag) ? {XLEN{1'b1}} : 
+                      (div_overflow_flag) ? dividend_reg : quotient_reg;
+    assign remainder = (div_by_zero_flag) ? dividend_reg :
+                      (div_overflow_flag) ? {XLEN{1'b0}} : remainder_reg;
+    assign busy = (div_by_zero_flag || div_overflow_flag) ? 1'b0 : busy_reg;
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             state <= IDLE;
@@ -53,27 +57,21 @@ module Divider_DWORD #(
             remainder_quotient <= {2*XLEN{1'b0}};
             quotient_sign <= 1'b0;
             remainder_sign <= 1'b0;
+            div_by_zero_flag <= 1'b0;
+            div_overflow_flag <= 1'b0;
+            dividend_reg <= {XLEN{1'b0}};
         end
         else begin
+            if (division_start) begin
+                div_by_zero_flag <= div_by_zero;
+                div_overflow_flag <= div_overflow;
+                dividend_reg <= dividend;
+            end
             case (state)
                 IDLE: begin
-                    if (division_start) begin
-                        if (div_by_zero) begin
-                            quotient_reg <= {XLEN{1'b1}};
-                            remainder_reg <= dividend;
-                            busy_reg <= 1'b0;
-                            state <= IDLE;
-                        end
-                        else if (div_overflow) begin
-                            quotient_reg <= dividend;
-                            remainder_reg <= {XLEN{1'b0}};
-                            busy_reg <= 1'b0;
-                            state <= IDLE;
-                        end 
-                        else begin
-                            busy_reg <= 1'b1;
-                            state <= INITIALIZE;
-                        end
+                    if (division_start && !div_by_zero && !div_overflow) begin
+                        busy_reg <= 1'b1;
+                        state <= INITIALIZE;
                     end
                     else begin
                         busy_reg <= 1'b0;

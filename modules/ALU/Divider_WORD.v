@@ -31,19 +31,25 @@ module Divider_WORD #(
     reg [31:0] divisor_reg;
     reg quotient_sign;
     reg remainder_sign;
+    reg div_by_zero_flag;
+    reg div_overflow_flag;
+    reg [31:0] dividend_reg;
     
     wire [63:0] shifted_rq;
     wire [32:0] subtract_result;
     
     assign shifted_rq = {remainder_quotient[62:0], 1'b0};
-    assign subtract_result = {1'b0, shifted_rq[63:32]} - {1'b0, divisor_reg};
+    assign subtract_result = shifted_rq[63:32] - {1'b0, divisor_reg};
 
     wire div_by_zero = (divisor == 32'b0);
     wire div_overflow = (is_signed && (dividend == 32'h8000_0000) && (divisor == 32'hFFFF_FFFF));
     
-    assign quotient = quotient_reg;
-    assign remainder = remainder_reg;
-    assign busy = busy_reg;
+    // RISC-V Specification: div by zero → quotient = all 1s, remainder = dividend
+    assign quotient = div_by_zero_flag ? 32'hFFFF_FFFF : 
+                      (div_overflow_flag) ? dividend_reg : quotient_reg;
+    assign remainder = (div_by_zero_flag) ? dividend_reg :
+                       (div_overflow_flag) ? 32'b0 : remainder_reg;
+    assign busy = (div_by_zero_flag || div_overflow_flag) ? 1'b0 : busy_reg;
 
     always @(posedge clk or posedge reset) begin
         if (reset) begin
@@ -56,27 +62,21 @@ module Divider_WORD #(
             remainder_quotient <= 64'b0;
             quotient_sign <= 1'b0;
             remainder_sign <= 1'b0;
+            div_by_zero_flag <= 1'b0;
+            div_overflow_flag <= 1'b0;
+            dividend_reg <= 32'b0;
         end
         else begin
+            if (division_start) begin
+                div_by_zero_flag <= div_by_zero;
+                div_overflow_flag <= div_overflow;
+                dividend_reg <= dividend;
+            end
             case (state)
                 IDLE: begin
-                    if (division_start) begin
-                        if (div_by_zero) begin
-                            quotient_reg <= 32'hFFFF_FFFF;
-                            remainder_reg <= dividend;
-                            busy_reg <= 1'b0;
-                            state <= IDLE;
-                        end
-                        else if (div_overflow) begin
-                            quotient_reg <= dividend;
-                            remainder_reg <= 32'b0;
-                            busy_reg <= 1'b0;
-                            state <= IDLE;
-                        end 
-                        else begin
-                            busy_reg <= 1'b1;
-                            state <= INITIALIZE;
-                        end
+                    if (division_start && !div_by_zero && !div_overflow) begin
+                        busy_reg <= 1'b1;
+                        state <= INITIALIZE;
                     end
                     else begin
                         busy_reg <= 1'b0;
