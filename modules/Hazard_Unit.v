@@ -3,9 +3,6 @@
 `include "modules/headers/alu_src_select.vh"
 
 module HazardUnit (
-    input clk,
-    input reset, 
-
     input wire trap_done,
     input wire csr_ready,
     input wire standby_mode,
