@@ -22,28 +22,28 @@ module ALUController (
 );
 
 	wire is_div;
-	reg div_inflight;
+	reg div_ongoing;
 	assign is_div = ((opcode == `OPCODE_RTYPE) || (opcode == `OPCODE_RTYPE_WORD)) && (funct7_0) &&
 					((funct3 == `RTYPE_DIV) ||
 					(funct3 == `RTYPE_DIVU) ||
 					(funct3 == `RTYPE_REM) ||
 					(funct3 == `RTYPE_REMU));
-	assign div_start = is_div && !div_inflight;		// FSM inflight for pulse signal
+	assign div_start = is_div && !div_ongoing;		// FSM inflight for pulse signal
     assign input_size_word = ((opcode == `OPCODE_ITYPE_WORD) | (opcode == `OPCODE_RTYPE_WORD));
 
 	always @(posedge clk or posedge reset) begin
 		if (reset) begin
-			div_inflight <= 1'b0;
+			div_ongoing <= 1'b0;
 		end
 		else begin
 			if (div_start) begin
-				div_inflight <= 1'b1;
+				div_ongoing <= 1'b1;
 			end
 			else if (!div_busy) begin
-				div_inflight <= 1'b0;
+				div_ongoing <= 1'b0;
 			end
 			else if (!is_div) begin
-				div_inflight <= 1'b0;
+				div_ongoing <= 1'b0;
 			end
 		end
 	end
