@@ -344,9 +344,131 @@ module InstructionMemory #(
 		// 0x9ABC5678 * 40 하위 32비트 = 0xB6D50E00 (MSB=1, 음수로 sign-extend)
 		data[152] = {7'b0000001, 5'd10, 5'd6, `RTYPE_MUL, 5'd12, `OPCODE_RTYPE_WORD};		// MULW: x12 = sext32(0x9ABC5678 * 40) = 0x0000_0000_2D6D_82C0
 
-		// data[57]로 복귀해서 기존 UART/MMIO 테스트 시퀀스 계속 진행
-		// 점프 오프셋: (57 - 153) * 4 = -384 바이트
-		data[153] = {1'b1, 10'b1101000000, 1'b1, 8'b11111111, 5'd0, `OPCODE_JAL};			// JAL x0, -384: data[57]로 복귀
+		// ──────────────────────────────────────────────
+		// RV64M 확장 명령어 테스트 블록 - Division 추가 (data[153] ~)
+		// DIV, DIVU, REM, REMU, DIVW, DIVUW, REMW, REMUW 테스트
+		// M extension: funct7 = 7'b0000001
+
+		// ── 기존 레지스터 값 참조 ──
+		// x2 = 7, x3 = 13, x4 = -5 (0xFFFF_FFFF_FFFF_FFFB)
+		// x8 = 0xFFFF_FFFF_9ABC_5678, x9 = 0x0000_0000_9ABC_5678
+
+		// 추가 테스트 값 설정
+		data[153] = {12'd100, 5'd0, `ITYPE_ADDI, 5'd20, `OPCODE_ITYPE};					// ADDI: x20 = 100
+		data[154] = {12'd0, 5'd0, `ITYPE_ADDI, 5'd21, `OPCODE_ITYPE};					// ADDI: x21 = 0 (divide by zero 테스트용)
+		data[155] = {12'hFFF, 5'd0, `ITYPE_ADDI, 5'd15, `OPCODE_ITYPE};					// ADDI: x15 = -1 (0xFFFF_FFFF_FFFF_FFFF)
+
+		// ── DIV 테스트 (signed division) ──
+		// {funct7=0000001, rs2, rs1, funct3=100, rd, OPCODE_RTYPE}
+		data[156] = {7'b0000001, 5'd2, 5'd20, `RTYPE_DIV, 5'd11, `OPCODE_RTYPE};			// DIV: x11 = x20 / x2 = 100 / 7 = 14 = 0x0000_0000_0000_000E
+		data[157] = {7'b0000001, 5'd3, 5'd4, `RTYPE_DIV, 5'd12, `OPCODE_RTYPE};			// DIV: x12 = x4 / x3 = -5 / 13 = 0 = 0x0000_0000_0000_0000
+		data[158] = {7'b0000001, 5'd4, 5'd20, `RTYPE_DIV, 5'd11, `OPCODE_RTYPE};			// DIV: x11 = x20 / x4 = 100 / (-5) = -20 = 0xFFFF_FFFF_FFFF_FFEC
+
+		// DIV by zero: 결과 = -1 (0xFFFF_FFFF_FFFF_FFFF)
+		data[159] = {7'b0000001, 5'd21, 5'd20, `RTYPE_DIV, 5'd12, `OPCODE_RTYPE};		// DIV: x12 = x20 / x21 = 100 / 0 = -1 = 0xFFFF_FFFF_FFFF_FFFF
+
+		// DIV overflow: MIN_INT64 / -1 = MIN_INT64 (overflow case)
+		// x23 = 0x8000_0000_0000_0000 (MIN_INT64)
+		data[160] = {12'h800, 5'd0, `ITYPE_ADDI, 5'd16, `OPCODE_ITYPE};					// ADDI: x16 = 0xFFFF_FFFF_FFFF_F800
+		data[161] = {12'd52, 5'd16, `ITYPE_SLLI, 5'd16, `OPCODE_ITYPE};					// SLLI: x16 = x16 << 52 = 0x8000_0000_0000_0000
+		data[162] = {7'b0000001, 5'd15, 5'd16, `RTYPE_DIV, 5'd11, `OPCODE_RTYPE};		// DIV: x11 = MIN_INT64 / (-1) = MIN_INT64  , 0x8000_0000_0000_0000
+
+		// ── DIVU 테스트 (unsigned division) ──
+		// {funct7=0000001, rs2, rs1, funct3=101, rd, OPCODE_RTYPE}
+		data[163] = {7'b0000001, 5'd2, 5'd20, `RTYPE_DIVU, 5'd12, `OPCODE_RTYPE};		// DIVU: x12 = x20 / x2 = 100 / 7 = 14 = 0x0000_0000_0000_000E
+		data[164] = {7'b0000001, 5'd3, 5'd4, `RTYPE_DIVU, 5'd11, `OPCODE_RTYPE};			// DIVU: x11 = x4 / x3 = 0xFFFFFFFFFFFFFFFB / 13 = 0x13B13B13B13B13B0
+
+		// DIVU by zero: 결과 = MAX_UINT64 (0xFFFF_FFFF_FFFF_FFFF)
+		data[165] = {7'b0000001, 5'd21, 5'd20, `RTYPE_DIVU, 5'd12, `OPCODE_RTYPE};		// DIVU: x12 = x20 / x21 = 100 / 0 = 0xFFFF_FFFF_FFFF_FFFF 
+
+		// ── REM 테스트 (signed remainder) ──
+		// {funct7=0000001, rs2, rs1, funct3=110, rd, OPCODE_RTYPE}
+		data[166] = {7'b0000001, 5'd2, 5'd20, `RTYPE_REM, 5'd11, `OPCODE_RTYPE};			// REM: x11 = x20 % x2 = 100 % 7 = 2 = 0x0000_0000_0000_0002
+		data[167] = {7'b0000001, 5'd3, 5'd4, `RTYPE_REM, 5'd12, `OPCODE_RTYPE};			// REM: x12 = x4 % x3 = -5 % 13 = -5 = 0xFFFF_FFFF_FFFF_FFFB
+		data[168] = {7'b0000001, 5'd4, 5'd20, `RTYPE_REM, 5'd11, `OPCODE_RTYPE};			// REM: x11 = x20 % x4 = 100 % (-5) = 0 = 0x0000_0000_0000_0000
+
+		// REM by zero: 결과 = dividend (x20 = 100)
+		data[169] = {7'b0000001, 5'd21, 5'd20, `RTYPE_REM, 5'd12, `OPCODE_RTYPE};		// REM: x12 = x20 % x21 = 100 % 0 = 100 = 0x0000_0000_0000_0064 
+
+		// REM overflow: MIN_INT64 % -1 = 0
+		data[170] = {7'b0000001, 5'd15, 5'd16, `RTYPE_REM, 5'd11, `OPCODE_RTYPE};		// REM: x11 = MIN_INT64 % (-1) = 0
+
+		// ── REMU 테스트 (unsigned remainder) ──
+		// {funct7=0000001, rs2, rs1, funct3=111, rd, OPCODE_RTYPE}
+		data[171] = {7'b0000001, 5'd2, 5'd20, `RTYPE_REMU, 5'd12, `OPCODE_RTYPE};		// REMU: x12 = x20 % x2 = 100 % 7 = 2 = 0x0000_0000_0000_0002
+		data[172] = {7'b0000001, 5'd3, 5'd4, `RTYPE_REMU, 5'd11, `OPCODE_RTYPE};			// REMU: x11 = x4 % x3 = 0xFFFFFFFFFFFFFFFB % 13 = 0x0000_0000_0000_000B = 11
+
+		// REMU by zero: 결과 = dividend (x20 = 100)
+		data[173] = {7'b0000001, 5'd21, 5'd20, `RTYPE_REMU, 5'd12, `OPCODE_RTYPE};		// REMU: x12 = x20 % x21 = 100 % 0 = 100 = 0x0000_0000_0000_0064
+
+		// ── DIVW 테스트 (32-bit signed division, sign-extended) ──
+		// DIVW: opcode = OPCODE_RTYPE_WORD (0111011), funct7 = 0000001, funct3 = 100
+		data[174] = {7'b0000001, 5'd2, 5'd20, `RTYPE_DIV, 5'd11, `OPCODE_RTYPE_WORD};	// DIVW: x11 = sext32(100 / 7) = sext32(14) = 0x0000_0000_0000_000E
+		data[175] = {7'b0000001, 5'd3, 5'd4, `RTYPE_DIV, 5'd12, `OPCODE_RTYPE_WORD};		// DIVW: x12 = sext32(x4[31:0] / x3[31:0]) = sext32(-5 / 13) = 0 = 0x0000_0000_0000_0000
+		
+		// DIVW with 32-bit values:
+		// x8[31:0] = 0x9ABC5678 (signed 32-bit: -1,698,898,312)
+		// x2 = 7
+		// -1,698,898,312 / 7 = -242,699,759 = 0xF18AE8B1
+		data[176] = {7'b0000001, 5'd2, 5'd8, `RTYPE_DIV, 5'd11, `OPCODE_RTYPE_WORD};		// DIVW: x11 = sext32(-1,698,898,312 / 7) = 0xFFFF_FFFF_F188_9EA4
+
+		// DIVW by zero: 결과 = -1 (sign-extended)
+		data[177] = {7'b0000001, 5'd21, 5'd20, `RTYPE_DIV, 5'd12, `OPCODE_RTYPE_WORD};	// DIVW: x12 = sext32(100 / 0) = 0xFFFF_FFFF_FFFF_FFFF
+
+		// DIVW overflow: MIN_INT32 / -1 = MIN_INT32
+		// x24 = 0x80000000 (MIN_INT32)
+		data[178] = {12'h800, 5'd0, `ITYPE_ADDI, 5'd17, `OPCODE_ITYPE};					// ADDI: x17 = 0xFFFF_FFFF_FFFF_F800
+		data[179] = {12'd20, 5'd17, `ITYPE_SLLI, 5'd17, `OPCODE_ITYPE};					// SLLI: x17 = x17 << 20
+		data[180] = {20'h80000, 5'd17, `OPCODE_LUI};										// LUI: x17 = 0xFFFF_FFFF_8000_0000
+		data[181] = {7'b0000001, 5'd15, 5'd17, `RTYPE_DIV, 5'd11, `OPCODE_RTYPE_WORD};	// DIVW: x11 = sext32(MIN_INT32 / -1) 
+
+		// ── DIVUW 테스트 (32-bit unsigned division, sign-extended) ──
+		// DIVUW: opcode = OPCODE_RTYPE_WORD (0111011), funct7 = 0000001, funct3 = 101
+		data[182] = {7'b0000001, 5'd2, 5'd20, `RTYPE_DIVU, 5'd12, `OPCODE_RTYPE_WORD};	// DIVUW: x12 = sext32(100 / 7) = sext32(14) = 0x0000_0000_0000_000E
+		
+		// x8[31:0] = 0x9ABC5678 (unsigned 32-bit: 2,596,068,984)
+		// 2,596,068,984 / 7 = 370,866,997 = 0x161C4DD5
+		data[183] = {7'b0000001, 5'd2, 5'd8, `RTYPE_DIVU, 5'd11, `OPCODE_RTYPE_WORD};	// DIVUW: x11 = sext32(0x9ABC5678 / 7) = 0x0000_0000_161A_E7C8
+
+		// DIVUW by zero: 결과 = 0xFFFFFFFF (sign-extended = -1)
+		data[184] = {7'b0000001, 5'd21, 5'd20, `RTYPE_DIVU, 5'd12, `OPCODE_RTYPE_WORD};	// DIVUW: x12 = sext32(100 / 0) = sext32(0xFFFFFFFF) = 0xFFFF_FFFF_FFFF_FFFF
+
+		// ── REMW 테스트 (32-bit signed remainder, sign-extended) ──
+		// REMW: opcode = OPCODE_RTYPE_WORD (0111011), funct7 = 0000001, funct3 = 110
+		data[185] = {7'b0000001, 5'd2, 5'd20, `RTYPE_REM, 5'd11, `OPCODE_RTYPE_WORD};	// REMW: x11 = sext32(100 % 7) = sext32(2) = 0x0000_0000_0000_0002
+		data[186] = {7'b0000001, 5'd3, 5'd4, `RTYPE_REM, 5'd12, `OPCODE_RTYPE_WORD};		// REMW: x12 = sext32(x4[31:0] % x3[31:0]) = sext32(-5 % 13) = sext32(-5) = 0xFFFF_FFFF_FFFF_FFFB
+
+		// x8[31:0] = 0x9ABC5678 (signed 32-bit: -1,698,898,312)
+		// -1,698,898,312 % 7 = -6 = 0xFFFF_FFFA
+		data[187] = {7'b0000001, 5'd2, 5'd8, `RTYPE_REM, 5'd11, `OPCODE_RTYPE_WORD};		// REMW: x11 = sext32(-1,698,898,312 % 7) = sext32(-6) = 0xFFFF_FFFF_FFFF_FFFC
+
+		// REMW by zero: 결과 = dividend (x20[31:0] = 100, sign-extended)
+		data[188] = {7'b0000001, 5'd21, 5'd20, `RTYPE_REM, 5'd12, `OPCODE_RTYPE_WORD};	// REMW: x12 = sext32(100 % 0) = sext32(100) = 0x0000_0000_0000_0064
+
+		// REMW overflow: MIN_INT32 % -1 = 0
+		data[189] = {7'b0000001, 5'd15, 5'd17, `RTYPE_REM, 5'd11, `OPCODE_RTYPE_WORD};	// REMW: x11 = sext32(MIN_INT32 % -1) = 0
+
+		// ── REMUW 테스트 (32-bit unsigned remainder, sign-extended) ──
+		// REMUW: opcode = OPCODE_RTYPE_WORD (0111011), funct7 = 0000001, funct3 = 111
+		data[190] = {7'b0000001, 5'd2, 5'd20, `RTYPE_REMU, 5'd12, `OPCODE_RTYPE_WORD};	// REMUW: x12 = sext32(100 % 7) = sext32(2) = 0x0000_0000_0000_0002
+
+		// x8[31:0] = 0x9ABC5678 (unsigned 32-bit: 2,596,068,984)
+		// 2,596,068,984 % 7 = 5
+		data[191] = {7'b0000001, 5'd2, 5'd8, `RTYPE_REMU, 5'd11, `OPCODE_RTYPE_WORD};	// REMUW: x11 = sext32(0x9ABC5678 % 7) = sext32(5) = 0x0000_0000_0000_0000
+
+		// REMUW by zero: 결과 = dividend[31:0] (x20[31:0] = 100, sign-extended)
+		data[192] = {7'b0000001, 5'd21, 5'd20, `RTYPE_REMU, 5'd12, `OPCODE_RTYPE_WORD};	// REMUW: x12 = sext32(100 % 0) = sext32(100) = 0x0000_0000_0000_0064
+
+		// 추가 edge case: 음수 결과가 sign-extend되는 REMUW
+		// x24 = 0x80000000, x3 = 13
+		// 0x80000000 % 13 = 2,147,483,648 % 13 = 11
+		data[193] = {7'b0000001, 5'd3, 5'd17, `RTYPE_REMU, 5'd11, `OPCODE_RTYPE_WORD};	// REMUW: x11 = sext32(0x80000000 % 13) = 0x0000_0000_0000_000B
+
+		// ── 복귀 점프 ──
+		// data[57]로 복귀: (57 - 194) * 4 = -548 바이트
+		data[194] = {1'b1, 10'b1011101110, 1'b1, 8'b11111111, 5'd0, `OPCODE_JAL};		// JAL x0, -548: data[57]로 복귀
+		data[195] = {12'h2BC, 5'd0, `ITYPE_ADDI, 5'd0, `OPCODE_ITYPE};						// ADDI:  x0 = x0 + 2BC = 0000_0000
+		data[196] = {12'h2BC, 5'd0, `ITYPE_ADDI, 5'd0, `OPCODE_ITYPE};						// ADDI:  x0 = x0 + 2BC = 0000_0000
 
 		// ──────────────────────────────────────────────
 		// Trap Handler 시작 주소. mtvec = 0000_1000 = 4096 ÷ 4 Byte = 1024
