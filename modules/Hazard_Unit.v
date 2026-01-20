@@ -3,12 +3,11 @@
 `include "modules/headers/alu_src_select.vh"
 
 module HazardUnit (
-    input clk,
-    input reset, 
-
     input wire trap_done,
     input wire csr_ready,
     input wire standby_mode,
+    input wire div_start,
+    input wire div_busy,
     input wire [2:0] trap_status,
     input wire misaligned_instruction_flush,
     input wire misaligned_memory_flush,
@@ -151,6 +150,12 @@ module HazardUnit (
             MEM_WB_stall = 1'b0;
         end 
         else if (!trap_done || !csr_ready) begin
+            IF_ID_stall = 1'b1;
+            ID_EX_stall = 1'b1;
+            EX_MEM_stall = 1'b1;
+            MEM_WB_stall = 1'b1;
+        end
+        else if (div_start || div_busy) begin
             IF_ID_stall = 1'b1;
             ID_EX_stall = 1'b1;
             EX_MEM_stall = 1'b1;

@@ -1,5 +1,5 @@
 $date
-	Mon Jan 05 01:04:09 2026
+	Sat Jan 17 13:13:36 2026
 $end
 $version
 	Icarus Verilog
@@ -23,45 +23,58 @@ $var wire 5 + ID_rs1 [4:0] $end
 $var wire 5 , ID_rs2 [4:0] $end
 $var wire 12 - MEM_csr_write_address [11:0] $end
 $var wire 1 . MEM_csr_write_enable $end
-$var wire 5 / MEM_rd [4:0] $end
-$var wire 1 0 MEM_register_write_enable $end
-$var wire 12 1 WB_csr_write_address [11:0] $end
-$var wire 1 2 WB_csr_write_enable $end
-$var wire 5 3 WB_rd [4:0] $end
-$var wire 1 4 WB_register_write_enable $end
-$var wire 1 5 branch_prediction_miss $end
-$var wire 1 6 clk $end
-$var wire 1 7 csr_hazard_mem $end
-$var wire 1 8 csr_hazard_wb $end
-$var wire 1 9 csr_ready $end
-$var wire 1 : mem_hazard_rs1 $end
-$var wire 1 ; mem_hazard_rs2 $end
-$var wire 1 < misaligned_instruction_flush $end
-$var wire 1 = misaligned_memory_flush $end
-$var wire 1 > pth_done_flush $end
-$var wire 1 ? reset $end
-$var wire 1 @ standby_mode $end
-$var wire 1 A store_hazard_mem $end
-$var wire 1 B store_hazard_wb $end
-$var wire 1 C trap_done $end
-$var wire 3 D trap_status [2:0] $end
-$var wire 1 E wb_hazard_rs1 $end
-$var wire 1 F wb_hazard_rs2 $end
-$var wire 1 G uses_rs2 $end
-$var wire 1 H uses_rs1 $end
-$var wire 1 I is_store $end
-$var reg 1 J EX_MEM_flush $end
-$var reg 1 K EX_MEM_stall $end
-$var reg 1 L ID_EX_flush $end
-$var reg 1 M ID_EX_stall $end
-$var reg 1 N IF_ID_flush $end
-$var reg 1 O IF_ID_stall $end
-$var reg 1 P MEM_WB_flush $end
-$var reg 1 Q MEM_WB_stall $end
-$var reg 2 R hazard_mem [1:0] $end
-$var reg 2 S hazard_wb [1:0] $end
-$var reg 12 T retire_csr_write_address [11:0] $end
-$var reg 5 U retire_rd [4:0] $end
+$var wire 7 / MEM_opcode [6:0] $end
+$var wire 5 0 MEM_rd [4:0] $end
+$var wire 1 1 MEM_register_write_enable $end
+$var wire 5 2 MEM_rs2 [4:0] $end
+$var wire 12 3 WB_csr_write_address [11:0] $end
+$var wire 1 4 WB_csr_write_enable $end
+$var wire 5 5 WB_rd [4:0] $end
+$var wire 1 6 WB_register_write_enable $end
+$var wire 1 7 branch_prediction_miss $end
+$var wire 1 8 clk $end
+$var wire 1 9 csr_hazard_mem $end
+$var wire 1 : csr_hazard_wb $end
+$var wire 1 ; csr_ready $end
+$var wire 1 < div_busy $end
+$var wire 1 = div_start $end
+$var wire 1 > mem_hazard_rs1 $end
+$var wire 1 ? mem_hazard_rs2 $end
+$var wire 1 @ misaligned_instruction_flush $end
+$var wire 1 A misaligned_memory_flush $end
+$var wire 1 B pth_done_flush $end
+$var wire 1 C reset $end
+$var wire 1 D retire_hazard_rs1 $end
+$var wire 1 E retire_hazard_rs2 $end
+$var wire 5 F retire_rd [4:0] $end
+$var wire 1 G retire_register_write_enable $end
+$var wire 1 H standby_mode $end
+$var wire 1 I store_hazard_mem $end
+$var wire 1 J store_hazard_retire $end
+$var wire 1 K store_hazard_wb $end
+$var wire 1 L store_hazard_wb_to_mem $end
+$var wire 1 M store_mem_hazard_rs2 $end
+$var wire 1 N store_retire_hazard_rs2 $end
+$var wire 1 O store_wb_hazard_rs2 $end
+$var wire 1 P trap_done $end
+$var wire 3 Q trap_status [2:0] $end
+$var wire 1 R wb_hazard_rs1 $end
+$var wire 1 S wb_hazard_rs2 $end
+$var wire 1 T uses_rs2 $end
+$var wire 1 U uses_rs1 $end
+$var wire 1 V is_store_mem $end
+$var wire 1 W is_store $end
+$var reg 1 X EX_MEM_flush $end
+$var reg 1 Y EX_MEM_stall $end
+$var reg 1 Z ID_EX_flush $end
+$var reg 1 [ ID_EX_stall $end
+$var reg 1 \ IF_ID_flush $end
+$var reg 1 ] IF_ID_stall $end
+$var reg 1 ^ MEM_WB_flush $end
+$var reg 1 _ MEM_WB_stall $end
+$var reg 2 ` hazard_mem [1:0] $end
+$var reg 2 a hazard_retire [1:0] $end
+$var reg 2 b hazard_wb [1:0] $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
@@ -70,12 +83,25 @@ $dumpall
 $end
 #0
 $dumpvars
-b0 U
-b0 T
-b0 S
-b0 R
-0Q
-0P
+b0 b
+b0 a
+b0 `
+0_
+0^
+0]
+0\
+0[
+0Z
+0Y
+0X
+0W
+0V
+1U
+1T
+0S
+0R
+b0 Q
+1P
 0O
 0N
 0M
@@ -83,32 +109,32 @@ b0 R
 0K
 0J
 0I
-xH
-xG
-0F
+0H
+0G
+b0 F
 0E
-b0 D
+0D
 1C
 0B
 0A
 0@
-1?
+0?
 0>
 0=
 0<
-0;
+1;
 0:
-19
+09
 08
 07
 06
-05
+b0 5
 04
 b0 3
-02
-b0 1
-00
-b0 /
+b0 2
+01
+b0 0
+b110011 /
 0.
 b0 -
 b0 ,
@@ -121,246 +147,497 @@ b110011 &
 0%
 b0 $
 0#
-bz "
-bz !
+b1 "
+b1 !
 $end
 #5000
-16
+18
 #10000
-06
-0?
+08
+0C
 #15000
-b100 U
-14
-b100 3
-10
-b11 /
+16
+b100 5
+11
+b11 0
 b10 )
 b1 (
-16
+18
 #20000
-06
+08
 #25000
-b0 U
-b0x R
-x:
+b1 `
+1>
 b100 )
 b11 (
-04
-b0 3
-10
-b11 /
-16
-#30000
 06
+b0 5
+11
+b11 0
+18
+#30000
+08
 #35000
-bx0 R
-x;
-0:
+b10 `
+1?
+0>
 b101 )
 b110 (
-10
-b101 /
-16
+11
+b101 0
+18
 #40000
-06
+08
 #45000
-b111 U
-b0x S
-xE
-b0 R
-0;
-14
-b111 3
+b1 b
+1R
+b0 `
+0?
+16
+b111 5
 b1000 )
 b111 (
-10
-b1001 /
-16
+11
+b1001 0
+18
 #50000
-06
+08
 #55000
-b0 U
-bx R
-b0 S
-x;
-x:
-0E
+b11 `
+b0 b
+1?
+1>
+0R
 b111 )
 b111 (
-04
-b0 3
-10
-b111 /
-16
-#60000
 06
+b0 5
+11
+b111 0
+18
+#60000
+08
 #65000
-b1010 U
-b0x S
-xE
-b0x R
-0;
-14
-b1010 3
+1R
+b1 `
+0?
+16
+b1010 5
 b1011 )
 b1010 (
-10
-b1010 /
-16
+11
+b1010 0
+18
 #70000
-06
+08
 #75000
-b0 U
-xA
-b0 S
-b0 R
-x;
-0E
-0:
 1I
+1M
+b0 `
+1?
+0R
+0>
+1W
 b100011 &
 b101 )
 b1 (
-04
-b0 3
-10
-b101 /
-16
-#80000
 06
+b0 5
+11
+b101 0
+18
+#80000
+08
 #85000
-b110 U
-xB
-xF
-0A
-0;
-14
-b110 3
+1S
+1K
+1O
+0?
+0I
+0M
+16
+b110 5
 b110 )
 b1 (
-1I
+1W
 b100011 &
-00
-b0 /
-16
+01
+b0 0
+18
 #90000
-06
+08
 #95000
-b0 U
-0B
-0F
-17
-b0 S
+0K
+0S
+0O
+19
+b0 b
 b1100000101 -
 1.
 b1100000101 $
 b0 )
 b0 (
-0I
+0W
 b110011 &
-04
-b0 3
-16
-#100000
 06
-#105000
-b1101000001 T
+b0 5
 18
-07
-b1101000001 1
-12
+#100000
+08
+#105000
+1:
+09
+b1101000001 3
+14
 b1101000001 $
 b0 -
 0.
-16
+18
 #110000
-06
-#115000
-b0 T
-1L
-1N
 08
-15
+#115000
+1Z
+1\
+0:
+17
 b0 $
-b0 1
-02
-16
+b0 3
+04
+18
 #120000
-06
+08
 #125000
-1L
-1N
+1Z
+1\
 1%
-05
-16
+07
+18
 #130000
-06
+08
 #135000
-1P
-1J
-1L
-1N
-1>
+1^
+1X
+1Z
+1\
+1B
 0%
-16
+18
 #140000
-06
+08
 #145000
-1M
-1O
-0P
-0J
-0L
-0N
-1@
-0>
-16
+1[
+1]
+0^
+0X
+0Z
+0\
+1H
+0B
+18
 #150000
-06
+08
 #155000
-1Q
-1K
-1M
-1O
-0C
-0@
-16
+1_
+1Y
+1[
+1]
+0P
+0H
+18
 #160000
-06
+08
 #165000
-1Q
-1K
-1M
-1O
-09
-1C
-16
+1_
+1Y
+1[
+1]
+0;
+1P
+18
 #170000
-06
+08
 #175000
-0Q
-0K
-0M
-0O
-10
-19
-16
+0_
+0Y
+0[
+0]
+11
+1;
+18
 #180000
-06
+08
 #185000
-b101 /
+b101 0
 b101 )
 b101 (
-00
-16
+01
+18
 #190000
-06
+08
 #195000
 b0 )
 b0 (
-b0 /
-16
+b0 0
+18
 #200000
-06
+08
 #205000
+b1 a
+1D
+1G
+b1100 F
+b1101 )
+b1100 (
+18
+#210000
+08
+#215000
+b10 a
+1E
+0D
+1G
+b1111 F
+b1111 )
+b1110 (
+18
+#220000
+08
+#225000
+b11 a
+1D
+1G
+b10000 F
+b10000 )
+b10000 (
+18
+#230000
+08
+#235000
+b1 `
+1R
+1>
+b0 a
+0E
+16
+b10001 5
+11
+b10001 0
+1G
+b10001 F
+b10010 )
+b10001 (
+18
+#240000
+08
+#245000
+b1 b
+b0 `
+0>
+1G
+b10011 F
+b10100 )
+b10011 (
+16
+b10011 5
+01
+b0 0
+18
+#250000
+08
+#255000
+1J
+1N
+b0 b
+1E
+0D
+0R
+1W
+b100011 &
+1G
+b10101 F
+b10101 )
+b1 (
+06
+b0 5
+18
+#260000
+08
+#265000
+1S
+0J
+1?
+1O
+1I
+1M
+16
+b10110 5
+11
+b10110 0
+1G
+b10110 F
+b10110 )
+b1 (
+1W
+b100011 &
+18
+#270000
+08
+#275000
+1L
+b0 a
+0E
+0N
+0?
+0I
+0M
+0D
+b0 `
+0S
+0O
+b10111 2
+1V
+b100011 /
+0G
+b0 F
+b0 )
+b0 (
+0W
+b110011 &
+16
+b10111 5
+01
+b0 0
+18
+#280000
+08
+#285000
+0L
+16
+b11001 5
+1V
+b100011 /
+b11000 2
+18
+#290000
+08
+#295000
+0L
+16
+b11010 5
+0V
+b110011 /
+b11010 2
+18
+#300000
+08
+#305000
+b0 b
+0R
+0S
+1V
+b100011 /
+16
+b0 5
+b0 2
+18
+#310000
+08
+#315000
+1_
+1Y
+1[
+1]
+1=
+06
+0V
+b110011 /
+18
+#320000
+08
+#325000
+1_
+1Y
+1[
+1]
+1<
+0=
+18
+#330000
+08
+#335000
+1_
+1Y
+1[
+1]
+1=
+1<
+18
+#340000
+08
+#345000
+0_
+0Y
+0[
+0]
+11
+b11011 0
+b11011 (
+0U
+b10 !
+0<
+0=
+18
+#350000
+08
+#355000
+b0 `
+0?
+b11100 )
+0T
+b10 "
+1U
+b1 !
+b0 (
+11
+b11100 0
+18
+#360000
+08
+#365000
+b1 `
+1>
+b11101 (
+1T
+b1 "
+b0 )
+11
+b11101 0
+18
+#370000
+08
+#375000
+0>
+1[
+1]
+b0 `
+0?
+1<
+1H
+b0 (
+01
+b0 0
+18
+#380000
+08
+#385000
+1_
+1Y
+1[
+1]
+0P
+1<
+0H
+18
+#390000
+08
+#395000
