@@ -39,7 +39,7 @@ module Divider_WORD #(
     wire [32:0] subtract_result;
     
     assign shifted_rq = {remainder_quotient[62:0], 1'b0};
-    assign subtract_result = shifted_rq[63:32] - {1'b0, divisor_reg};
+    assign subtract_result = {1'b0, shifted_rq[63:32]} - {1'b0, divisor_reg};
 
     wire div_by_zero = (divisor == 32'b0);
     wire div_overflow = (is_signed && (dividend == 32'h8000_0000) && (divisor == 32'hFFFF_FFFF));
