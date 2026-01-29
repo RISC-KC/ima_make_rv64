@@ -1,4 +1,7 @@
 # ima_make_rv64
+
+<img width="900" height="512" alt="Untitled(1)" src="https://github.com/user-attachments/assets/ac825752-e7e2-48f5-a21b-0546d59f28f3" />
+
 > I'ma make rv64 cpu.
 
 ## Introduction
