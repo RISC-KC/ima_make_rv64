@@ -3,27 +3,71 @@
 `include "modules/headers/alu_op.vh"
 
 module ALU_tb;
+    reg clk;
+    reg reset;
     reg [63:0] src_A;
 	reg [63:0] src_B;
     reg [4:0] alu_op;
     reg input_size_word;
+    reg div_start;
 
+    wire div_busy;
     wire [63:0] alu_result;
     wire alu_zero;
 
     ALU dut (
+        .clk(clk),
+        .reset(reset),
         .src_A(src_A),
         .src_B(src_B),
         .alu_op(alu_op),
         .input_size_word(input_size_word),
+        .div_start,
 
+        .div_busy,
         .alu_result(alu_result),
         .alu_zero(alu_zero)
     );
 
+    // Clock generation
+    initial begin
+        clk = 0;
+        forever #5 clk = ~clk;
+    end
+
+    // Division wait task
+    task wait_div_complete;
+        begin
+            @(posedge clk);  // 입력 안정화
+            @(posedge clk);  // 추가 안정화
+            div_start = 1;
+            @(posedge clk);
+            div_start = 0;
+            @(posedge clk);
+            // Wait for busy to go low
+            while (div_busy) begin
+                @(posedge clk);
+            end
+            @(posedge clk);  // 결과 안정화
+            @(posedge clk);  // 추가 안정화
+        end
+    endtask
+
     initial begin
         $dumpfile("testbenches/results/waveforms/ALU_tb_result.vcd");
         $dumpvars(0, dut);
+
+        // ★★★ Initialize - 필수! ★★★
+        reset = 1;
+        div_start = 0;
+        src_A = 0;
+        src_B = 0;
+        alu_op = `ALU_OP_ADD;
+        input_size_word = 0;
+        
+        #30;  // reset 유지
+        reset = 0;
+        #20;  // reset 해제 후 안정화
 
         // Test sequence
         $display("==================== ALU Test START ====================");
@@ -201,7 +245,6 @@ module ALU_tb;
         alu_op = `ALU_OP_MUL;
         input_size_word = 0;
 
-        // 간단한 검증용 테스트
         src_A = 64'd10; src_B = 64'd20; #10;
         $display("MUL: %d * %d = %d (expected: 200), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'd200) ? "PASS" : "FAIL");
 
@@ -263,8 +306,161 @@ module ALU_tb;
 
         alu_op = `ALU_OP_MULH; #10;
         $display("MULH: %d * %d = high %d (expected: -1), Zero: %b, %s", $signed(src_A[31:0]), $signed(src_B[31:0]), $signed(alu_result), alu_zero, ($signed(alu_result) == -1) ? "PASS" : "FAIL");
+
+        // Test 12: DIV, DIVU, REM, REMU
+        $display("\nDivision Test (DWORD): ");
+
+        alu_op = `ALU_OP_DIV;
+        input_size_word = 0;
+
+        // 기본 나눗셈
+        src_A = 64'd100; src_B = 64'd10;
+        wait_div_complete;
+        $display("DIV: %d / %d = %d (expected: 10), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == 10) ? "PASS" : "FAIL");
+
+        src_A = 64'd1972; src_B = 64'd100;
+        wait_div_complete;
+        $display("DIV: %d / %d = %d (expected: 19), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == 19) ? "PASS" : "FAIL");
+
+        // 부호 있는 나눗셈: -100 / 10 = -10
+        src_A = 64'hFFFF_FFFF_FFFF_FF9C; src_B = 64'd10;
+        wait_div_complete;
+        $display("DIV: %d / %d = %d (expected: -10), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == -10) ? "PASS" : "FAIL");
+
+        // 부호 있는 나눗셈: -100 / -10 = 10
+        src_A = 64'hFFFF_FFFF_FFFF_FF9C; src_B = 64'hFFFF_FFFF_FFFF_FFF6;
+        wait_div_complete;
+        $display("DIV: %d / %d = %d (expected: 10), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == 10) ? "PASS" : "FAIL");
+
+        // 0으로 나눗셈 (RISC-V 스펙: 결과는 -1)
+        src_A = 64'd100; src_B = 64'd0;
+        wait_div_complete;
+        $display("DIV: %d / %d = %d (expected: -1), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == -1) ? "PASS" : "FAIL");
+
+        // DIVU 테스트
+        alu_op = `ALU_OP_DIVU;
+
+        src_A = 64'd100; src_B = 64'd10;
+        wait_div_complete;
+        $display("DIVU: %d / %d = %d (expected: 10), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'd10) ? "PASS" : "FAIL");
+
+        src_A = 64'hFFFF_FFFF_FFFF_FFFF; src_B = 64'd2;
+        wait_div_complete;
+        $display("DIVU: 0x%h / %d = 0x%h (expected: 0x7FFFFFFFFFFFFFFF), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'h7FFF_FFFF_FFFF_FFFF) ? "PASS" : "FAIL");
+
+        // 0으로 나눗셈 (RISC-V 스펙: 결과는 모두 1)
+        src_A = 64'd100; src_B = 64'd0;
+        wait_div_complete;
+        $display("DIVU: %d / %d = 0x%h (expected: 0xFFFFFFFFFFFFFFFF), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'hFFFF_FFFF_FFFF_FFFF) ? "PASS" : "FAIL");
+
+        // REM 테스트
+        alu_op = `ALU_OP_REM;
+
+        src_A = 64'd100; src_B = 64'd30;
+        wait_div_complete;
+        $display("REM: %d %% %d = %d (expected: 10), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == 10) ? "PASS" : "FAIL");
+
+        src_A = 64'd1972; src_B = 64'd100;
+        wait_div_complete;
+        $display("REM: %d %% %d = %d (expected: 72), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == 72) ? "PASS" : "FAIL");
+
+        // 부호 있는 나머지: -100 % 30 = -10
+        src_A = 64'hFFFF_FFFF_FFFF_FF9C; src_B = 64'd30;
+        wait_div_complete;
+        $display("REM: %d %% %d = %d (expected: -10), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == -10) ? "PASS" : "FAIL");
+
+        // 0으로 나눗셈 (RISC-V 스펙: 결과는 피제수)
+        src_A = 64'd100; src_B = 64'd0;
+        wait_div_complete;
+        $display("REM: %d %% %d = %d (expected: 100), Zero: %b, %s", $signed(src_A), $signed(src_B), $signed(alu_result), alu_zero, ($signed(alu_result) == 100) ? "PASS" : "FAIL");
+
+        // REMU 테스트
+        alu_op = `ALU_OP_REMU;
+
+        src_A = 64'd100; src_B = 64'd30;
+        wait_div_complete;
+        $display("REMU: %d %% %d = %d (expected: 10), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'd10) ? "PASS" : "FAIL");
+
+        src_A = 64'hFFFF_FFFF_FFFF_FFFF; src_B = 64'd2;
+        wait_div_complete;
+        $display("REMU: 0x%h %% %d = %d (expected: 1), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'd1) ? "PASS" : "FAIL");
+
+        // 0으로 나눗셈 (RISC-V 스펙: 결과는 피제수)
+        src_A = 64'd100; src_B = 64'd0;
+        wait_div_complete;
+        $display("REMU: %d %% %d = %d (expected: 100), Zero: %b, %s", src_A, src_B, alu_result, alu_zero, (alu_result == 64'd100) ? "PASS" : "FAIL");
+
+        $display("\nDivision Test (WORD - DIVW, DIVUW, REMW, REMUW): ");
+
+        input_size_word = 1;
+
+        // DIVW 테스트
+        alu_op = `ALU_OP_DIV;
+
+        src_A = 64'd100; src_B = 64'd10;
+        wait_div_complete;
+        $display("DIVW: %d / %d = %d (expected: 10), Zero: %b, %s", $signed(src_A[31:0]), $signed(src_B[31:0]), $signed(alu_result), alu_zero, ($signed(alu_result) == 10) ? "PASS" : "FAIL");
+
+        // 부호 있는 나눗셈: -100 / 10 = -10 (32비트)
+        src_A = 64'h0000_0000_FFFF_FF9C; src_B = 64'd10;
+        wait_div_complete;
+        $display("DIVW: %d / %d = %d (expected: -10), Zero: %b, %s", $signed(src_A[31:0]), $signed(src_B[31:0]), $signed(alu_result), alu_zero, ($signed(alu_result) == -10) ? "PASS" : "FAIL");
+
+        // 0으로 나눗셈
+        src_A = 64'd100; src_B = 64'd0;
+        wait_div_complete;
+        $display("DIVW: %d / %d = %d (expected: -1), Zero: %b, %s", $signed(src_A[31:0]), $signed(src_B[31:0]), $signed(alu_result), alu_zero, ($signed(alu_result) == -1) ? "PASS" : "FAIL");
+
+        // DIVUW 테스트
+        alu_op = `ALU_OP_DIVU;
+
+        src_A = 64'd100; src_B = 64'd10;
+        wait_div_complete;
+        $display("DIVUW: %d / %d = %d (expected: 10), Zero: %b, %s", src_A[31:0], src_B[31:0], $signed(alu_result), alu_zero, ($signed(alu_result) == 10) ? "PASS" : "FAIL");
+
+        src_A = 64'h0000_0000_FFFF_FFFF; src_B = 64'd2;
+        wait_div_complete;
+        $display("DIVUW: 0x%h / %d = 0x%h (expected: 0x7FFFFFFF, sign-ext), Zero: %b, %s", src_A[31:0], src_B[31:0], alu_result, alu_zero, (alu_result == 64'h0000_0000_7FFF_FFFF) ? "PASS" : "FAIL");
+
+        // 0으로 나눗셈
+        src_A = 64'd100; src_B = 64'd0;
+        wait_div_complete;
+        $display("DIVUW: %d / %d = 0x%h (expected: 0xFFFFFFFF, sign-ext to -1), Zero: %b, %s", src_A[31:0], src_B[31:0], alu_result, alu_zero, ($signed(alu_result) == -1) ? "PASS" : "FAIL");
+
+        // REMW 테스트
+        alu_op = `ALU_OP_REM;
+
+        src_A = 64'd100; src_B = 64'd30;
+        wait_div_complete;
+        $display("REMW: %d %% %d = %d (expected: 10), Zero: %b, %s", $signed(src_A[31:0]), $signed(src_B[31:0]), $signed(alu_result), alu_zero, ($signed(alu_result) == 10) ? "PASS" : "FAIL");
+
+        // 부호 있는 나머지: -100 % 30 = -10 (32비트)
+        src_A = 64'h0000_0000_FFFF_FF9C; src_B = 64'd30;
+        wait_div_complete;
+        $display("REMW: %d %% %d = %d (expected: -10), Zero: %b, %s", $signed(src_A[31:0]), $signed(src_B[31:0]), $signed(alu_result), alu_zero, ($signed(alu_result) == -10) ? "PASS" : "FAIL");
+
+        // 0으로 나눗셈
+        src_A = 64'd100; src_B = 64'd0;
+        wait_div_complete;
+        $display("REMW: %d %% %d = %d (expected: 100), Zero: %b, %s", $signed(src_A[31:0]), $signed(src_B[31:0]), $signed(alu_result), alu_zero, ($signed(alu_result) == 100) ? "PASS" : "FAIL");
+
+        // REMUW 테스트
+        alu_op = `ALU_OP_REMU;
+
+        src_A = 64'd100; src_B = 64'd30;
+        wait_div_complete;
+        $display("REMUW: %d %% %d = %d (expected: 10), Zero: %b, %s", src_A[31:0], src_B[31:0], $signed(alu_result), alu_zero, ($signed(alu_result) == 10) ? "PASS" : "FAIL");
+
+        src_A = 64'h0000_0000_FFFF_FFFF; src_B = 64'd2;
+        wait_div_complete;
+        $display("REMUW: 0x%h %% %d = %d (expected: 1), Zero: %b, %s", src_A[31:0], src_B[31:0], $signed(alu_result), alu_zero, ($signed(alu_result) == 1) ? "PASS" : "FAIL");
+
+        // 0으로 나눗셈
+        src_A = 64'd100; src_B = 64'd0;
+        wait_div_complete;
+        $display("REMUW: %d %% %d = %d (expected: 100), Zero: %b, %s", src_A[31:0], src_B[31:0], $signed(alu_result), alu_zero, ($signed(alu_result) == 100) ? "PASS" : "FAIL");
         
-        // Test 12: ABJ
+        // Test 13: ABJ
 		$display("\nAbjunction Test: ");
 		
         alu_op = `ALU_OP_ABJ;
@@ -279,7 +475,7 @@ module ALU_tb;
 		src_B = 64'hFFFF_FFFF_FFFF_FFFF; src_A = 64'hFFFF_FFFF_FFFF_FFFF;  #10;
         $display("%h & ~%h = %h, Zero: %b", src_B, src_A, alu_result, alu_zero);
 
-        // Test 13: NOP
+        // Test 14: NOP
 		$display("\nNOP Test: ");
 		
         alu_op = `ALU_OP_NOP;

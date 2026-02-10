@@ -4,15 +4,21 @@
 `include "modules/ALU/ALU_DWORD.v"
 `include "modules/ALU/Multiplier_WORD.v"
 `include "modules/ALU/Multiplier_DWORD.v"
+`include "modules/ALU/Divider_WORD.v"
+`include "modules/ALU/Divider_DWORD.v"
 
 module ALU #(
     parameter XLEN = 64
 )(
+    input clk,
+    input reset,
     input [XLEN-1:0] src_A,             // source operand A
     input [XLEN-1:0] src_B,             // source operand B
     input [4:0] alu_op,        		// ALU operation signal (from ALU Control module)
     input input_size_word,
+    input div_start,
 
+    output div_busy,
     output reg [XLEN-1:0] alu_result,   // ALU result
     output reg alu_zero             // zero flag
 );
@@ -27,6 +33,16 @@ module ALU #(
 
     wire [63:0] prod_high_dword;
     wire [63:0] prod_low_dword;
+
+    wire [31:0] quot_word;
+    wire [31:0] rem_word;
+    wire div_busy_word;
+    
+    wire [XLEN-1:0] quot_dword;
+    wire [XLEN-1:0] rem_dword;
+    wire div_busy_dword;
+
+    assign div_busy = div_busy_word | div_busy_dword;
 
     ALU_WORD alu_word (
         .src_A(src_A[31:0]),
@@ -66,6 +82,32 @@ module ALU #(
         .prod_low(prod_low_dword)
     );
 
+    Divider_WORD divider_word (
+        .clk(clk),
+        .reset(reset),
+        .division_start(div_start && input_size_word),
+        .is_signed(alu_op == `ALU_OP_DIV || alu_op == `ALU_OP_REM),
+        .dividend(src_A[31:0]),
+        .divisor(src_B[31:0]),
+
+        .quotient(quot_word),
+        .remainder(rem_word),
+        .busy(div_busy_word)
+    );
+
+    Divider_DWORD divider_dword (
+        .clk(clk),
+        .reset(reset),
+        .division_start(div_start && !input_size_word),
+        .is_signed(alu_op == `ALU_OP_DIV || alu_op == `ALU_OP_REM),
+        .dividend(src_A),
+        .divisor(src_B),
+
+        .quotient(quot_dword),
+        .remainder(rem_dword),
+        .busy(div_busy_dword)
+    );
+
     always @(*) begin
         case (alu_op)
             
@@ -87,6 +129,26 @@ module ALU #(
                 else begin
                     alu_result = prod_high_dword;
                     alu_zero = (prod_high_dword == 0);
+                end
+            end
+            `ALU_OP_DIV, `ALU_OP_DIVU: begin
+                if (input_size_word) begin
+                    alu_result = {{32{quot_word[31]}}, quot_word};
+                    alu_zero = (quot_word == 0);
+                end
+                else begin
+                    alu_result = quot_dword;
+                    alu_zero = (quot_dword == 0);
+                end
+            end
+            `ALU_OP_REM, `ALU_OP_REMU: begin
+                if (input_size_word) begin
+                    alu_result = {{32{rem_word[31]}}, rem_word};
+                    alu_zero = (rem_word == 0);
+                end
+                else begin
+                    alu_result = rem_dword;
+                    alu_zero = (rem_dword == 0);
                 end
             end
             
