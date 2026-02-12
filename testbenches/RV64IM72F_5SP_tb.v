@@ -37,7 +37,7 @@ module RV64IM72F5SP_tb #(
 
         reset = 0;
 
-        #3640;
+        #16400;
 
         $display("\n====================  RV64IM72F_5SP Test END  ====================");
         $stop;
