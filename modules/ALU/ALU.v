@@ -17,14 +17,12 @@ module ALU #(
     input [XLEN-1:0] src_B,             // source operand B
     input [4:0] alu_op,        		// ALU operation signal (from ALU Control module)
     input input_size_word,
-
     input div_start,
-    output div_busy,
-
     input mul_start,
-    output mul_busy,
 
-    output reg [XLEN-1:0] alu_result,   // ALU result
+    output div_busy,
+    output mul_busy,
+    output reg [XLEN-1:0] alu_result,
     output reg alu_zero             // zero flag
 );
     wire [31:0] alu_word_result;
@@ -39,7 +37,6 @@ module ALU #(
     wire [63:0] prod_high_dword;
     wire [63:0] prod_low_dword;
 
-    // Multiplier busy signals
     wire mul_busy_word;
     wire mul_busy_dword;
 

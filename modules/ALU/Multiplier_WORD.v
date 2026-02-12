@@ -5,7 +5,6 @@
 
 module Multiplier_WORD (
     input clk,
-    input clk_enable,
     input reset,
     input mul_start,                // Start multiplication pulse
     
