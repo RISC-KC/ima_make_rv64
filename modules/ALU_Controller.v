@@ -14,23 +14,41 @@ module ALUController (
 	input funct7_0,					// 0th index of funct7
     input funct7_5,					// 5th index of funct7
     input imm_10,					// 10th index of imm
-	input div_busy,
+	input div_busy,                 // division unit busy signal
+	input mul_busy,                 // multiplication unit busy signal
 	
     output reg [4:0] alu_op,		// ALU operation signal
+    output input_size_word,         // signal indicating if input for ALU is WORD or DWORD
 	output div_start,
-    output input_size_word          // signal indicating if input for ALU is WORD or DWORD
+	output mul_start
 );
-
+	// Division control signals
 	wire is_div;
 	reg div_ongoing;
+
 	assign is_div = ((opcode == `OPCODE_RTYPE) || (opcode == `OPCODE_RTYPE_WORD)) && (funct7_0) &&
 					((funct3 == `RTYPE_DIV) ||
 					(funct3 == `RTYPE_DIVU) ||
 					(funct3 == `RTYPE_REM) ||
 					(funct3 == `RTYPE_REMU));
-	assign div_start = is_div && !div_ongoing;		// FSM inflight for pulse signal
-    assign input_size_word = ((opcode == `OPCODE_ITYPE_WORD) | (opcode == `OPCODE_RTYPE_WORD));
 
+	assign div_start = is_div && !div_ongoing;
+
+	// Multiplication control signals
+	wire is_mul;
+	reg mul_ongoing;
+
+	assign is_mul = ((opcode == `OPCODE_RTYPE) || (opcode == `OPCODE_RTYPE_WORD)) && (funct7_0) &&
+					((funct3 == `RTYPE_MUL) ||
+					(funct3 == `RTYPE_MULH) ||
+					(funct3 == `RTYPE_MULHSU) ||
+					(funct3 == `RTYPE_MULHU));
+
+	assign mul_start = is_mul && !mul_ongoing;
+
+    assign input_size_word = ((opcode == `OPCODE_ITYPE_WORD) || (opcode == `OPCODE_RTYPE_WORD));
+
+	// Division ongoing state machine
 	always @(posedge clk or posedge reset) begin
 		if (reset) begin
 			div_ongoing <= 1'b0;
@@ -44,11 +62,30 @@ module ALUController (
 			end
 			else if (!is_div) begin
 				div_ongoing <= 1'b0;
+			end 
+		end
+	end
+
+	// Multiplication ongoing state machine
+	always @(posedge clk or posedge reset) begin
+		if (reset) begin
+			mul_ongoing <= 1'b0;
+		end
+		else begin
+			if (mul_start) begin
+				mul_ongoing <= 1'b1;
 			end
+			else if (!mul_busy) begin
+				mul_ongoing <= 1'b0;
+			end
+			else if (!is_mul) begin
+				mul_ongoing <= 1'b0;
+			end 
 		end
 	end
 
     always @(*) begin
+		alu_op = `ALU_OP_NOP; // default NOP
         case (opcode)
 			`OPCODE_AUIPC, `OPCODE_JAL, `OPCODE_JALR, `OPCODE_LOAD, `OPCODE_STORE: begin
 				alu_op = `ALU_OP_ADD;
@@ -83,8 +120,9 @@ module ALUController (
 					`ITYPE_ANDI: alu_op = `ALU_OP_AND; // andi : 111 ; -
 					default: alu_op = `ALU_OP_NOP;
 				endcase
-			end
+			end 
 			`OPCODE_RTYPE, `OPCODE_RTYPE_WORD: begin
+				
 				if (funct7_0) begin // M extension operations
 					case (funct3)
 						`RTYPE_MUL: alu_op = `ALU_OP_MUL;
@@ -98,8 +136,8 @@ module ALUController (
 						default: alu_op = `ALU_OP_NOP;
 					endcase
 				end
-				
-				else begin // I extension operations*/
+				else begin
+					// I extension operations
 					case (funct3)
 						`RTYPE_ADDSUB: begin // add or sub
 							if (funct7_5) begin
@@ -126,6 +164,7 @@ module ALUController (
 						default: alu_op = `ALU_OP_NOP;
 					endcase
 				end
+                
             end
 			`OPCODE_ENVIRONMENT: begin
 				case (funct3)
@@ -138,9 +177,8 @@ module ALUController (
 					default: alu_op = `ALU_OP_NOP;
 				endcase
 			end
-			default: begin
-				alu_op = `ALU_OP_NOP;
-			end
+			default: alu_op = `ALU_OP_NOP;
         endcase
-	end
+    end
+
 endmodule
