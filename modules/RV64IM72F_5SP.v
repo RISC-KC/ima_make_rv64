@@ -90,8 +90,6 @@ module RV64IM72F5SP #(
 
     // Register File
     reg [XLEN-1:0] register_file_write_data;
-    
-    // Register File
     wire [XLEN-1:0] read_data1;
     wire [XLEN-1:0] read_data2;
 
@@ -106,6 +104,12 @@ module RV64IM72F5SP #(
     // ALU
     wire [XLEN-1:0] alu_result;
     wire alu_zero;
+
+    // Divder
+    wire is_div_op;
+    wire div_start;
+    wire div_busy;
+    reg div_ongoing;
 	
     // Data Memory and Byte Enable Logic
     wire [XLEN-1:0] data_memory_read_data;
@@ -286,23 +290,34 @@ module RV64IM72F5SP #(
     // Module Instantces
 
     ALU alu (
+        .clk(clk),
+        .reset(reset),
+
         .src_A(src_A),
         .src_B(src_B),
         .alu_op(alu_op),
         .input_size_word(input_size_word),
+
+        .div_start(div_start),
+        .div_busy(div_busy),
 
         .alu_result(alu_result),
         .alu_zero(alu_zero)
     );
 
     ALUController alu_controller (
+        .clk(clk),
+        .reset(reset),
+
         .opcode(EX_opcode),
 	    .funct3(EX_funct3),
         .funct7_5(EX_funct7[5]),
         .funct7_0(EX_funct7[0]),
         .imm_10(EX_imm[10]),
+        .div_busy(div_busy),
+
         .input_size_word(input_size_word),
-	
+        .div_start(div_start),
         .alu_op(alu_op)
     );
 
@@ -462,10 +477,10 @@ module RV64IM72F5SP #(
     );
 
     HazardUnit hazard_unit (
-        .clk(clk),
-        .reset(reset),
         .trap_done(trap_done),
         .standby_mode(standby_mode),
+        .div_start(div_start), 
+        .div_busy(div_busy),
         .trap_status(trap_status),
         .misaligned_instruction_flush(misaligned_instruction_flush),
         .misaligned_memory_flush(misaligned_memory_flush),
@@ -793,7 +808,7 @@ module RV64IM72F5SP #(
             retire_byte_enable_logic_register_file_write_data <= {XLEN{1'b0}};
             instruction_retired <= 1'b0;
         end 
-        else begin
+        else if (!MEM_WB_stall) begin
             retire_rd <= WB_rd;
             retire_register_write_enable <= WB_register_write_enable;
             retire_opcode <= WB_opcode;
@@ -803,8 +818,7 @@ module RV64IM72F5SP #(
             retire_csr_read_data <= WB_csr_read_data;
             retire_byte_enable_logic_register_file_write_data <= WB_byte_enable_logic_register_file_write_data;
 
-            if (!MEM_WB_stall && !MEM_WB_flush && 
-                WB_instruction != 32'h00000013) begin
+            if (!MEM_WB_stall && !MEM_WB_flush && WB_instruction != 32'h00000013) begin
                 instruction_retired <= 1'b1;
             end 
             else begin
