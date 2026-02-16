@@ -371,10 +371,10 @@ module ALUController_tb;
 		funct7 = 7'b0000001;
 		funct3 = `RTYPE_DIV;
 		#1;
-		$display("DIV set (combinational): div_start=%b, div_inflight=%b", div_start, dut.div_inflight);
+		$display("DIV set (combinational): div_start=%b, div_ongoing=%b", div_start, dut.div_ongoing);
 		
 		@(posedge clk); #1;
-		$display("After 1 clk: div_start=%b, div_inflight=%b (inflight should be 1, start should be 0)", div_start, dut.div_inflight);
+		$display("After 1 clk: div_start=%b, div_ongoing=%b (ongoing should be 1, start should be 0)", div_start, dut.div_ongoing);
 
 		// Test 13-2: div_busy handshake
 		$display("\nDIV div_busy handshake test: ");
@@ -395,21 +395,21 @@ module ALUController_tb;
 		funct7 = 7'b0000001;
 		funct3 = `RTYPE_DIV;
 		#1;
-		$display("DIV set: div_start=%b, div_inflight=%b", div_start, dut.div_inflight);
+		$display("DIV set: div_start=%b, div_ongoing=%b", div_start, dut.div_ongoing);
 		
 		// Divider sees start and asserts busy (same cycle in real HW)
 		div_busy = 1'b1;
 		@(posedge clk); #1;
-		$display("Divider busy: div_start=%b, div_inflight=%b, div_busy=%b", div_start, dut.div_inflight, div_busy);
+		$display("Divider busy: div_start=%b, div_ongoing=%b, div_busy=%b", div_start, dut.div_ongoing, div_busy);
 		
 		// Wait few cycles while busy
 		@(posedge clk); #1;
-		$display("Still busy: div_start=%b, div_inflight=%b, div_busy=%b", div_start, dut.div_inflight, div_busy);
+		$display("Still busy: div_start=%b, div_ongoing=%b, div_busy=%b", div_start, dut.div_ongoing, div_busy);
 		
 		// Divider completes
 		div_busy = 1'b0;
 		@(posedge clk); #1;
-		$display("Divider done: div_start=%b, div_inflight=%b, div_busy=%b", div_start, dut.div_inflight, div_busy);
+		$display("Divider done: div_start=%b, div_ongoing=%b, div_busy=%b", div_start, dut.div_ongoing, div_busy);
 
 		// Test 13-3: DIVU instruction
 		$display("\nDIVU test: ");
@@ -510,17 +510,17 @@ module ALUController_tb;
 		reset = 0;
 		@(posedge clk); #1;
 		
-		// Start DIV and let inflight go high
+		// Start DIV and let ongoing go high
 		opcode = `OPCODE_RTYPE;
 		funct7 = 7'b0000001;
 		funct3 = `RTYPE_DIV;
 		div_busy = 1'b1;
 		@(posedge clk); #1;
-		$display("Before reset: div_inflight=%b", dut.div_inflight);
+		$display("Before reset: div_ongoing=%b", dut.div_ongoing);
 		
 		reset = 1;
 		@(posedge clk); #1;
-		$display("After reset: div_inflight=%b (should be 0)", dut.div_inflight);
+		$display("After reset: div_ongoing=%b (should be 0)", dut.div_ongoing);
 		
 		reset = 0;
 
