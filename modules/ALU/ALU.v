@@ -12,14 +12,17 @@ module ALU #(
 )(
     input clk,
     input reset,
+
     input [XLEN-1:0] src_A,             // source operand A
     input [XLEN-1:0] src_B,             // source operand B
     input [4:0] alu_op,        		// ALU operation signal (from ALU Control module)
     input input_size_word,
     input div_start,
+    input mul_start,
 
     output div_busy,
-    output reg [XLEN-1:0] alu_result,   // ALU result
+    output mul_busy,
+    output reg [XLEN-1:0] alu_result,
     output reg alu_zero             // zero flag
 );
     wire [31:0] alu_word_result;
@@ -34,10 +37,16 @@ module ALU #(
     wire [63:0] prod_high_dword;
     wire [63:0] prod_low_dword;
 
+    wire mul_busy_word;
+    wire mul_busy_dword;
+
+    assign mul_busy = mul_busy_word | mul_busy_dword;
+
+    // Divider outputs
     wire [31:0] quot_word;
     wire [31:0] rem_word;
     wire div_busy_word;
-    
+
     wire [XLEN-1:0] quot_dword;
     wire [XLEN-1:0] rem_dword;
     wire div_busy_dword;
@@ -63,23 +72,31 @@ module ALU #(
     );
 
     Multiplier_WORD multiplier_word (
+        .clk(clk),
+        .reset(reset),
+        .mul_start(mul_start && input_size_word),
         .src_A(src_A[31:0]),
         .src_B(src_B[31:0]),
         .signed_A(alu_op == `ALU_OP_MULH | alu_op == `ALU_OP_MULHSU),
         .signed_B(alu_op == `ALU_OP_MULH),
 
         .prod_high(prod_high_word),
-        .prod_low(prod_low_word)
+        .prod_low(prod_low_word),
+        .mul_busy(mul_busy_word)
     );
 
     Multiplier_DWORD multiplier_dword (
+        .clk(clk),
+        .reset(reset),
+        .mul_start(mul_start && !input_size_word),
         .src_A(src_A),
         .src_B(src_B),
         .signed_A(alu_op == `ALU_OP_MULH | alu_op == `ALU_OP_MULHSU),
         .signed_B(alu_op == `ALU_OP_MULH),
 
         .prod_high(prod_high_dword),
-        .prod_low(prod_low_dword)
+        .prod_low(prod_low_dword),
+        .mul_busy(mul_busy_dword)
     );
 
     Divider_WORD divider_word (
@@ -89,28 +106,26 @@ module ALU #(
         .is_signed(alu_op == `ALU_OP_DIV || alu_op == `ALU_OP_REM),
         .dividend(src_A[31:0]),
         .divisor(src_B[31:0]),
-
         .quotient(quot_word),
         .remainder(rem_word),
         .busy(div_busy_word)
     );
 
-    Divider_DWORD divider_dword (
+    Divider_DWORD #(.XLEN(XLEN)) divider_dword (
         .clk(clk),
         .reset(reset),
         .division_start(div_start && !input_size_word),
         .is_signed(alu_op == `ALU_OP_DIV || alu_op == `ALU_OP_REM),
         .dividend(src_A),
         .divisor(src_B),
-
         .quotient(quot_dword),
         .remainder(rem_dword),
         .busy(div_busy_dword)
     );
+    
 
     always @(*) begin
         case (alu_op)
-            
             `ALU_OP_MUL: begin
                 if (input_size_word) begin
                     alu_result = {{32{prod_low_word[31]}}, prod_low_word};
@@ -131,6 +146,7 @@ module ALU #(
                     alu_zero = (prod_high_dword == 0);
                 end
             end
+
             `ALU_OP_DIV, `ALU_OP_DIVU: begin
                 if (input_size_word) begin
                     alu_result = {{32{quot_word[31]}}, quot_word};
@@ -141,6 +157,7 @@ module ALU #(
                     alu_zero = (quot_dword == 0);
                 end
             end
+
             `ALU_OP_REM, `ALU_OP_REMU: begin
                 if (input_size_word) begin
                     alu_result = {{32{rem_word[31]}}, rem_word};
