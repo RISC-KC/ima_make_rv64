@@ -3,11 +3,16 @@
 `include "modules/headers/alu_src_select.vh"
 
 module HazardUnit (
+    input clk,
+    input reset, 
+
     input wire trap_done,
     input wire csr_ready,
     input wire standby_mode,
     input wire div_start,
     input wire div_busy,
+    input wire mul_start,
+    input wire mul_busy,
     input wire [2:0] trap_status,
     input wire misaligned_instruction_flush,
     input wire misaligned_memory_flush,
@@ -18,22 +23,22 @@ module HazardUnit (
     input wire [11:0] ID_raw_imm,
     
     input wire [4:0] MEM_rd,
-    input wire [4:0] MEM_rs2,
     input wire [6:0] MEM_opcode,
+    input wire [4:0] MEM_rs2,
     input wire MEM_register_write_enable,
     input wire MEM_csr_write_enable,
-    input wire [11:0] MEM_csr_write_address,       // MEM_imm[11:0]
+    input wire [11:0] MEM_csr_write_address,
 
     input wire [4:0] WB_rd,
     input wire WB_register_write_enable,
     input wire WB_csr_write_enable,
-    input wire [11:0] WB_csr_write_address, // WB_imm[11:0]
+    input wire [11:0] WB_csr_write_address,
 
     input wire [4:0] EX_rd,
     input wire [6:0] EX_opcode,
     input wire [4:0] EX_rs1,
     input wire [4:0] EX_rs2,
-    input wire [11:0] EX_imm,  // EX_imm[11:0]
+    input wire [11:0] EX_imm,
 
     input wire EX_csr_write_enable,
 
@@ -54,7 +59,7 @@ module HazardUnit (
     output wire csr_hazard_mem,
     output wire csr_hazard_wb,
 
-    /// to Forward Unit - Store data forwarding
+    // to Forward Unit - Store data forwarding
     output wire store_hazard_mem,
     output wire store_hazard_wb,
     output wire store_hazard_wb_to_mem,
@@ -155,7 +160,7 @@ module HazardUnit (
             EX_MEM_stall = 1'b1;
             MEM_WB_stall = 1'b1;
         end
-        else if (div_start || div_busy) begin
+        else if (div_start || div_busy || mul_start || mul_busy) begin
             IF_ID_stall = 1'b1;
             ID_EX_stall = 1'b1;
             EX_MEM_stall = 1'b1;
